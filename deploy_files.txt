@@ -1,0 +1,32 @@
+### The list of files and the locations they should be
+### copied to.
+###
+### The files are listed in this order:
+###
+### <name of the file in this folder>    <name to be copied as>    <location to be copied to>
+###
+### For instance, ".bashrc" for the root user is defined below as:
+###
+### <.rootbashrc>    <.bashrc>    </root>
+###
+### "Name to be copied as" can be omitted. In that case,
+### the name of the file in this folder is used. See the
+### line to copy ".bashrc" file for an example.
+###
+### Multiple locations can be defined for the file to be
+### copied to multiple locations with the same name. If
+### different file names are required, define them in
+### separate lines.
+###
+### It's preferable to define the location of the file as
+### an absolute path.
+###
+### Copying any file in this list can be skipped by
+### appending a '#' in front of the line, or by deleting
+### them altogether.
+
+.bashrc				~/
+.rootbashrc	.bashrc		/root
+.profile			~/
+.vimrc				~/		/root
+motd.sh				/etc/profile.d
