@@ -4,13 +4,13 @@
 [[ $- != *i* ]] && return
 
 ## Source bash_completion if it exists and is readable
-[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+[[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 
 # source git completion if it exists and is readable
-[ -r /home/anurag/.git-completion.bash ] && . /home/anurag/.git-completion.bash
+[[ -r /home/anurag/.git-completion.bash ]] && . /home/anurag/.git-completion.bash
 
 # source git prompt if it exists and is readable
-[ -r /home/anurag/.git-prompt.sh ] && . /home/anurag/.git-prompt.sh 
+[[ -r /home/anurag/.git-prompt.sh ]] && . /home/anurag/.git-prompt.sh
 
 ## Bash won't get SIGWINCH if another process is in the foreground.
 ## Enable checkwinsize so that bash will check the terminal size when
@@ -36,7 +36,7 @@ stty -ixon
 ## globbing instead of external grep binary.
 
 # sanitize TERM
-safe_term=${TERM//[^[:alnum:]]/?} 
+safe_term=${TERM//[^[:alnum:]]/?}
 
 # check if TERM supports color
 match_lhs=""
@@ -85,7 +85,7 @@ fi
 unset use_color use_256_color safe_term match_lhs sh PS1_not_256 PS1_256 PS1_no_color
 
 ## Aliases
-alias ls='ls --color=auto'
+alias ls='ls -N --color=auto'
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
@@ -103,7 +103,7 @@ alias mkdir='mkdir -pv'
 
 ## archive extractor
 ex() {
-  if [ -f $1 ] ; then
+  if [[ -f $1 ]] ; then
     case $1 in
       *.tar.bz2)   tar xjf $1   ;;
       *.tar.gz)    tar xzf $1   ;;

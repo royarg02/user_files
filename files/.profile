@@ -18,8 +18,10 @@ export CHROME_EXECUTABLE="/usr/bin/chromium"
 ## shell experience
 export HISTSIZE=    ## infinite history
 export HISTFILESIZE=    ## infinite history
-export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoredups:erasedups
 export LESSHISTFILE=-   ## do not create .lesshst file
+export PROMPT_COMMAND='history -a'  ## Enable history append at every command
+
 
 ## other program settings
 export LESS_TERMCAP_mb=$'\e[01;31m'

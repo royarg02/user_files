@@ -1,32 +1,40 @@
-### The list of files and the locations they should be
-### copied to.
+### The list of files and the locations they should be copied to.
 ###
-### The files are listed in this order:
+### Each line below specifies the files to be copied by this order:
 ###
-### <name of the file in this folder>    <name to be copied as>    <location to be copied to>
+### <name of the file in "./files" folder>    <name to be copied as>    <location to be copied to>
 ###
 ### For instance, ".bashrc" for the root user is defined below as:
 ###
-### <.rootbashrc>    <.bashrc>    </root>
+### .rootbashrc		.bashrc		/root
 ###
-### "Name to be copied as" can be omitted. In that case,
-### the name of the file in this folder is used. See the
-### line to copy ".bashrc" file for an example.
+### "Name to be copied as" can be omitted. In that case, the same name of the
+### file as it is named in the "./files" folder is used. See the line to copy
+### ".bashrc" file for an example.
 ###
-### Multiple locations can be defined for the file to be
-### copied to multiple locations with the same name. If
-### different file names are required, define them in
-### separate lines.
+### If any file is to be copied to multiple locations, name them one after the
+### other at the end of the line. The file will be copied to those locations
+### having the SAME name, so if different file names are desired, specify them
+### in different lines.
 ###
-### It's preferable to define the location of the file as
-### an absolute path.
+### It is preferable to define the location of the file as an absolute path,
+### but "~" can be used to represent the user home directory.
 ###
-### Copying any file in this list can be skipped by
-### appending a '#' in front of the line, or by deleting
-### them altogether.
+### Copying any file in this list can be skipped by appending a '#' in front of
+### the line, or by deleting them altogether.
 
-.bashrc				~/
+.bashrc				~
 .rootbashrc	.bashrc		/root
-.profile			~/
-.vimrc				~/		/root
+.rootprofile	.profile	/root
+.profile			~
+.vimrc				~		/root
+.xinitrc			~		/root
+.xprofile			~		/root
 motd.sh				/etc/profile.d
+tlp.conf			/etc
+pacman.conf			/etc
+fstab				/etc
+inputrc				/etc
+optimus-manager.conf		/etc/optimus-manager
+nobeep.conf			/etc/modprobe.d
+
