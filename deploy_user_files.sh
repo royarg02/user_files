@@ -1,47 +1,119 @@
 #!/usr/bin/sh
 
-### Copies a list of files, from `deploy_files.txt`, to their appropriate
+### Copies a list of files, from `deploy_files.csv`, to their appropriate
 ### locations.
 ###
-### See `deploy_files.txt` to see what files are being copied.
+### See `deploy_files.csv` to see what files are being copied.
 ###
 ### Requires root permissions to function properly.
 
-### The location of the user home directory.
-###
-### This is used to substitute the "~" character in the locations specified in
-### "deploy_files.txt"
-USER_HOME="/home/anurag"
+### Exit immediately if something unexpected happens.
+set -e
 
+### Copies a file to a specified directory.
+###
+### [$1] is the file name in the repo, [$2] the new file name and [$3] the 
+### folder name/location(will be newly made if non-existent). 
+###
+### The files to be copied are present in the `./files/` directory.
+###
+### If the specified file already exists, then `cp` prompts for user input 
+### regarding whether the file should be overidden or not.
+copy_file() {
+  mkdir -pv "$3"
+  cp -iv "./files/$1" "$3/$2" < /dev/tty
+}
+
+### Between two paths of equal or unequal length, removes the longest matching 
+### common path and provides the root folder of the resulting location.
+###
+### ```sh
+### $ x="/home/anurag"; y="/home/anurag/some_folder"
+### $ echo "${x#$y/}" ('/' is added to remove the leading character)
+### /home/anurag (no match for "/home/anurag/some_folder" in "/home/anurag")
+### $ echo "${y#$x/}"
+### some_folder
+### ```
+###
+### The function additionally cuts and returns the first field which would be 
+### the root of the non-matching location.
+strip_path() {
+  full_path="$2"
+  remove_path="$1"
+  echo "${full_path#$remove_path/}" | cut -d '/' -f1
+}
+
+### Check root permissions
 [ "$(id -u)" -ne 0 ] && \
 echo "[ERROR] Copying user files needs root privileges to function properly" && exit 1
 
-## Check if 'deploy_files.txt' exists and is readable
-[ ! -r ./deploy_files.txt ] && \
-echo "[ERROR] Could not find \"deploy_files.txt\". Are you sure it exists?" && exit 1
+### Check if 'deploy_files.csv' exists and is readable
+[ ! -r ./deploy_files.csv ] && \
+echo "[ERROR] Could not find \"deploy_files.csv\". Are you sure it exists?" && exit 1
 
-## Read list of files.
+### Get user name through direct shell input
+echo "Enter your username. <Return> to use current username. <Control-C> to abort.";
+read -r USERNAME;
 
-## If the file mentioned at the 2nd field exists and is a directory, assume
-## that as a location.
+### [USERNAME] should be [SUDO_USER] by default.
+USERNAME=${USERNAME:-"$SUDO_USER"}
+  
+### The location of the user home directory.
+###
+### This is used to substitute the "~" character in the locations specified in
+### "deploy_files.csv"
+USER_HOME="/home/$USERNAME"
 
-### Since the script is run with elevated privileges, "~" will refer to "/root"
-### instead of the user's home directory. The "sub" function of awk replaces
-### the "~" character and with USER_HOME.
-awk -v home=$USER_HOME '
-    ! /^#.*$|^$/ {
-        copy_from=3;
-        copy_as="";
-        if(system("test -d "$2) == 0) {
-            copy_from=2;
-        } else {
-            copy_as=$2;
-        }
-        for( i=copy_from ; i <= NF ; ++i ){
-            sub(/^~/, home, $i);
-            system("cp -iv ./files/"$1" "$i"/"copy_as);
-        }
-    }' deploy_files.txt
+### Check if USER_HOME actually exists
+[ ! -d "$USER_HOME" ] && \
+echo "[ERROR] \"$USER_HOME\" doesn't exist! Ensure that the username is correct." && exit 1
 
-unset USER_HOME
+### Construct a temporary file to read from removing comments from 
+### "deploy_files.csv".
+sed '/^#\|^$/d' deploy_files.csv > /tmp/files.csv
+
+### Set field separator to read file.
+IFS=","
+
+### The actual loop to read and deploy files.
+###
+### [file] is the filename in the repo, [newfile] the file name to be copied as 
+### and [locations] the list of locations to be copied to.
+while read -r file newfile locations; do
+  for location in $locations; do
+    ### Replace "~" by [USER_HOME].
+    ###
+    ### Since the script is run with elevated privileges, "~" will refer to 
+    ### "/root" instead of the user's home directory.
+    location=$(echo "$location" | sed "s|^\~|$USER_HOME|")
+    ### Only absolute file paths are allowed.
+    ###
+    ### The script skips the location if it fails this condition.
+    echo "$location" | grep '^/.*' > /dev/null
+    [ "$?" -eq 1 ] && \
+      echo "[ERROR] \"$location\" is not an absolute path. Skipping this location." && continue
+    ### "/." is added to prevent `dirname` to strip path without checking owner 
+    ### in the first iteration.
+    dir="$location/."
+    ### Traverse upward through the given location until an owner is found.
+    while [ -z "$owner" ]; do
+      dir="$(dirname "$dir")"
+      owner=$([ -d "$dir" ] && ls -ld "$dir" | cut -d ' ' -f3)
+      case "$owner" in
+        "") ;;
+        "root") copy_file "$file" "$newfile" "$location" ;;
+        ### If the location is owned by anyone other than the root user, use 
+        ### `chmod -R` to change owner of the newly created files/folders to 
+        ### that user after they have been copied/created. 
+        *) copy_file "$file" "$newfile" "$location" && \
+          new_location="$location/$newfile" && \
+          chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location")" ;;
+      esac
+    done
+    ### Reset [owner] for the next location.
+    owner=''
+  done
+done < /tmp/files.csv
+
+unset full_path remove_path location new_location dir owner USERNAME USER_HOME
 exit 0
