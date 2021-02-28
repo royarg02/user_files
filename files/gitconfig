@@ -8,6 +8,5 @@
         smtpserver = smtp.gmail.com 
         smtpuser = anuragr9847@gmail.com
         smtpserverport = 587
-	smtpPass = yomnraknebwfjcgb
 [commit]
 	gpgsign = true

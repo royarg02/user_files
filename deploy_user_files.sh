@@ -102,7 +102,7 @@ USER_HOME="/home/$USERNAME"
 [ ! -d "$USER_HOME" ] && \
 echo "[ERROR] \"$USER_HOME\" doesn't exist! Ensure that the username is correct." && exit 1
 
-### Construct a temporary file to read from removing comments from
+### Construct a temporary file to read by removing comments from
 ### "deploy_files.csv".
 sed '/^#\|^$/d' deploy_files.csv > /tmp/files.csv
 
@@ -137,7 +137,7 @@ while read -r file newfile locations; do
         "") ;;
         "root") copy_file "$file" "$newfile" "$location" ;;
         ### If the location is owned by anyone other than the root user, use
-        ### `chmod -R` to change owner of the newly created files/folders to
+        ### `chown -R` to change owner of the newly created files/folders to
         ### that user after they have been copied/created.
         *) copy_file "$file" "$newfile" "$location" && \
           new_location="$location/$newfile" && \

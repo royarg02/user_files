@@ -1,46 +1,4 @@
-# user_files - Anurag Roy's dotfiles and config files alongwith scripts
-# to copy and deploy them.
-#    Copyright (C) 2021 Anurag Roy
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-### The list of files and the locations they should be copied to.
-###
-### Each line below specifies the files to be copied by this order:
-###
-### <name of the file in "./files" folder>,<name to be copied as>,<location(s) to be copied to>
-###
-### For instance, ".bashrc" for the root user is defined below as:
-###
-### .rootbashrc,.bashrc,/root
-###
-### If the file is copied as the same name in this repo, the same name is
-### repeated twice. See the line to copy ".bashrc" file for an example.
-###
-### If any file is to be copied to multiple locations, name them one after the
-### other at the end of the line. All locations will have the file with the
-### same name, so if different file names are desired, specify them in
-### different lines.
-###
-### It is preferable to define the location of the file as an absolute path,
-### but "~" can be used to represent the user home directory.
-###
-### Copying any file in this list can be skipped by appending a '#' in front of
-### the line, or by deleting them altogether.
-
-#FILENAME,FILENAME TO BE COPIED AS,LOCATION(S)
-
+#FILENAME,FILENAME TO BE COPIED AS,LOCATION(S),
 .bashrc,.bashrc,~
 .rootbashrc,.bashrc,/root
 .rootprofile,.profile,/root
@@ -58,5 +16,4 @@ bash.bashrc,bash.bashrc,/etc
 gitconfig,config,~/.config/git
 etcprofile,profile,/etc
 chromium-flags.conf,chromium-flags.conf,~/.config
-# TODO:copy user.js to firefox profile later
 firefox_user.js,user.js,~

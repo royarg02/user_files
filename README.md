@@ -17,6 +17,26 @@ Executing the default instructions **will require superuser privileges**.
   2. If necessary, run `chmod +x deploy_user_files.sh`.
   3. Run `sudo ./deploy_user_files.sh`.
 
+## Files copied
+
+The files to be copied alongwith the locations they should be copied to are listed in `deploy_files.csv` file.
+
+Each line in the file specifies the files to be copied by this order:
+
+`<name of the file in "./files" folder>,<name to be copied as>,<location(s) to be copied to>`
+
+For instance, ".bashrc" for the root user is defined as:
+
+`.rootbashrc,.bashrc,/root`
+
+If the file is copied as the same name in this repo, the same name is repeated twice. See the line to copy `.bashrc` file for an example.
+
+If any file is to be copied to multiple locations, name them one after the other at the end of the line. All locations will have the file with the same name, so if different file names are desired, specify them in different lines.
+
+It is preferable to define the location of the file as an absolute path, but `~` can be used to represent the user home directory.
+
+**NOTE:** The file `firefox_user.js` will be defaultly be copied to `~` folder. Copy it the desired firefox profile folder to apply the preferences.
+
 ## Licensing
 
 Commits upto [7164f1e](https://github.com/RoyARG02/user_files/commit/7164f1edc6e290e34102763a5369ce4803fefd83) are [MIT](https://opensource.org/licenses/MIT) licensed. Commits after that are [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) licensed.
