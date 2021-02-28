@@ -3,15 +3,6 @@
 ## If bash is not invoked interactively, exit
 [[ $- != *i* ]] && return
 
-## Source bash_completion if it exists and is readable
-[[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
-
-# source git completion if it exists and is readable
-[[ -r /home/anurag/.git-completion.bash ]] && . /home/anurag/.git-completion.bash
-
-# source git prompt if it exists and is readable
-[[ -r /home/anurag/.git-prompt.sh ]] && . /home/anurag/.git-prompt.sh
-
 ## Bash won't get SIGWINCH if another process is in the foreground.
 ## Enable checkwinsize so that bash will check the terminal size when
 ## it regains control.  #65623
@@ -67,6 +58,9 @@ PS1_no_color='[\u@\h \w]$(__git_ps1 "[%s]")\$ '
 ## Only show the previous three directories in PS1(bash >= 4.0)
 PROMPT_DIRTRIM=3
 
+## Source .profile if only in non-login shell
+shopt -q login_shell || ([[ -f ~/.profile ]] && . ~/.profile)
+
 if ${use_color} ; then
 	## Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
 	if type -P dircolors >/dev/null ; then
@@ -91,13 +85,14 @@ alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
 alias cp="cp -iv"                         # confirm before overwriting something
 alias mv="mv -v"
-alias rm="rm -v"
+alias rm="rm -vI"
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='$EDITOR -w PKGBUILD'
 alias more=less
 alias diff='diff --color'		  		  # colorful diff
 alias mkdir='mkdir -pv'
+alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
 
 ## Nice functions
 

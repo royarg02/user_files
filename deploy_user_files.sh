@@ -98,7 +98,7 @@ while read -r file newfile locations; do
     ### Traverse upward through the given location until an owner is found.
     while [ -z "$owner" ]; do
       dir="$(dirname "$dir")"
-      owner=$([ -d "$dir" ] && ls -ld "$dir" | cut -d ' ' -f3)
+      owner=$([ -d "$dir" ] && stat -c '%U' "$dir")
       case "$owner" in
         "") ;;
         "root") copy_file "$file" "$newfile" "$location" ;;

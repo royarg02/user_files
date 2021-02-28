@@ -1,0 +1,13 @@
+[user]
+	email = anuragr9847@gmail.com
+	name = Anurag Roy
+	signingkey = 5E499EB48CFCF3FD
+
+[sendemail]
+        smtpencryption = tls
+        smtpserver = smtp.gmail.com 
+        smtpuser = anuragr9847@gmail.com
+        smtpserverport = 587
+	smtpPass = yomnraknebwfjcgb
+[commit]
+	gpgsign = true
