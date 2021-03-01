@@ -115,6 +115,8 @@ IFS=","
 ### and [locations] the list of locations to be copied to.
 while read -r file newfile locations; do
   for location in $locations; do
+    ### Skip empty locations, for the sake of better csv formatting
+    echo "$location" | grep '^$' > /dev/null && continue
     ### Replace "~" by [USER_HOME].
     ###
     ### Since the script is run with elevated privileges, "~" will refer to
@@ -149,5 +151,6 @@ while read -r file newfile locations; do
   done
 done < /tmp/files.csv
 
-unset full_path remove_path location new_location dir owner USERNAME USER_HOME
+unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS
+unset -f copy_files strip_path show_license
 exit 0

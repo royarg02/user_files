@@ -58,9 +58,6 @@ PS1_no_color='[\u@\h \w]$(__git_ps1 "[%s]")\$ '
 ## Only show the previous three directories in PS1(bash >= 4.0)
 PROMPT_DIRTRIM=3
 
-## Source .profile if only in non-login shell
-shopt -q login_shell || ([[ -f ~/.profile ]] && . ~/.profile)
-
 if ${use_color} ; then
 	## Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
 	if type -P dircolors >/dev/null ; then

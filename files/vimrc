@@ -1,20 +1,56 @@
-set relativenumber
-set number
-set numberwidth=4
-syntax on
-colorscheme murphy
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-"set undodir=$XDG_DATA_HOME/vim/undo
-"set directory=$XDG_DATA_HOME/vim/swap
-"set backupdir=$XDG_DATA_HOME/vim/backup
-"set viewdir=$XDG_DATA_HOME/vim/view
-"set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
-"set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
-"set viminfofile=$XDG_CACHE_HOME/vim/viminfo
+colorscheme murphy	" Set colorscheme
 
+syntax on		" Syntax coloring
+set encoding=utf-8	" Set encoding
+
+set number		" Enable line numbers
+set relativenumber	" Display line numbers relative to the line with the cursor
+set numberwidth=4	" Change the width of the \"gutter\" column used for numbering
+set laststatus=2	" statusline always on
+set showcmd		" Always show commands being typed
+set wildmenu
+set wildmode=list:longest,full	" Tab completion menu
+
+set hlsearch		" Highlight all search matches
+set incsearch		" Highlight search matches while typing
+set ignorecase		" Ignore case in search patterns.
+set smartcase		" Case sensitive if pattern contains upper case chars
+
+set tabstop=4		" Number of spaces a <Tab> accounts for
+
+set listchars=tab:>>,eol:\|	" Highlight tabs and eol
+set textwidth=80	" Maximum width of insert text
+set colorcolumn=+1	" Highlight 1 column after textwidth
+set signcolumn=yes	" Always draw sign column
+
+" Statusline
+" run :so $VIMRUNTIME/syntax/hitest.vim for color options
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  :silent let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#DiffAdd#
+" TODO figure out a way to get git branch without slow operation
+"set statusline+=%{StatuslineGit()}
+set statusline+=%#Search#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\
+
+
+" XDG cleanup
 set runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath+=$XDG_DATA_HOME/vim
 set runtimepath+=$XDG_CONFIG_HOME/vim/after

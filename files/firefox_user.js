@@ -3,12 +3,30 @@
 /// Firefox browser privacy configs
 ///
 /// See: https://www.youtube.com/watch?v=xxWXLlfqNAo
-/// Some prefeences taken from https://github.com/arkenfox/user.js
+/// Some preferences taken from https://github.com/arkenfox/user.js
 
 /// MAYBE CHANGE THESE
 
 /// Start private browsing by default
 user_pref("browser.privatebrowsing.autostart", true);
+
+/// Don't provide search suggestions
+user_pref("browser.search.suggest.enabled", false);
+
+/// Don't suggest browsing history
+user_pref("browser.urlbar.suggest.history", false);
+
+/// Don't suggest bookmarks
+user_pref("browser.urlbar.suggest.bookmark", false);
+
+/// Don't suggest open tabs
+user_pref("browser.urlbar.suggest.openpage", false);
+
+/// Don't suggest top sites
+user_pref("browser.urlbar.suggest.topsites", false);
+
+/// Don't suggest search engines
+user_pref("browser.urlbar.suggest.engines", false);
 
 /// Enable DRM content
 //user_pref("media.eme.enabled", true);
@@ -64,6 +82,9 @@ user_pref("browser.newtabpage.activity-stream.topSitesRows", 4);
 /// Use the address bar for search
 user_pref("browser.search.widget.inNavBar", false);
 
+/// Dock devtools to the right
+user_pref("devtools.toolbox.host", right);
+
 /// Disable WebRTC
 user_pref("media.peerconnection.enabled" , false);
 
@@ -74,10 +95,15 @@ user_pref("browser.contentblocking.category", "strict");
 user_pref("privacy.donottrackheader.enabled", true);
 
 /// Disable extension recommendation as browsing
-user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false);
 
 /// Disable feature recommendation as browsing
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
+
+/// Disable firefox managing offline mode
 user_pref("network.manage-offline-status", false);
+
+/// Enforce extension signing
 user_pref("xpinstall.signatures.required", false);
 
 /// Enable DNS over HTTPS
@@ -173,3 +199,6 @@ user_pref("privacy.firstparty.isolate" , true);
 
 /// Enable encypted server name indication
 user_pref("network.security.esni.enabled" , true);
+
+/// Disable(?) Firefox Pioneer (US only)
+user_pref("toolkit.telemetry.pioneer-new-studies-available", false);
