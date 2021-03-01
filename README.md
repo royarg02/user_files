@@ -6,10 +6,9 @@ Intended to go along with [manjaro-init](https://github.com/RoyARG02/manjaro-ini
 
 The files to be deployed are present in `files` folder.
 
-The name of the files, alongwith the location to be deployed (_read copied_) to and the new name are maintained in `deploy_files.csv`. Additional comments are mentioned in that file about its usage.
+The name of the files, alongwith the location to be deployed (_read copied_) to and the new name are maintained in `deploy_files.csv`. See its usage [here](https://github.com/RoyARG02/user_files#files-copied).
 
-The **POSIX** compliant main script, `deploy_user_files.sh`, reads the file list from `deploy_files.csv`, and copies them according to the instructions.
-Executing the default instructions **will require superuser privileges**.
+The script `deploy_user_files.sh` reads the file list from `deploy_files.csv`, and copies them according to the instructions. Executing the default instructions **will require superuser privileges**.
 
 ## Usage
 
@@ -27,15 +26,17 @@ Each line in the file specifies the files to be copied by this order:
 
 For instance, ".bashrc" for the root user is defined as:
 
-`.rootbashrc,.bashrc,/root`
+`.rootbashrc,.bashrc,/root`,
+
+*NOTE: The extra `,` at the end is merely for the purpose of better csv formatting and for Github to [prettify](https://github.com/RoyARG02/user_files/blob/master/deploy_files.csv) it.*
 
 If the file is copied as the same name in this repo, the same name is repeated twice. See the line to copy `.bashrc` file for an example.
 
 If any file is to be copied to multiple locations, name them one after the other at the end of the line. All locations will have the file with the same name, so if different file names are desired, specify them in different lines.
 
-It is preferable to define the location of the file as an absolute path, but `~` can be used to represent the user home directory.
+It is required to define the location of the file as an absolute path, but `~` can be used to represent the user home directory.
 
-**NOTE:** The file `firefox_user.js` will be defaultly be copied to `~` folder. Copy it the desired firefox profile folder to apply the preferences.
+**NOTE:** The file `firefox_user.js` will be defaultly copied to `~` folder.  Copy it to the desired firefox profile folder to apply the preferences.
 
 ## Licensing
 
