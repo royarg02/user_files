@@ -26,9 +26,9 @@ Each line in the file specifies the files to be copied by this order:
 
 For instance, ".bashrc" for the root user is defined as:
 
-`.rootbashrc,.bashrc,/root`,
+`.rootbashrc,.bashrc,/root,`
 
-*NOTE: The extra `,` at the end is merely for the purpose of better csv formatting and for Github to [prettify](https://github.com/RoyARG02/user_files/blob/master/deploy_files.csv) it.*
+*NOTE: The extra `,` at the end is merely for the purpose of better csv formatting and for Github to [prettify](https://github.com/RoyARG02/user_files/blob/master/deploy_files.csv) it. It makes no difference to the script whether you append single comma or hundreds at the end.*
 
 If the file is copied as the same name in this repo, the same name is repeated twice. See the line to copy `.bashrc` file for an example.
 
