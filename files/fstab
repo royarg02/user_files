@@ -11,10 +11,16 @@ UUID=172bf2d4-74eb-4365-806a-295740c5e54e	/         	ext4      	rw,noatime	0 0
 UUID=f60ee98a-573b-47e3-b743-4f18d8d88bdd	/home     	ext4      	rw,noatime	0 0
 
 # /dev/sda5
-UUID=1893BD5B741FC612	/mnt/D	ntfs	defaults,uid=1000,gid=1000,dmask=0022,fmask=0133 0 0
+UUID=1893BD5B741FC612	/mnt/D	ntfs	defaults,uid=1000,gid=1000,dmask=0022,fmask=0033	0 0
 
 # /dev/sda6
-UUID=4888CDE031BF1FFA	/mnt/E	ntfs	defaults,uid=1000,gid=1000,dmask=0022,fmask=0133 0 0
+UUID=4888CDE031BF1FFA	/mnt/E	ntfs	defaults,uid=1000,gid=1000,dmask=0022,fmask=0033	0 0
 
 # /dev/sda7
-UUID=49D007D2239C4886	/mnt/F	ntfs	defaults,uid=1000,gid=1000,dmask=0022,fmask=0133 0 0
+UUID=49D007D2239C4886	/mnt/F	ntfs	defaults,uid=1000,gid=1000,dmask=0022,fmask=0033	0 0
+
+# /dev/sdc1
+UUID=924c0063-5ebb-4d4c-887b-f2291c18b223	/run/media/anurag/ext4	ext4	defaults	0 0
+
+# /dev/sdc2
+UUID=34AE7865014C04F5	/run/media/anurag/ntfs	ntfs	defaults,uid=1000,gid=1000,dmask=0022,fmask=0033	0 0

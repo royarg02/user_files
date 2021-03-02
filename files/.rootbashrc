@@ -20,31 +20,9 @@ shopt -s autocd
 # Disable ctrl-s and ctrl-q.
 stty -ixon
 
-## Set colorful PS1 only on colorful terminals.
-## dircolors --print-database uses its own built-in database
-## instead of using /etc/DIR_COLORS.  Try to use the external file
-## first to take advantage of user additions.  Use internal bash
-## globbing instead of external grep binary.
-
-# sanitize TERM
-safe_term=${TERM//[^[:alnum:]]/?}
-
-# check if TERM supports color
-match_lhs=""
-[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(< ~/.dir_colors)"
-[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(< /etc/DIR_COLORS)"
-[[ -z ${match_lhs}    ]] && type -P dircolors >/dev/null \
-	&& match_lhs=$(dircolors --print-database)
-[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
-
-## Whether the terminal can display 256 colors
-## Determines through tput the number of colors the terminal supports
-## If tput is not found, it resorts to using the TERM variable for the query
-[[ $(tput colors) -eq 256 ]] > /dev/null 2>&1 || [[ $TERM =~ .*256.* ]] && use_256_color=true || use_256_color=false
-
 ## Set PS1s according to TERM
-## [anurag@manjaro ~][master]$ _
-## RED brackets, YELLOW user, GREEN '@', BLUE host, PURPLE working directory, CYAN git branch, white '$'
+## [root@manjaro ~][master]$ _
+## RED brackets, user, '@', host, PURPLE working directory, CYAN git branch, white '$'
 
 ## PS1 for terminals supporting 256 colors
 PS1_256='\[$(tput bold)\]\[$(tput setaf 196)\][\u@\h \[$(tput setaf 206)\]\w\[$(tput setaf 196)\]]\[$(tput setaf 87)\]$(__git_ps1 "[%s]")\[$(tput setaf 15)\]\$\[$(tput sgr0)\] '
@@ -55,25 +33,38 @@ PS1_not_256='\[$(tput bold)\]\[$(tput setaf 1)\][\u@\h \[$(tput setaf 5)\]\w\[$(
 ## PS1 for no color
 PS1_no_color='[\u@\h \w]$(__git_ps1 "[%s]")\$ '
 
-## Only show the previous three directories in PS1(bash >= 4.0)
-PROMPT_DIRTRIM=3
+# sanitize TERM
+safe_term=${TERM//[^[:alnum:]]/?}
+
+## Set colorful PS1 only on colorful terminals.
+## dircolors -p uses its own built-in database.
+# Check if "dircolors database" is present, if not, make one
+[[ ! -f "$XDG_CONFIG_HOME"/dircolors ]] && type -P dircolors > /dev/null && \
+  dircolors -p > "$XDG_CONFIG_HOME/dircolors"
+
+# Check if TERM supports color
+match_lhs="$(<"$XDG_CONFIG_HOME/dircolors")"
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+## Whether the terminal can display 256 colors
+## Determines through tput the number of colors the terminal supports
+## If tput is not found, it resorts to using the TERM variable for the query
+([[ $(tput colors) -eq 256 ]] > /dev/null 2>&1 || [[ $TERM =~ .*256.* ]]) && \
+use_256_color=true || use_256_color=false
 
 if ${use_color} ; then
-	## Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
-	if type -P dircolors >/dev/null ; then
-		if [[ -f ~/.dir_colors ]] ; then
-			eval $(dircolors -b ~/.dir_colors)
-		elif [[ -f /etc/DIR_COLORS ]] ; then
-			eval $(dircolors -b /etc/DIR_COLORS)
-		fi
-	fi
+	## Enable colors for ls, etc.
+    eval $(dircolors -b "$XDG_CONFIG_HOME/dircolors")
 
-	[[ $use_256_color =~ true ]] && PS1=$PS1_256 || PS1=$PS1_not_256
+	${use_256_color} && PS1=$PS1_256 || PS1=$PS1_not_256
 else
 	PS1=$PS1_no_color
 fi
 
-unset use_color use_256_color safe_term match_lhs sh PS1_not_256 PS1_256 PS1_no_color
+## Only show the previous three directories in PS1(bash >= 4.0)
+PROMPT_DIRTRIM=3
+
+unset use_color use_256_color safe_term match_lhs PS1_not_256 PS1_256 PS1_no_color
 
 ## Aliases
 alias ls='ls -N --color=auto'
@@ -127,5 +118,6 @@ myip() {
 
 ## Figlet copy to clipboard
 figclip() {
-  xclip -selection clipboard <(figlet "$@")
+  xclip -selection clipboard <(figlet "$@") && \
+    notify-send "Figlet copied" "\"$@\""
 }

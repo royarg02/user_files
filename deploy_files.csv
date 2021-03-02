@@ -17,3 +17,5 @@ gitconfig,config,~/.config/git,
 etcprofile,profile,/etc,
 chromium-flags.conf,chromium-flags.conf,~/.config,
 firefox_user.js,user.js,~,
+user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
+vscodium_settings.json,settings.json,~/.config/VSCodium/User,

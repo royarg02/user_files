@@ -1,0 +1,68 @@
+{
+    // Debugging
+    "debug.toolBarLocation": "docked",
+    "terminal.integrated.cursorBlinking": true,
+    // Editor
+    "editor.smoothScrolling": true,
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorSurroundingLines": 1,
+    "editor.fontLigatures": true,
+    "editor.renderWhitespace": "trailing",
+    "editor.rulers": [80],
+    "problems.showCurrentInStatus": true,
+    // Explorer
+    "explorer.openEditors.visible": 10,
+    // Files
+    "files.hotExit": "off",
+    "files.trimTrailingWhitespace": true,
+    "files.enableTrash": false,
+    // Search
+    "search.showLineNumbers": true,
+    "search.smartCase": true,
+    // Window
+    "window.autoDetectColorScheme": true,
+    "window.titleBarStyle": "custom",
+    "window.openFoldersInNewWindow": "off",
+    // Workbench
+    "workbench.enableExperiments": false,
+    "workbench.list.smoothScrolling": true,
+    "workbench.quickOpen.closeOnFocusLost": false,
+    "workbench.quickOpen.preserveInput": true,
+    "workbench.editor.closeOnFileDelete": true,
+    "workbench.editor.decorations.badges": true,
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.labelFormat": "short",
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "workbench.startupEditor": "none",
+    "workbench.tree.renderIndentGuides": "always",
+    // Misc
+    "update.mode": "none",
+    // Extension: Code Runner
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    // Extension: Dart
+    "dart.allowAnalytics": false,
+    "dart.flutterHotReloadOnSave": false,
+    "dart.flutterHotRestartOnSave": false,
+    "dart.previewFlutterUiGuides": true,
+    "dart.flutterSdkPaths": [
+        ".local/src/flutter_sdk_master",
+        ".local/src/flutter_sdk_stable"
+    ],
+    // Extension: Github
+    "github.gitAuthentication": false,
+    // Extension: Java
+    "java.semanticHighlighting.enabled": true,
+    // Extension: Python
+    "python.experiments.enabled": false,
+    // Extension: Vim
+    "vim.hlsearch": true,
+    "vim.mouseSelectionGoesIntoVisualMode": false,
+    "vim.normalModeKeyBindings": [
+        { "before": ["Z", "Q"], "commands": [":q!"] },
+        { "before": ["Z", "Z"], "commands": [":x"] }
+    ],
+    "vim.useSystemClipboard": true,
+}
