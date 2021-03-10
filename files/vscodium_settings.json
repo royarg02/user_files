@@ -44,13 +44,14 @@
     "code-runner.saveFileBeforeRun": true,
     // Extension: Dart
     "dart.allowAnalytics": false,
-    "dart.flutterHotReloadOnSave": false,
+    "dart.flutterHotReloadOnSave": "never",
     "dart.flutterHotRestartOnSave": false,
     "dart.previewFlutterUiGuides": true,
     "dart.flutterSdkPaths": [
         ".local/src/flutter_sdk_master",
         ".local/src/flutter_sdk_stable"
     ],
+	"dart.previewLsp": true,
     // Extension: Github
     "github.gitAuthentication": false,
     // Extension: Java
