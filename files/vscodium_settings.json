@@ -1,8 +1,6 @@
 {
-    // Debugging
     "debug.toolBarLocation": "docked",
     "terminal.integrated.cursorBlinking": true,
-    // Editor
     "editor.smoothScrolling": true,
     "editor.cursorBlinking": "smooth",
     "editor.cursorSmoothCaretAnimation": true,
@@ -11,20 +9,15 @@
     "editor.renderWhitespace": "trailing",
     "editor.rulers": [80],
     "problems.showCurrentInStatus": true,
-    // Explorer
     "explorer.openEditors.visible": 10,
-    // Files
     "files.hotExit": "off",
     "files.trimTrailingWhitespace": true,
     "files.enableTrash": false,
-    // Search
     "search.showLineNumbers": true,
     "search.smartCase": true,
-    // Window
     "window.autoDetectColorScheme": true,
     "window.titleBarStyle": "custom",
     "window.openFoldersInNewWindow": "off",
-    // Workbench
     "workbench.enableExperiments": false,
     "workbench.list.smoothScrolling": true,
     "workbench.quickOpen.closeOnFocusLost": false,
@@ -37,12 +30,9 @@
     "workbench.settings.enableNaturalLanguageSearch": false,
     "workbench.startupEditor": "none",
     "workbench.tree.renderIndentGuides": "always",
-    // Misc
     "update.mode": "none",
-    // Extension: Code Runner
     "code-runner.runInTerminal": true,
     "code-runner.saveFileBeforeRun": true,
-    // Extension: Dart
     "dart.allowAnalytics": false,
     "dart.flutterHotReloadOnSave": "never",
     "dart.flutterHotRestartOnSave": false,
@@ -52,13 +42,9 @@
         ".local/src/flutter_sdk_stable"
     ],
 	"dart.previewLsp": true,
-    // Extension: Github
     "github.gitAuthentication": false,
-    // Extension: Java
     "java.semanticHighlighting.enabled": true,
-    // Extension: Python
     "python.experiments.enabled": false,
-    // Extension: Vim
     "vim.hlsearch": true,
     "vim.mouseSelectionGoesIntoVisualMode": false,
     "vim.normalModeKeyBindings": [
