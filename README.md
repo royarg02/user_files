@@ -16,6 +16,8 @@ The script `deploy_user_files.sh` reads the file list from `deploy_files.csv`, a
   2. If necessary, run `chmod +x deploy_user_files.sh`.
   3. Run `sudo ./deploy_user_files.sh`.
 
+*NOTE: Some files in the `./files` folder will only work on a system exactly similar to MY SYSTEM(which is a weird way of saying the configs may not work on YOUR SYSTEM), for instance `fstab` and `gitconfig`. Make sure those files are replaced with your configs before running the script.*
+
 ## Files copied
 
 The files to be copied alongwith the locations they should be copied to are listed in `deploy_files.csv` file.
