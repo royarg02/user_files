@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Sxiv launch script
+#
+# This script adds some additional features to sxiv:
+# * Opens in thumbnail mode if any of the arguments is a folder
+# * If the argument is a single compatible file, opens its parent folder
+# instead to include all other compatible files which can be browsed around
+# * "Disowns" sxiv from the terminal it is invoked
+
+# The install location of sxiv.
+INSTALL="/usr/local/bin"
+
+type "$INSTALL/sxiv" > /dev/null 2>&1 || \
+{ echo "sxiv isn't installed! Make sure to change the \"INSTALL\" variable of this script!" && exit 1; }
+
+# create a copy of arguments
+args="$*"
+
+# Remove options from arguments
+while getopts ":abcfhiopqrtvZA:e:G:g:N:n:S:s:" opt; do
+  # do nothing, we only want the non-options
+  true
+done
+shift $((OPTIND - 1))
+
+# Whether to launch in thumbnail mode
+thumbnail="false"
+
+for i in "$@"; do
+  [ -d "$i" ] && thumbnail="true" && break
+done
+
+if ${thumbnail}; then
+  setsid -f "$INSTALL/sxiv" -t ${args%$@} $@
+elif [ "$(echo "$@" | wc -w)" -eq 1 ]; then
+  # the parent folder of the file
+  parent="$(dirname "$@")" 
+  # get the position of the file in the folder
+  pos="$(ls "$parent" | nl | grep "$(basename "$@")" | cut -f1)"
+  setsid -f "$INSTALL/sxiv" -n "$pos" ${args%$@} "$parent"
+else
+  setsid -f "$INSTALL/sxiv" $args
+fi
+
+unset args parent pos opt thumbnail INSTALL
+exit 0

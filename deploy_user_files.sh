@@ -38,7 +38,7 @@ set -e
 ### regarding whether the file should be overidden or not.
 copy_file() {
   mkdir -pv "$3"
-  cp -iv "./files/$1" "$3/$2" < /dev/tty
+  cp -ivr "./files/$1" "$3/$2" < /dev/tty
 }
 
 ### Between two paths of equal or unequal length, removes the longest matching

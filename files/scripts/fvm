@@ -1,0 +1,173 @@
+#!/usr/bin/sh
+# CAUTION: THIS SCRIPT IS A WORK IN PROGRESS!!!
+# CAUTION: THIS SCRIPT IS DEFINITELY BROKEN!!!
+# CAUTION: DO NOT RUN THIS SCRIPT!!!
+# Flutter version management - leet version
+
+# Flutter channels
+channels="stable beta dev master"
+
+# Displays usage
+usage() {
+cat << END
+FLUTTER VERSION MANAGEMENT
+
+USAGE: fvm [-h] [-i] [-s CHANNEL]
+
+  -h	show this help information.
+  -i	get info about the channel used.
+  -s	switch channel to the specified CHANNEL.
+
+More super important info:
+This is basically a hack. What this means is:
+
+  - The Flutter SDKs MUST be installed at "$HOME/.local/src".
+  - The folders containing the SDKs MUST be named as
+    "flutter_sdk_<channel_name>".
+
+The usage listed above pretty much tells its abilities to be way limited. If you
+are looking for something a bit more feature-rich, see
+https://github.com/leoafarias/fvm. As long as this script satisfies my needs,
+expect no changes.
+
+END
+}
+
+is_flutter_installation() {
+  status=''
+  echo "$1" | grep -q '^/.*' || status=" not an absolute path"
+  [  -d "$1" ] || status="$status, not an existing directory"
+  "$1/bin/flutter" > /dev/null 2>&1 || status="$status, not a valid Flutter installation"
+  echo "$status" | sed -e 's/^,//' -e 's/,$//'
+}
+
+is_channel() {
+  echo "$channels" | grep -qw "$1" || echo "not a valid channel"
+}
+
+set_flutter_env() {
+  path="$1"
+
+  # this scipt will by default write to the first file it finds among
+  # ~/.profile, ~/.bash_profile, ~/.bashrc, in that order. If it finds none, it
+  # creates ~/.profile and writes to it.
+  [ -f "$HOME/.profile" ] && file="$HOME/.profile" || \
+    ([ -f "$HOME/.bash_profile" ] && file="$HOME/.bash_profile") || \
+    ([ -f "$HOME/.bashrc" ] && file="$HOME/.bashrc") || \
+    (touch "$HOME/.profile" && file="$HOME/.profile")
+
+  grep -q 'FLUTTER_PATH' "$file" && sed -in "/FLUTTER_PATH=.*/d" "$file" && \
+    echo "export FLUTTER_PATH=$path" >> "$file" && \
+    test "${PATH#*$FLUTTER_PATH}" == "$PATH" && \
+    echo 'export PATH=$PATH:$FLUTTER_PATH/bin:$FLUTTER_PATH/bin/cache/dart-sdk/bin' >> "$file"
+    . "$file"
+}
+
+init_config_file() {
+  cat << END
+# This configuration file is created by fvm: Flutter version management - leet
+# version.
+# Below are the locations specified for the different channels alongwith the
+# paths of Flutter installed in this machine.
+# You can modify this file directly, by removing/adding/editing any line.
+END
+}
+
+set_config() {
+  path="$1"
+  channel="$2"
+  config_file="${XDG_CONFIG_HOME:-$HOME/.config}/fvm_settings"
+  [ ! -f "$config_file" ] && \
+    init_config_file > "$config_file"
+
+  grep -q "$channel" "$config_file" && \
+    sed "s|$channel=.*|$channel=$path|" "$config_file" || \
+    echo "$channel=$path" >> "$config_file"
+}
+
+get_flutter_path() {
+  # get location
+  # [channel] is displated in case the user has asked to switch to a specified
+  # channel
+  echo "Enter the aboulute path where Flutter $channel is installed: (~ can be used to refer to the home directory):" && read -r path
+  path=$(echo $path | sed "s|\~|$HOME|")
+  is_valid_flutter_installation=$(is_flutter_installation "$path")
+  while [ ! -z "$is_valid_flutter_installation" ]; do
+    echo "Provided location is$is_valid_flutter_installation. Please try again." && \
+      read -r path
+    path=$(echo $path | sed "s|\~|$HOME|")
+    is_valid_flutter_installation=$(is_flutter_installation "$path")
+  done
+
+  # If the user has already specified a channel, skip this input
+  [ -z "$channel" ] && echo "Enter the channel of the Flutter installation:" && \
+    read -r channel
+  is_valid_channel=$(is_channel "$channel")
+  while [ ! -z "$is_valid_channel" ]; do
+    echo "Provided channel is $is_valid_channel. Please try again:" && \
+      read -r channel
+    is_valid_channel=$(is_channel "$channel")
+  done
+  set_flutter_env $path && set_config $path $channel
+  unset path channel is_valid_flutter_installation is_valid_channel
+}
+
+get_multiple_flutter_paths() {
+  while $(echo "$should_continue" | grep -qv 'n\|N'); do
+    get_flutter_path
+    echo "Continue adding more Flutter installations? (n/N for No, anything else for Yes)"
+    echo "This will override the current \"FLUTTER_PATH\" environment variable"
+    read -r should_continue
+  done
+}
+
+check_env() {
+  printenv | grep -q 'FLUTTER_PATH' || \
+    (echo "The environment variable \"FLUTTER_PATH\" is not set." && \
+    get_multiple_flutter_paths)
+}
+
+get_channel_name() {
+  git rev-parse --abbrev-ref --symbolic '@{u}' | cut -d '/' -f2
+}
+
+get_flutter_version() {
+  git describe --match '*.*.*' --long --tags | sed 's/-g.*//'
+}
+
+show_channel_info() {
+  cd "$FLUTTER_PATH" && channel=$(get_channel_name) &&
+version=$(get_flutter_version) && cd - > /dev/null || exit 1
+  echo "You are using Flutter $channel, version $version."
+}
+
+check_env
+
+# Parse options
+while getopts ":is:" opt; do
+  case "$opt" in
+    i) show_channel_info && exit 0 ;;
+    s) echo "channel $OPTARG" ;;
+    \?) usage ;;
+  esac
+done
+
+[ "$OPTIND" -eq 1 ] && usage
+
+unset channel version
+unset -f usage get_channel_name get_flutter_version show_channel_info
+exit 0
+
+# first check if FLUTTER ROOT is set
+# if not ask user to provide sdk paths
+# user can provider multiple paths (absolute paths check just like user_files)
+# and select an option to finish. fvm would go to each of those provided
+# locations and get the channel name from git (above). it would then construct
+# a config file detailing the channel name and the location
+# (stable=/home/anurag/.local/src/flutter_sdk_stable) the file should be written
+# at XDG_CONFIG_HOME/fvm. The script would actually set an env variable at
+# .bash_profile/.profile (user choice?) named FLUTTER_ROOT, every time the sdk
+# is switched, the script would sed -i change the value of the variable and
+# source the file. whenever the user is entering multiple sdk locations in case
+# FLUTTER_ROOT is not set, the last entered location will be the value of
+# FLUTTER_ROOT (sed -i will be executed multiple times?)

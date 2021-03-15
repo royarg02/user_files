@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Run TLPUI
+# https://github.com/d4nj1/TLPUI.git
+
+export PYTHONPATH=${PYTHONPATH}:$HOME/.local/src/TLPUI
+setsid -f python -m tlpui
+exit 0
+
