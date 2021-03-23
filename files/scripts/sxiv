@@ -6,7 +6,17 @@
 # * Opens in thumbnail mode if any of the arguments is a folder
 # * If the argument is a single compatible file, opens its parent folder
 # instead to include all other compatible files which can be browsed around
-# * "Disowns" sxiv from the terminal it is invoked
+# * "Forks" sxiv from the terminal it is invoked
+
+# Lists the files in a folder that can be opened by sxiv.
+#
+# Takes the name of the folder as an argument.
+#
+# Compatible file formats include: jpg, jpeg, bmp, png.
+compatible_files() {
+  ext_regex='.*\(jpe?g|bmp\|png\)$'
+  find -L "$1" -maxdepth 1 -type f -iregex "$ext_regex" -print0 | sort -z
+}
 
 # The install location of sxiv.
 INSTALL="/usr/local/bin"
@@ -37,11 +47,14 @@ elif [ "$(echo "$@" | wc -w)" -eq 1 ]; then
   # the parent folder of the file
   parent="$(dirname "$@")" 
   # get the position of the file in the folder
-  pos="$(ls "$parent" | nl | grep "$(basename "$@")" | cut -f1)"
-  setsid -f "$INSTALL/sxiv" -n "$pos" ${args%$@} "$parent"
+  pos="$(compatible_files "$parent" | grep -aZznFm 1 "$(basename "$@")" | \
+    cut -d ':' -f1)"
+  compatible_files "$parent" | xargs -0 -- setsid -f "$INSTALL/sxiv" \
+    ${args%$@} -n "$pos"
 else
   setsid -f "$INSTALL/sxiv" $args
 fi
 
-unset args parent pos opt thumbnail INSTALL
+unset args ext_regex parent pos opt thumbnail INSTALL
+unset -f compatible_files
 exit 0
