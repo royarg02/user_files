@@ -49,6 +49,7 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export ANDROID_PREFS_ROOT="$XDG_CONFIG_HOME"/android
 export ANDROID_EMULATOR_HOME="$ANDROID_SDK_ROOT/emulator" 
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
 
 ## Source .bashrc if only in login shell; it will be sourced otherwise anyway
 shopt -q login_shell && [[ -f ~/.bashrc ]] && . ~/.bashrc

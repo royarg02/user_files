@@ -22,3 +22,4 @@ vscodium_settings.json,settings.json,~/.config/VSCodium/User,
 use-xinput2.sh,use-xinput2.sh,/etc/profile.d,
 image-info,image-info,~/.config/sxiv/exec,
 scripts,bin,~/.local,
+python_startup,startup,~/.config/python,/root/.config/python

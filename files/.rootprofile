@@ -38,6 +38,7 @@ export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
 
 ## Source .bashrc if only in login shell; it will be sourced otherwise anyway
 shopt -q login_shell && [[ -f ~/.bashrc ]] && . ~/.bashrc
