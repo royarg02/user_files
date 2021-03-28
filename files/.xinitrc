@@ -23,6 +23,9 @@ fi
 
 export XDG_CURRENT_DESKTOP="XFCE"
 
+# Source xprofile
+[ -f "$XDG_CONFIG_HOME/x11/xprofile" ] && . "$XDG_CONFIG_HOME/x11/xprofile"
+
 /usr/bin/prime-offload
 ssh-agent xfce4-session
 sudo /usr/bin/prime-switch
