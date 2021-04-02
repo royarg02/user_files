@@ -24,9 +24,6 @@
 ###
 ### Requires root permissions to function properly.
 
-### Exit immediately if something unexpected happens.
-set -e
-
 ### Copies a file to a specified directory.
 ###
 ### [$1] is the file name in the repo, [$2] the new file name and [$3] the
