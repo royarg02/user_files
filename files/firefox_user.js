@@ -83,7 +83,7 @@ user_pref("browser.newtabpage.activity-stream.topSitesRows", 4);
 user_pref("browser.search.widget.inNavBar", false);
 
 /// Dock devtools to the right
-user_pref("devtools.toolbox.host", right);
+user_pref("devtools.toolbox.host", "right");
 
 /// Disable WebRTC
 user_pref("media.peerconnection.enabled" , false);
