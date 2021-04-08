@@ -202,3 +202,17 @@ user_pref("network.security.esni.enabled" , true);
 
 /// Disable(?) Firefox Pioneer (US only)
 user_pref("toolkit.telemetry.pioneer-new-studies-available", false);
+
+/// ENABLE HARDWARE ACCELERATION
+
+/// Enable WebRender compositor
+user_pref("gfx.webrender.all", true);
+
+/// Enable VA-API with ffmpeg
+user_pref("media.ffmpeg.vaapi.enabled", true);
+
+/// Disable internal decoders for VP8/VP9
+user_pref("media.ffvpx.enabled", false);
+
+/// Disable remote data decoder process for VP8/VP9
+user_pref("media.rdd-vpx.enabled", false);

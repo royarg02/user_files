@@ -37,6 +37,7 @@ export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 export MOZ_USE_XINPUT2=1
+export MOZ_X11_EGL=1
 
 ## Cleanup
 export HISTFILE="$XDG_DATA_HOME/bash/history"
