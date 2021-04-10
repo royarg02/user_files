@@ -115,9 +115,3 @@ wttr() {
 myip() {
 	curl "ipinfo.io/$@"
 }
-
-## Figlet copy to clipboard
-figclip() {
-  xclip -selection clipboard <(figlet "$@") && \
-    notify-send "Figlet copied" "\"$@\""
-}
