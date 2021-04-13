@@ -1,13 +1,15 @@
 #!/bin/sh
 
-# Copy output of a command or contents of a file
+# Copy output of a command or contents of a file to clipboard
 # Depends on xclip, notify-send
 
 usage() {
   cat << END
-Copy output of a command or contents of a file
+Copy output of a command or contents of a file to clipboard
 
-USAGE: cpy FILE, COMMAND | cpy
+USAGE:
+	clip FILE
+	COMMAND | clip
 
   FILE		The name of a regular file.
   COMMAND	Any command which writes to stdout.
