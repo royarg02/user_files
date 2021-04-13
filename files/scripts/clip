@@ -24,7 +24,7 @@ END
 if [ -t 0 ]; then
   [ "$#" -lt 1 ] && usage && exit 0
   [ -f "$*" ] && xclip -selection clipboard "$*" && \
-    notify-send "File contents copied to clipboard" "\"$*\"" || exit 1
+    notify-send "File contents copied to clipboard" "\"$(realpath $*)\"" || exit 1
 else
   xclip -selection clipboard < /dev/stdin && \
     notify-send "Command output copied to clipboard" || exit 1
