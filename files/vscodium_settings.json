@@ -29,6 +29,7 @@
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.labelFormat": "short",
     "workbench.settings.enableNaturalLanguageSearch": false,
+    "workbench.sideBar.location": "right",
     "workbench.startupEditor": "none",
     "workbench.tree.renderIndentGuides": "always",
     "update.mode": "none",
