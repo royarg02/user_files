@@ -34,8 +34,19 @@
 ### If the specified file already exists, then `cp` prompts for user input
 ### regarding whether the file should be overidden or not.
 copy_file() {
+  ### If the file already exists, provide a diff
+  if [ -e "$3/$2" ]; then
+    diff -us --color "$3/$2" "./files/$1"
+    printf "\nOverwrite %s/%s? (y/Y for yes)\t" "$3" "$2"
+    read -r overwrite < /dev/tty
+    echo "$overwrite" | grep -q 'y\|Y' || { old=1 && return ; }
+  fi
   mkdir -pv "$3"
-  cp -ivr "./files/$1" "$3/$2" < /dev/tty
+  ### Create a backup of the old file before copying
+  cp -rT "$3/$2" "$3/$2.old"
+  cp -vrT "./files/$1" "$3/$2"
+  echo "[INFO] Old $3/$2 copied to $3/$2.old."
+  old=0
 }
 
 ### Between two paths of equal or unequal length, removes the longest matching
@@ -154,9 +165,12 @@ while read -r file newfile locations; do
         ### If the location is owned by anyone other than the root user, use
         ### `chown -R` to change owner of the newly created files/folders to
         ### that user after they have been copied/created.
+        ###
+        ### If `old` is `0`, chown the ".old" file as well.
         *) copy_file "$file" "$newfile" "$location" && \
           new_location="$location/$newfile" && \
-          chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location")" ;;
+          chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location")" && \
+          [ "$old" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location.old")" ;;
       esac
     done
     ### Reset [owner] for the next location.
@@ -169,6 +183,6 @@ echo "Make sure to log out and login again for the deployed files to take effect
 
 make_bash_history
 
-unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS
+unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS old
 unset -f copy_files strip_path show_license make_bash_history
 exit 0
