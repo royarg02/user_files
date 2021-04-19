@@ -45,6 +45,8 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+# This will not work with display managers. See https://wiki.archlinux.org/index.php/XDG_Base_Directory
+# for details and workarounds
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
