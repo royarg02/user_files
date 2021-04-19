@@ -80,7 +80,7 @@ echo "[ERROR] Copying user files needs root privileges to function properly." &&
 
 ### Check if 'deploy_files.csv' exists and is readable
 [ ! -r ./deploy_files.csv ] && \
-echo "[ERROR] Could not find \"deploy_files.csv\". Are you sure it exists?" && exit 1
+echo "[ERROR] Could not find \"deploy_files.csv\" in the current folder. Are you sure it exists?" && exit 1
 
 ### Get user name through direct shell input
 echo "Enter the username. <Return> to use current username. <Control-C> to abort.";
