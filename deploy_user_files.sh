@@ -57,6 +57,22 @@ strip_path() {
   echo "${full_path#$remove_path/}" | cut -d '/' -f1
 }
 
+### In case the user uses the `.profile` and `.rootprofile` file as-is, reminds
+### them to create the bash history folder.
+make_bash_history() {
+  cat << END
+
+In case you haven't changed the "HISTFILE" value in ".profile" and ".rootprofile"
+and copied those files to your system, run:
+
+	mkdir -pv ~/.local/share/bash
+	sudo mkdir -pv /root/.local/share/bash
+
+for bash to create the history file at the new location.
+
+END
+}
+
 ### Displays the LICENSE applied to this project.
 ###
 ### GNU General Public License - Version 3.0
@@ -148,6 +164,11 @@ while read -r file newfile locations; do
   done
 done < /tmp/files.csv
 
+echo "[INFO] Done deploying files."
+echo "Make sure to log out and login again for the deployed files to take effect."
+
+make_bash_history
+
 unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS
-unset -f copy_files strip_path show_license
+unset -f copy_files strip_path show_license make_bash_history
 exit 0
