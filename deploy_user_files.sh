@@ -103,11 +103,11 @@ show_license
 
 ### Check root permissions
 [ "$(id -u)" -ne 0 ] && \
-echo "[ERROR] Copying user files needs root privileges to function properly." && exit 1
+  { echo "[ERROR] Copying user files needs root privileges to function properly." && exit 1; }
 
 ### Check if 'deploy_files.csv' exists and is readable
-[ ! -r ./deploy_files.csv ] && \
-echo "[ERROR] Could not find \"deploy_files.csv\" in the current folder. Are you sure it exists?" && exit 1
+[ -r ./deploy_files.csv ] || \
+  { echo "[ERROR] Could not find \"deploy_files.csv\" in the current folder. Are you sure it exists?" && exit 1; }
 
 ### Get user name through direct shell input
 echo "Enter the username. <Return> to use current username. <Control-C> to abort.";
@@ -123,8 +123,8 @@ USERNAME=${USERNAME:-"$SUDO_USER"}
 USER_HOME="/home/$USERNAME"
 
 ### Check if USER_HOME actually exists
-[ ! -d "$USER_HOME" ] && \
-echo "[ERROR] \"$USER_HOME\" doesn't exist! Ensure that the username is correct." && exit 1
+[ -d "$USER_HOME" ] || \
+  { echo "[ERROR] \"$USER_HOME\" doesn't exist! Ensure that the username is correct." && exit 1; }
 
 ### Construct a temporary file to read by removing comments from
 ### "deploy_files.csv".
@@ -140,7 +140,7 @@ IFS=","
 while read -r file newfile locations; do
   for location in $locations; do
     ### Skip empty locations, for the sake of better csv formatting
-    echo "$location" | grep '^$' > /dev/null && continue
+    echo "$location" | grep -q '^$' && continue
     ### Replace "~" by [USER_HOME].
     ###
     ### Since the script is run with elevated privileges, "~" will refer to
@@ -149,9 +149,8 @@ while read -r file newfile locations; do
     ### Only absolute file paths are allowed.
     ###
     ### The script skips the location if it fails this condition.
-    echo "$location" | grep '^/.*' > /dev/null
-    [ "$?" -eq 1 ] && \
-      echo "[ERROR] \"$location\" is not an absolute path. Skipping this location." && continue
+    echo "$location" | grep -q '^/.*' || \
+      { echo "[ERROR] \"$location\" is not an absolute path. Skipping this location." && continue; }
     ### "/." is added to prevent `dirname` to strip path without checking owner
     ### in the first iteration.
     dir="$location/."
@@ -168,9 +167,9 @@ while read -r file newfile locations; do
         ###
         ### If `old` is `0`, chown the ".old" file as well.
         *) copy_file "$file" "$newfile" "$location" && \
-          new_location="$location/$newfile" && \
-          chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location")" && \
-          [ "$old" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location.old")" ;;
+            new_location="$location/$newfile" && \
+              chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location")" && \
+                [ "$old" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location.old")" ;;
       esac
     done
     ### Reset [owner] for the next location.
