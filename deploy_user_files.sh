@@ -39,14 +39,14 @@ copy_file() {
     diff -us --color "$3/$2" "./files/$1"
     printf "\nOverwrite %s/%s? (y/Y for yes)\t" "$3" "$2"
     read -r overwrite < /dev/tty
-    echo "$overwrite" | grep -q 'y\|Y' || { old=1 && return ; }
+    echo "$overwrite" | grep -q 'y\|Y' || return
+    ### Create a backup of the old file before copying
+    cp -rT "$3/$2" "$3/$2.old" && echo "[INFO] Old $3/$2 copied to $3/$2.old." && \
+      old=0
   fi
+  [ -z "$old" ] && old=1
   mkdir -pv "$3"
-  ### Create a backup of the old file before copying
-  cp -rT "$3/$2" "$3/$2.old"
   cp -vrT "./files/$1" "$3/$2"
-  echo "[INFO] Old $3/$2 copied to $3/$2.old."
-  old=0
 }
 
 ### Between two paths of equal or unequal length, removes the longest matching
