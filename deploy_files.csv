@@ -13,6 +13,7 @@ motd.sh,motd.sh,/etc/profile.d,
 firefox_user.js,user.js,~,
 chromium-flags.conf,chromium-flags.conf,~/.config,
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
+fonts.conf,fonts.conf,~/.config/fontconfig,
 gitconfig,config,~/.config/git,
 python_startup,startup,~/.config/python,/root/.config/python
 inputrc,inputrc,~/.config/readline,/root/.config/readline
