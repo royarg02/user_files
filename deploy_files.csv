@@ -21,6 +21,7 @@ image-info,image-info,~/.config/sxiv/exec,
 vimrc,vimrc,~/.config/vim,/root/.config/vim
 vscodium_settings.json,settings.json,~/.config/VSCodium/User,
 xprofile,xprofile,~/.config/x11,/root/.config/x11
+xresources,xresources,~/.config/x11,/root/.config/x11
 scripts,bin,~/.local,
 .rootbashrc,.bashrc,/root,
 .rootprofile,.profile,/root,

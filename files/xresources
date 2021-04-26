@@ -1,0 +1,16 @@
+!! xresources
+
+! dmenu
+dmenu.font: monospace:size=11
+dmenu.background: #242831
+dmenu.selbackground: #4B566A
+
+! st
+st.font: monospace:size=11
+st.termname: xterm-256color
+st.borderpx: 8
+
+! sxiv
+Sxiv.font: monospace:size=11
+Sxiv.background: #242831
+Sxiv.foreground: #AAAAAA
