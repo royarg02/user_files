@@ -24,7 +24,7 @@ export PATH="$PATH:$FLUTTER_PATH/bin:$FLUTTER_PATH/bin/cache/dart-sdk/bin:$PUB_C
 ## shell experience
 export HISTSIZE=-1    ## infinite history
 export HISTFILESIZE=-1    ## infinite history
-export HISTCONTROL=ignoredups:erasedups
+export HISTCONTROL=ignoredups:erasedups:ignorespace
 export LESSHISTFILE=-   ## do not create .lesshst file
 export PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }"history -a"  ## Enable history append at every command
 
