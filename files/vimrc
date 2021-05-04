@@ -17,6 +17,9 @@ set ignorecase		" Ignore case in search patterns.
 set smartcase		" Case sensitive if pattern contains upper case chars
 
 set tabstop=4		" Number of spaces a <Tab> accounts for
+set softtabstop=4	" Tabstop for editing operations
+set shiftwidth=4	" Autoindent spaces using << or >> commands
+set autoindent		" Automatically indent line depending on previous line
 
 set listchars=tab:>>,eol:\|	" Highlight tabs and eol
 set textwidth=80	" Maximum width of insert text
