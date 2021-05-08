@@ -19,7 +19,7 @@ export ANDROID_SDK_ROOT="$HOME/.local/src/android_sdk"
 export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
 export PUB_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/pub-cache"
-export PATH="$PATH:$FLUTTER_PATH/bin:$FLUTTER_PATH/bin/cache/dart-sdk/bin:$PUB_CACHE/bin:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$HOME/.local/bin/"
+export PATH="$PATH:$FLUTTER_PATH/bin:$FLUTTER_PATH/bin/cache/dart-sdk/bin:$PUB_CACHE/bin:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$HOME/.local/bin/"
 
 ## shell experience
 export HISTSIZE=-1    ## infinite history
