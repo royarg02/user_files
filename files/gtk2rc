@@ -1,0 +1,14 @@
+include "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
+
+gtk-theme-name="Adwaita-dark"
+gtk-icon-theme-name="Adwaita"
+gtk-font-name="Noto Sans Display 11"
+gtk-cursor-theme-name="Adwaita"
+gtk-cursor-theme-size=0
+gtk-xft-hintstyle=hintfull
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-enable-animations=1
+gtk-sound-theme-name=freedesktop
+gtk-enable-input-feedback-sounds=1
+gtk-enable-event-sounds=1
