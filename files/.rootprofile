@@ -5,6 +5,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+export TERMINAL="st"
 export EDITOR="vim"
 export BROWSER="firefox"
 export QT_QPA_PLATFORMTHEME="qt5ct"
