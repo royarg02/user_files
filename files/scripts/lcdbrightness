@@ -7,11 +7,13 @@ usage() {
   cat << END
 Set LCD brightness
 
-USAGE: lcdbrightness [-h] [max] [min] [VALUE]
+USAGE: lcdbrightness [-h] [-i DELTA] [-d DELTA] [max] [min] [VALUE]
 
 Running without any arguments displays the currently set brightness.
 
   -h	show this information and exit.
+  -i	increase the brightness by DELTA.
+  -d	decrease the brightness by DELTA.
   max	set maximum LCD brightness, equal to the value stored at
         "$location/max_brightness".
   min	set minimum LCD brightness; equivalent to "lcdbrightness 0".
@@ -19,7 +21,10 @@ Running without any arguments displays the currently set brightness.
         VALUE must be an integer such that 0 <= VALUE <= max, incorrect values
         other than the options above will fail.
 
-Changing the brightness using any option will require root privileges.
+This script tries to write to "$location/brightness".
+A udev rule allowing any users(including you) in the "video" group to write to
+it must be present to avoid running with elevated privileges. See
+https://gitlab.com/wavexx/acpilight for an example.
 
 END
 }
@@ -30,28 +35,26 @@ location="/sys/class/backlight/intel_backlight"
 # The max brightness
 max="$(cat "$location/max_brightness")"
 
-# The min brightness will always be zero
-min=0
+# The current brightness
+curr=$(cat "$location/brightness")
 
 # If no argument is given, print current brightness and exit
-[ -z "$@" ] && cat "$location/brightness" && exit 0
+[ -z "$*" ] && echo "$curr" && exit 0
 
 # Map argument accordingly
-case "$@" in
-  "-h") usage && exit 0 ;;
-  "max") value="$max" ;;
-  "min") value=0 ;;
-  *)  value="$@"
+case "$1" in
+	"-i") value=$((curr + $2)) ;;
+	"-d") value=$((curr - $2)) ;;
+	"-h") usage && exit 0 ;;
+	"max") value="$max" ;;
+	"min") value=0 ;;
+	*)  value="$*"
 esac
 
-# Check sudo permissions if changing brightness
-[ $(id -u) -ne 0 ] && \
-  echo "To change brightness, please run with root privileges." && exit 1
-
 # Change brightness accordingly, sanity-checks are handled
-echo "$value" | sudo tee "$location/brightness" > /dev/null 2>&1 || \
-  echo "Invalid brightness value." && exit 1
+echo "$value" | tee "$location/brightness" > /dev/null 2>&1 || \
+	printf "Invalid brightness value.\nRun \"lcdbrightness -h\" for help.\n" && exit 1
 
-unset location value min max
+unset location value max curr
 unset -f usage
 exit 0
