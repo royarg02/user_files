@@ -1,4 +1,7 @@
 set completion-ignore-case on
+set colored-stats on
+set colored-completion-prefix on
+set menu-complete-display-prefix on
 set editing-mode vi
 set show-mode-in-prompt on
 set vi-cmd-mode-string "\1\e[1;33m\2[N]"
