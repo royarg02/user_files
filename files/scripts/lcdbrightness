@@ -7,11 +7,14 @@ usage() {
   cat << END
 Set LCD brightness
 
-USAGE: lcdbrightness [-h] [-i DELTA] [-d DELTA] [max] [min] [VALUE]
+USAGE: lcdbrightness [-p] [-n] [-h] [-i DELTA] [-d DELTA] [max] [min] [VALUE]
 
 Running without any arguments displays the currently set brightness.
 
   -h	show this information and exit.
+  -p	show the current brightness in percentage.
+  -n	show the current brightness in absolute value, equivalent to
+        "lcdbrightness".
   -i	increase the brightness by DELTA.
   -d	decrease the brightness by DELTA.
   max	set maximum LCD brightness, equal to the value stored at
@@ -43,8 +46,10 @@ curr=$(cat "$location/brightness")
 
 # Map argument accordingly
 case "$1" in
-	"-i") value=$((curr + $2)) ;;
-	"-d") value=$((curr - $2)) ;;
+	"-n") echo "$curr" && exit 0 ;;
+	"-p") echo "$((curr * 100/ max))" && exit 0;;
+	"-i") value=$((curr + $2)) && [ "$value" -gt "$max" ] && value=$max ;;
+	"-d") value=$((curr - $2)) && [ "$value" -lt 0 ] && value=0 ;;
 	"-h") usage && exit 0 ;;
 	"max") value="$max" ;;
 	"min") value=0 ;;
@@ -52,7 +57,7 @@ case "$1" in
 esac
 
 # Change brightness accordingly, sanity-checks are handled
-echo "$value" | tee "$location/brightness" > /dev/null 2>&1 || \
+echo "$value" > "$location/brightness" || \
 	printf "Invalid brightness value.\nRun \"lcdbrightness -h\" for help.\n" && exit 1
 
 unset location value max curr
