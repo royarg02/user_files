@@ -169,7 +169,8 @@ while read -r file newfile locations; do
         *) copy_file "$file" "$newfile" "$location" && \
             new_location="$location/$newfile" && \
               chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location")" && \
-                [ "$old" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location.old")" ;;
+                [ "$old" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location.old")";
+					unset old ;;
       esac
     done
     ### Reset [owner] for the next location.
