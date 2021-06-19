@@ -81,6 +81,7 @@ alias more=less
 alias diff='diff --color'		  		  # colorful diff
 alias mkdir='mkdir -pv'
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
+alias wget='wget --hsts-file="$XDG_CACHE_HOME"/wget-hsts'
 
 ## Nice functions
 
