@@ -1,5 +1,14 @@
 !! xresources
 
+! dwm
+dwm.font: sans-serif:size=11
+dwm.borderpx: 3
+dwm.snap: 8
+dwm.normbgcolor: #242831
+dwm.normbordercolor: #242831
+dwm.selbgcolor: #4B566A
+dwm.selbordercolor: #4B566A
+
 ! dmenu
 dmenu.font: monospace:size=11
 dmenu.background: #242831
