@@ -85,6 +85,9 @@ user_pref("browser.search.widget.inNavBar", false);
 /// Dock devtools to the right
 user_pref("devtools.toolbox.host", "right");
 
+/// Fix right mouse instant first option context menu clicks in window managers
+user_pref("ui.context_menus.after_mouseup", true);
+
 /// Disable WebRTC
 user_pref("media.peerconnection.enabled" , false);
 
