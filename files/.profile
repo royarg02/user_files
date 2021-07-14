@@ -13,14 +13,14 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"
 
 ## flutter version management
-export FLUTTER_PATH="$HOME/.local/src/flutter_sdk_master"
+export FLUTTER_ROOT="$HOME/.local/src/flutter_sdk_master"
 
 export JAVA_HOME="/opt/android-studio/jre"
 export ANDROID_SDK_ROOT="$HOME/.local/src/android_sdk"
 export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
 export PUB_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/pub-cache"
-export PATH="$PATH:$FLUTTER_PATH/bin:$FLUTTER_PATH/bin/cache/dart-sdk/bin:$PUB_CACHE/bin:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$HOME/.local/bin/"
+export PATH="$PATH:$FLUTTER_ROOT/bin:$FLUTTER_ROOT/bin/cache/dart-sdk/bin:$PUB_CACHE/bin:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$HOME/.local/bin/"
 
 ## shell experience
 export HISTSIZE=-1    ## infinite history
@@ -38,6 +38,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 export MOZ_USE_XINPUT2=1
 export MOZ_X11_EGL=1
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 ## Cleanup
 export HISTFILE="$XDG_DATA_HOME/bash/history"
