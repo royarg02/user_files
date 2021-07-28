@@ -12,6 +12,7 @@ motd.sh,motd.sh,/etc/profile.d,
 .xinitrc,.xinitrc,~,/root
 firefox_user.js,user.js,~,
 chromium-flags.conf,chromium-flags.conf,~/.config,
+mimeapps.list,mimeapps.list,~/.config,
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
 fonts.conf,fonts.conf,~/.config/fontconfig,
 gitconfig,config,~/.config/git,

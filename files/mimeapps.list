@@ -1,0 +1,12 @@
+[Default Applications]
+
+application/pdf=firefox.desktop
+inode/directory=thunar.desktop
+image/bmp=sxiv.desktop
+image/gif=mpv.desktop
+image/jpeg=sxiv.desktop
+image/png=sxiv.desktop
+text/html=firefox.desktop
+text/plain=vim.desktop
+video/mp4=mpv.desktop
+video/x-matroska=mpv.desktop
