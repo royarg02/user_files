@@ -10,7 +10,7 @@ dwm.selbgcolor: #4B566A
 dwm.selbordercolor: #4B566A
 
 ! dmenu
-dmenu.font: monospace:size=11
+dmenu.font: sans-serif:size=11
 dmenu.background: #242831
 dmenu.selbackground: #4B566A
 
