@@ -13,6 +13,7 @@ motd.sh,motd.sh,/etc/profile.d,
 firefox_user.js,user.js,~,
 chromium-flags.conf,chromium-flags.conf,~/.config,
 mimeapps.list,mimeapps.list,~/.config,
+wgetrc,wgetrc,~/.config,/root/.config
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
 dunstrc,dunstrc,~/.config/dunst,
 fonts.conf,fonts.conf,~/.config/fontconfig,
