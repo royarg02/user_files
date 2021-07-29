@@ -51,6 +51,7 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 export ANDROID_PREFS_ROOT="$XDG_CONFIG_HOME"/android
 export ANDROID_EMULATOR_HOME="$ANDROID_SDK_ROOT/emulator" 
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
