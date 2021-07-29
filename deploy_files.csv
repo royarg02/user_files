@@ -14,6 +14,7 @@ firefox_user.js,user.js,~,
 chromium-flags.conf,chromium-flags.conf,~/.config,
 mimeapps.list,mimeapps.list,~/.config,
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
+dunstrc,dunstrc,~/.config/dunst,
 fonts.conf,fonts.conf,~/.config/fontconfig,
 gitconfig,config,~/.config/git,
 gtk2rc,gtkrc,~/.config/gtk-2.0,/root/.config/gtk-2.0
