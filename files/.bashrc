@@ -39,7 +39,7 @@ safe_term=${TERM//[^[:alnum:]]/?}
 ## Set colorful PS1 only on colorful terminals.
 ## dircolors -p uses its own built-in database.
 # Check if "dircolors database" is present, if not, make one
-[[ ! -f "$XDG_CONFIG_HOME"/dircolors ]] && type -P dircolors > /dev/null && \
+[[ ! -f "$XDG_CONFIG_HOME/dircolors" ]] && type -P dircolors > /dev/null && \
   dircolors -p > "$XDG_CONFIG_HOME/dircolors"
 
 # Check if TERM supports color
@@ -80,7 +80,7 @@ alias np='$EDITOR -w PKGBUILD'
 alias more=less
 alias diff='diff --color'		  		  # colorful diff
 alias mkdir='mkdir -pv'
-alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
+alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
 
 ## Nice functions
 

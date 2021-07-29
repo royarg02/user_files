@@ -29,11 +29,11 @@ export LESS_TERMCAP_us=$'\e[01;32m'
 
 ## Cleanup
 export HISTFILE="$XDG_DATA_HOME/bash/history"
-export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
-export WGETRC="$XDG_CONFIG_HOME"/wgetrc
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
 
 ## Source .bashrc if only in login shell; it will be sourced otherwise anyway

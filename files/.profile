@@ -42,18 +42,18 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 ## Cleanup
 export HISTFILE="$XDG_DATA_HOME/bash/history"
-export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 # This will not work with display managers. See https://wiki.archlinux.org/index.php/XDG_Base_Directory
 # for details and workarounds
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
-export WGETRC="$XDG_CONFIG_HOME"/wgetrc
-export ANDROID_PREFS_ROOT="$XDG_CONFIG_HOME"/android
-export ANDROID_EMULATOR_HOME="$ANDROID_SDK_ROOT/emulator" 
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export ANDROID_PREFS_ROOT="$XDG_CONFIG_HOME/android"
+export ANDROID_EMULATOR_HOME="$ANDROID_SDK_ROOT/emulator"
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
 
