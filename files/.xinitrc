@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # ~/.xinitrc
 # Executed by startx 
 
@@ -8,7 +9,7 @@ USERXSESSIONRC="$XDG_CACHE_HOME/x11/xsessionrc"
 ALTUSERXSESSION="$XDG_CACHE_HOME/x11/Xsession"
 ERRFILE="$XDG_CACHE_HOME/x11/xsession-errors"
 
-# merge in defaults and keymaps
+# merge user xresources
 if [ -f "$USERRESOURCES" ]; then
     xrdb -merge "$USERRESOURCES"
 fi
@@ -21,11 +22,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     unset f
 fi
 
-export XDG_CURRENT_DESKTOP="XFCE"
-
 # Source xprofile
 [ -f "$XDG_CONFIG_HOME/x11/xprofile" ] && . "$XDG_CONFIG_HOME/x11/xprofile"
 
 /usr/bin/prime-offload
-ssh-agent xfce4-session
+ssh-agent dwm
 sudo /usr/bin/prime-switch
