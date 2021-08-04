@@ -1,5 +1,6 @@
 [Default Applications]
 
+application/json=vim.desktop
 application/pdf=firefox.desktop
 inode/directory=thunar.desktop
 image/bmp=sxiv.desktop
