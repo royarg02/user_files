@@ -6,8 +6,8 @@ dwm.borderpx: 3
 dwm.snap: 8
 dwm.normbgcolor: #242831
 dwm.normbordercolor: #242831
-dwm.selbgcolor: #242831
-dwm.selbordercolor: #4B566A
+dwm.selbgcolor: #4B566A
+dwm.selbordercolor: #778298
 
 ! dmenu
 dmenu.font: sans-serif:size=11
@@ -22,7 +22,7 @@ st.borderpx: 8
 ! sxiv
 Sxiv.font: monospace:size=11
 Sxiv.background: #242831
-Sxiv.foreground: #AAAAAA
+Sxiv.foreground: #778298
 
 ! Xorg
 Xcursor.theme: Adwaita
