@@ -6,7 +6,7 @@ dwm.borderpx: 3
 dwm.snap: 8
 dwm.normbgcolor: #242831
 dwm.normbordercolor: #242831
-dwm.selbgcolor: #4B566A
+dwm.selbgcolor: #242831
 dwm.selbordercolor: #4B566A
 
 ! dmenu
