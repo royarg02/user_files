@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Prints the current volume of default pulseaudio sink
+
+SINK="@DEFAULT_SINK@"
+controller="pulsemixer"
+
+vol="$(pactl get-sink-volume $SINK | sed -n 's/.* \([0-9]\{1,3\}\)%.*/\1/p')"
+
+case $BUTTON in
+  1) pactl set-sink-mute "$SINK" toggle ;;
+  2) setsid -f "$TERMINAL" -e "$controller" ;;
+  3) setsid -f "$TERMINAL" -e "$EDITOR" "$0";;
+  4) [ "$vol" -lt 150 ] && pactl set-sink-volume "$SINK" +5% ;;
+  5) pactl set-sink-volume "$SINK" -5% ;;
+esac
+
+if pactl get-sink-mute "$SINK" | grep -q 'yes' ; then
+  icon=🔇
+elif [ "$vol" -lt 30 ]; then
+  icon="🔈"
+elif [ "$vol" -lt 70 ]; then
+  icon="🔉"
+elif [ "$vol" -lt 100 ]; then
+  icon="🔊"
+else
+  icon="📢"
+fi
+
+printf "%s %s%%" "$icon" "$vol"

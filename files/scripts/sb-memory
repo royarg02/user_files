@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case $BUTTON in
+  2) setsid -f "$TERMINAL" -e htop ;;
+  3) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+mem=$(free -h | awk '/^Mem/ { print $3 "/" $2 }' | tr -d 'i')
+printf "🧠 %s" "$mem"
+exit 0

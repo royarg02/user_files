@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Displays the time and date in the following format
+# Thu 22 Jul 10:45
+
+case $BUTTON in
+  1) setsid -f "$TERMINAL" -e watch -tn1 --color "date; echo; cal -yw --color=always" ;;
+  3) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+date "+%a %d %b %I:%M"
