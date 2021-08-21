@@ -9,7 +9,7 @@ export TERMINAL="st"
 export EDITOR="vim"
 export BROWSER="firefox"
 
-export JAVA_HOME="/opt/android-studio/jre"
+export JAVA_HOME="/usr"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
 
 ## shell experience

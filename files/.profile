@@ -15,12 +15,12 @@ export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"
 ## flutter version management
 export FLUTTER_ROOT="$HOME/.local/src/flutter_sdk_master"
 
-export JAVA_HOME="/opt/android-studio/jre"
-export ANDROID_SDK_ROOT="$HOME/.local/src/android_sdk"
+export JAVA_HOME="/usr"
+export ANDROID_SDK_ROOT="/opt/android-sdk"
 export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
 export PUB_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/pub-cache"
-export PATH="$PATH:$FLUTTER_ROOT/bin:$FLUTTER_ROOT/bin/cache/dart-sdk/bin:$PUB_CACHE/bin:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$HOME/.local/bin/"
+export PATH="$PATH:$FLUTTER_ROOT/bin:$FLUTTER_ROOT/bin/cache/dart-sdk/bin:$PUB_CACHE/bin:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$HOME/.local/bin/"
 
 ## shell experience
 export HISTSIZE=-1    ## infinite history
@@ -53,7 +53,6 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export ANDROID_PREFS_ROOT="$XDG_CONFIG_HOME/android"
-export ANDROID_EMULATOR_HOME="$ANDROID_SDK_ROOT/emulator"
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
 
