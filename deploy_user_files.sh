@@ -49,6 +49,12 @@ copy_file() {
   cp -vrT "./files/$1" "$2"
 }
 
+### Wrapper for chown for changing file [$2] ownership to a specified user [$1].
+change_owner() {
+  [ -n "$DRY_RUN" ] && printf "[DRY RUN] chown -R %s: %s\n" "$1" "$2" && return
+  chown -R "$1": "$2"
+}
+
 ### Between two paths of equal or unequal length, removes the longest matching
 ### common path and provides the root folder of the resulting location.
 ###
@@ -168,8 +174,8 @@ while read -r file newfile locations; do
         ###
         ### If `bak_created` is `0`, chown the ".old" file as well.
         *) copy_file "$file" "$new_location" && \
-              chown -R "$owner":"$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" && \
-                [ "$bak_created" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(non_matching_path_root "$dir" "$new_location.old")";
+              change_owner "$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" && \
+                [ "$bak_created" -eq 0 ] && change_owner "$owner" "$dir/$(non_matching_path_root "$dir" "$new_location.old")";
 					unset bak_created ;;
       esac
     done
@@ -184,5 +190,5 @@ echo "Make sure to log out and login again for the deployed files to take effect
 make_bash_history
 
 unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS bak_created
-unset -f copy_files non_matching_path_root show_license make_bash_history
+unset -f copy_files non_matching_path_root show_license make_bash_history change_owner
 exit 0
