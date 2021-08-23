@@ -32,7 +32,8 @@
 ### The files to be copied are present in the `./files/` directory.
 ###
 ### If the specified file already exists, then `cp` prompts for user input
-### regarding whether the file should be overidden or not.
+### regarding whether the file should be overidden or not. If allowed to do so,
+### creates a backup of the file with ".old" suffix.
 copy_file() {
   echo
   ### If the file already exists, provide a diff
