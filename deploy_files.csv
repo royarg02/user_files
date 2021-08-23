@@ -1,7 +1,7 @@
 #FILENAME,FILENAME TO BE COPIED AS,LOCATION(S),
 bash.bashrc,bash.bashrc,/etc,
 fstab,fstab,/etc,
-pacman.conf,pacman.conf,/etc,
+pacman.conf.diff,pacman.conf,/etc,
 etcprofile,profile,/etc,
 tlp.conf,tlp.conf,/etc,
 nobeep.conf,nobeep.conf,/etc/modprobe.d,

@@ -24,6 +24,44 @@
 ###
 ### Requires root permissions to function properly.
 
+### Determines the deploying action to take depending upon the file.
+###
+### If the file is a `.diff` or `.patch` file, the function uses the file as a
+### patch to apply on an existing file. Otherwise, it copies the file to its
+### intended location.
+###
+### Returns a value depending upon the action it took; this is mainly to skip
+### changing ownership in case of just applying a patch.
+deploy_file() {
+  echo "$1" | grep -q '\.*.\(diff\|patch\)' && patch_file "$1" "$2" && return 1
+  copy_file "$1" "$2" && return 0
+}
+
+### Patches an existing file [$2] using a patch file [$1].
+###
+### Keeps the original file at the same location of the existing file with an
+### ".orig" suffix.
+patch_file() {
+  ### Verify if there is a file for patching
+  [ -e "$2" ] || \
+    { echo "[ERROR] There is no file \"$2\" to patch. Skipping this entry." && return; }
+  ### Display the patch first
+  echo
+  cat "./files/$1"
+  echo
+  if [ -z "$NO_CONFIRM" ]; then
+    printf "Continue to apply this patch on %s? (y/Y for yes)\t" "$2"
+    read -r overwrite < /dev/tty
+    echo "$overwrite" | grep -q 'y\|Y' || return
+  fi
+  if [ -n "$DRY_RUN" ]; then
+    printf "[DRY RUN] patch -p0 -b -d / < %s\n" "./files/$1"
+  else
+    ### Patch the file while creating a backup
+    patch -p0 -b -d / < "./files/$1" && echo "[INFO] Original $2 copied to $2.orig."
+  fi
+}
+
 ### Copies a file to a specified directory.
 ###
 ### [$1] is the file name in the repo and [$2] the full path of the new file
@@ -223,11 +261,14 @@ while read -r file newfile locations; do
       owner=$([ -d "$dir" ] && stat -c '%U' "$dir")
       case "$owner" in
         "") ;;
-        "root") copy_file "$file" "$new_location" ;;
+        "root") deploy_file "$file" "$new_location" ;;
         ### If the location is owned by anyone other than the root user, use
         ### `chown -R` to change owner of the newly created files/folders to
         ### that user after they have been copied/created.
-        *) copy_file "$file" "$new_location" && \
+        ###
+        ### Depending upon the return value, additionally changes the owner of
+        ### the new file to the owner of the existing tree.
+        *) deploy_file "$file" "$new_location" && \
               change_owner "$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" ;;
       esac
     done

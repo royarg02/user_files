@@ -1,0 +1,18 @@
+--- /etc/pacman.conf    2021-08-23 19:18:53.442808823 +0530
++++ /etc/pacman.conf    2021-07-30 21:48:58.425819978 +0530
+@@ -32,11 +32,12 @@
+
+ # Misc options
+ #UseSyslog
+-#Color
++Color
+ #NoProgressBar
+ CheckSpace
+-#VerbosePkgLists
+-#ParallelDownloads = 5
++VerbosePkgLists
++ParallelDownloads = 3
++ILoveCandy
+
+ # By default, pacman accepts packages signed by keys that its local keyring
+ # trusts (see pacman-key and its man page), as well as unsigned packages.
