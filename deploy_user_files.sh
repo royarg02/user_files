@@ -46,14 +46,12 @@ copy_file() {
       echo "$overwrite" | grep -q 'y\|Y' || return
     fi
     if [ -n "$DRY_RUN" ]; then
-      printf "[DRY RUN] cp -rT %s %s.old\n" "$2" "$2"
+      printf "[DRY RUN] cp -prT %s %s.old\n" "$2" "$2"
     else
       ### Create a backup of the old file before copying
-      cp -rT "$2" "$2.old" && echo "[INFO] Old $2 copied to $2.old." && \
-        bak_created=0
+      cp -prT "$2" "$2.old" && echo "[INFO] Old $2 copied to $2.old."
     fi
   fi
-  [ -z "$bak_created" ] && bak_created=1
   if [ -n "$DRY_RUN" ]; then
     printf "[DRY RUN] mkdir -pv %s\n" "$(dirname "$2")"
     printf "[DRY RUN] cp -vrT ./files/%s %s\n" "$1" "$2"
@@ -228,12 +226,8 @@ while read -r file newfile locations; do
         ### If the location is owned by anyone other than the root user, use
         ### `chown -R` to change owner of the newly created files/folders to
         ### that user after they have been copied/created.
-        ###
-        ### If `bak_created` is `0`, chown the ".old" file as well.
         *) copy_file "$file" "$new_location" && \
-              change_owner "$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" && \
-                [ "$bak_created" -eq 0 ] && change_owner "$owner" "$dir/$(non_matching_path_root "$dir" "$new_location.old")";
-					unset bak_created ;;
+              change_owner "$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" ;;
       esac
     done
     ### Reset [owner] for the next location.
@@ -247,6 +241,6 @@ if [ -z "$DRY_RUN" ]; then
   make_bash_history
 fi
 
-unset full_path remove_path location new_location dir owner USERNAME USER_HOME NO_CONFIRM DRY_RUN IFS bak_created
+unset full_path remove_path location new_location dir owner USERNAME USER_HOME NO_CONFIRM DRY_RUN IFS
 unset -f copy_files non_matching_path_root show_license make_bash_history change_owner dry_run_message no_confirm_message
 exit 0
