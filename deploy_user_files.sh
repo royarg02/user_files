@@ -34,19 +34,34 @@
 ### If the specified file already exists, then `cp` prompts for user input
 ### regarding whether the file should be overidden or not.
 copy_file() {
+  echo
   ### If the file already exists, provide a diff
   if [ -e "$2" ]; then
+    echo
     diff -us --color "$2" "./files/$1"
-    printf "\nOverwrite %s/%s? (y/Y for yes)\t" "$3" "$2"
-    read -r overwrite < /dev/tty
-    echo "$overwrite" | grep -q 'y\|Y' || return
-    ### Create a backup of the old file before copying
-    cp -rT "$2" "$2.old" && echo "[INFO] Old $2 copied to $2.old." && \
-       bak_created=0
+    echo
+    if [ -z "$NO_CONFIRM" ]; then
+      printf "Overwrite %s? (y/Y for yes)\t" "$2"
+      read -r overwrite < /dev/tty
+      echo "$overwrite" | grep -q 'y\|Y' || return
+    fi
+    if [ -n "$DRY_RUN" ]; then
+      printf "[DRY RUN] cp -rT %s %s.old\n" "$2" "$2"
+    else
+      ### Create a backup of the old file before copying
+      cp -rT "$2" "$2.old" && echo "[INFO] Old $2 copied to $2.old." && \
+        bak_created=0
+    fi
   fi
   [ -z "$bak_created" ] && bak_created=1
+  if [ -n "$DRY_RUN" ]; then
+    printf "[DRY RUN] mkdir -pv %s\n" "$(dirname "$2")"
+    printf "[DRY RUN] cp -vrT ./files/%s %s\n" "$1" "$2"
+    return
+  fi
   mkdir -pv "$(dirname "$2")"
   cp -vrT "./files/$1" "$2"
+  echo
 }
 
 ### Wrapper for chown for changing file [$2] ownership to a specified user [$1].
@@ -90,6 +105,42 @@ for bash to create the history file at the new location.
 END
 }
 
+### Parse options
+for i in "$@"; do
+  case "$i" in
+    "-n") DRY_RUN=1 ;;
+    "-y") NO_CONFIRM=1 ;;
+    *) ;;
+  esac
+done
+
+### Displays this message if dry run is activated.
+dry_run_message() {
+  cat << END
+The script has been asked to run in "DRY RUN" mode.
+As such, it will not make any changes to the files in the system but rather,
+only display the commands it will execute upon normal mode.
+
+END
+}
+
+### Displays this message if no confirm is activated.
+no_confirm_message() {
+  cat << END
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CAUTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+The script has been asked to run in "NO CONFIRM" mode.
+As such, it will NOT ask for your confirmation to overwrite existing files.
+Unless the script is run on "DRY RUN" mode, this may potentially lead to a
+broken system.
+
+If you choose to continue in the next prompt, there's no going back.
+
+YOU HAVE BEEN WARNED.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CAUTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+END
+}
+
 ### Displays the LICENSE applied to this project.
 ###
 ### GNU General Public License - Version 3.0
@@ -114,6 +165,12 @@ show_license
 ### Check if 'deploy_files.csv' exists and is readable
 [ -r ./deploy_files.csv ] || \
   { echo "[ERROR] Could not find \"deploy_files.csv\" in the current folder. Are you sure it exists?" && exit 1; }
+
+### If no confirm is activated, displays a message
+[ -n "$NO_CONFIRM" ] && no_confirm_message
+
+### If dry run is activated, displays a message
+[ -n "$DRY_RUN" ] && dry_run_message
 
 ### Get user name through direct shell input
 echo "Enter the username. <Return> to use current username. <Control-C> to abort.";
@@ -184,11 +241,12 @@ while read -r file newfile locations; do
   done
 done < /tmp/files.csv
 
-echo "[INFO] Done deploying files."
-echo "Make sure to log out and login again for the deployed files to take effect."
+if [ -z "$DRY_RUN" ]; then
+  echo "[INFO] Done deploying files."
+  echo "Make sure to log out and login again for the deployed files to take effect."
+  make_bash_history
+fi
 
-make_bash_history
-
-unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS bak_created
-unset -f copy_files non_matching_path_root show_license make_bash_history change_owner
+unset full_path remove_path location new_location dir owner USERNAME USER_HOME NO_CONFIRM DRY_RUN IFS bak_created
+unset -f copy_files non_matching_path_root show_license make_bash_history change_owner dry_run_message no_confirm_message
 exit 0
