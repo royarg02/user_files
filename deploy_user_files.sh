@@ -26,8 +26,8 @@
 
 ### Copies a file to a specified directory.
 ###
-### [$1] is the file name in the repo, [$2] the new file name and [$3] the
-### folder name/location(will be newly made if non-existent).
+### [$1] is the file name in the repo and [$2] the full path of the new file
+### (location tree will be newly made if non-existent).
 ###
 ### The files to be copied are present in the `./files/` directory.
 ###
@@ -35,18 +35,18 @@
 ### regarding whether the file should be overidden or not.
 copy_file() {
   ### If the file already exists, provide a diff
-  if [ -e "$3/$2" ]; then
-    diff -us --color "$3/$2" "./files/$1"
+  if [ -e "$2" ]; then
+    diff -us --color "$2" "./files/$1"
     printf "\nOverwrite %s/%s? (y/Y for yes)\t" "$3" "$2"
     read -r overwrite < /dev/tty
     echo "$overwrite" | grep -q 'y\|Y' || return
     ### Create a backup of the old file before copying
-    cp -rT "$3/$2" "$3/$2.old" && echo "[INFO] Old $3/$2 copied to $3/$2.old." && \
-      bak_created=0
+    cp -rT "$2" "$2.old" && echo "[INFO] Old $2 copied to $2.old." && \
+       bak_created=0
   fi
   [ -z "$bak_created" ] && bak_created=1
-  mkdir -pv "$3"
-  cp -vrT "./files/$1" "$3/$2"
+  mkdir -pv "$(dirname "$2")"
+  cp -vrT "./files/$1" "$2"
 }
 
 ### Between two paths of equal or unequal length, removes the longest matching
@@ -161,13 +161,13 @@ while read -r file newfile locations; do
       owner=$([ -d "$dir" ] && stat -c '%U' "$dir")
       case "$owner" in
         "") ;;
-        "root") copy_file "$file" "$newfile" "$location" ;;
+        "root") copy_file "$file" "$new_location" ;;
         ### If the location is owned by anyone other than the root user, use
         ### `chown -R` to change owner of the newly created files/folders to
         ### that user after they have been copied/created.
         ###
         ### If `bak_created` is `0`, chown the ".old" file as well.
-        *) copy_file "$file" "$newfile" "$location" && \
+        *) copy_file "$file" "$new_location" && \
               chown -R "$owner":"$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" && \
                 [ "$bak_created" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(non_matching_path_root "$dir" "$new_location.old")";
 					unset bak_created ;;
