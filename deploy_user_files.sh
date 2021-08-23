@@ -42,9 +42,9 @@ copy_file() {
     echo "$overwrite" | grep -q 'y\|Y' || return
     ### Create a backup of the old file before copying
     cp -rT "$3/$2" "$3/$2.old" && echo "[INFO] Old $3/$2 copied to $3/$2.old." && \
-      old=0
+      bak_created=0
   fi
-  [ -z "$old" ] && old=1
+  [ -z "$bak_created" ] && bak_created=1
   mkdir -pv "$3"
   cp -vrT "./files/$1" "$3/$2"
 }
@@ -62,7 +62,7 @@ copy_file() {
 ###
 ### The function additionally cuts and returns the first field which would be
 ### the root of the non-matching location.
-strip_path() {
+non_matching_path_root() {
   full_path="$2"
   remove_path="$1"
   echo "${full_path#$remove_path/}" | cut -d '/' -f1
@@ -154,6 +154,7 @@ while read -r file newfile locations; do
     ### "/." is added to prevent `dirname` to strip path without checking owner
     ### in the first iteration.
     dir="$location/."
+    new_location="$location/$newfile"
     ### Traverse upward through the given location until an owner is found.
     while [ -z "$owner" ]; do
       dir="$(dirname "$dir")"
@@ -165,12 +166,11 @@ while read -r file newfile locations; do
         ### `chown -R` to change owner of the newly created files/folders to
         ### that user after they have been copied/created.
         ###
-        ### If `old` is `0`, chown the ".old" file as well.
+        ### If `bak_created` is `0`, chown the ".old" file as well.
         *) copy_file "$file" "$newfile" "$location" && \
-            new_location="$location/$newfile" && \
-              chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location")" && \
-                [ "$old" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(strip_path "$dir" "$new_location.old")";
-					unset old ;;
+              chown -R "$owner":"$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" && \
+                [ "$bak_created" -eq 0 ] && chown -R "$owner":"$owner" "$dir/$(non_matching_path_root "$dir" "$new_location.old")";
+					unset bak_created ;;
       esac
     done
     ### Reset [owner] for the next location.
@@ -183,6 +183,6 @@ echo "Make sure to log out and login again for the deployed files to take effect
 
 make_bash_history
 
-unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS old
-unset -f copy_files strip_path show_license make_bash_history
+unset full_path remove_path location new_location dir owner USERNAME USER_HOME IFS bak_created
+unset -f copy_files non_matching_path_root show_license make_bash_history
 exit 0
