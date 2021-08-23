@@ -2,6 +2,7 @@
 
 ! dwm
 dwm.font: sans-serif:size=11
+dwm.dmenufont:sans-serif:size=11
 dwm.borderpx: 3
 dwm.snap: 8
 dwm.normbgcolor: #242831
