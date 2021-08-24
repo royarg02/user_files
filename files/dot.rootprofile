@@ -8,6 +8,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export TERMINAL="st"
 export EDITOR="vim"
 export BROWSER="firefox"
+export FILE="lf"
 
 export JAVA_HOME="/usr"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
