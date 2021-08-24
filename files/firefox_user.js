@@ -43,6 +43,9 @@ user_pref("privacy.resistFingerprinting" , true);
 
 /// DON'T CHANGE THESE
 
+/// Disable accessibility services
+user_pref("accessibility.force_disabled", 1);
+
 /// Disable about:config warning
 user_pref("browser.aboutConfig.showWarning", false);
 
