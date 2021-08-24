@@ -1,4 +1,5 @@
 #FILENAME,FILENAME TO BE COPIED AS,LOCATION(S),
+acpi,acpi,/etc,
 bash.bashrc,bash.bashrc,/etc,
 fstab,fstab,/etc,
 pacman.conf,pacman.conf,/etc,

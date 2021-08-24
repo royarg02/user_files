@@ -1,0 +1,2 @@
+event=jack/*
+action=/etc/acpi/actions/jack.sh %e
