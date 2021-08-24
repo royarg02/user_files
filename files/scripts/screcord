@@ -7,38 +7,53 @@ usage() {
   cat << END
 Record screen with given frame size and position
 
-USAGE: screcord [-h] [-y] SIZE X Y FILE
+USAGE: screcord [-h] [-y] SIZE X Y [-i] FILE
 
-  -h	Show this help information.
-  -y	Whether to overwrite already existing output file.
-  SIZE	The size of the frame to be recorded. Must be in the form WxH, where W
-		is the width and H the height of the frame.
-  X		The horizontal distance from the top left corner of the screen to the
-		left edge of the frame.
-  Y		The vertical distance from the top left corner of the screen to the top
-		edge of the frame.
-  FILE	The name of the file to write to.
+  -h    Show this help information.
+  -y    Whether to overwrite already existing output file.
+  -i    Interactively set the frame size and position using slop(1).
+  SIZE  The size of the frame to be recorded. Must be in the form WxH, where W
+        is the width and H the height of the frame.
+  X     The horizontal distance from the top left corner of the screen to the
+        left edge of the frame.
+  Y     The vertical distance from the top left corner of the screen to the top
+        edge of the frame.
+  FILE  The name of the file to write to.
+
+Options SIZE, X and Y are ignored if "-i" flag is used.
 
 END
 }
 
 should_overwrite=""
 
-while getopts ":yh" opt; do
+while getopts ":yhi" opt; do
   case "$opt" in
     y) should_overwrite="-y " ;;
+    i) slop="y" ;;
     h) usage && exit 0 ;;
   esac
 done
 shift $((OPTIND - 1))
 
-echo "$1" | grep -Pq '\d+x\d+' && size="$1"
-[ -z "$size" ] && echo "Incorrect frame size \"$1\"." && exit 1
-echo "$2" | grep -Pq '\d+' && x_pos="$2"
-[ -z "$x_pos" ] && echo "Incorrect horizontal frame position \"$2\"." && exit 1
-echo "$3" | grep -Pq '\d+' && y_pos="$3"
-[ -z "$y_pos" ] && echo "Incorrect vertical frame position \"$3\"." && exit 1
-file="$4"
+if [ -z "$slop" ]; then
+  echo "$1" | grep -Pq '\d+x\d+' && size="$1"
+  [ -z "$size" ] && echo "Incorrect frame size \"$1\"." && exit 1
+  echo "$2" | grep -Pq '\d+' && x_pos="$2"
+  [ -z "$x_pos" ] && echo "Incorrect horizontal frame position \"$2\"." && exit 1
+  echo "$3" | grep -Pq '\d+' && y_pos="$3"
+  [ -z "$y_pos" ] && echo "Incorrect vertical frame position \"$3\"." && exit 1
+  file="$4"
+else
+  command -v slop > /dev/null || \
+    { echo "slop must be installed to provide frame size interactively" && exit 1; }
+  tmp="$(mktemp)"
+  slop -f "%wx%h %x %y" > "$tmp"
+  read -r size x_pos y_pos < "$tmp"
+  rm "$tmp"
+  file="$1"
+fi
+
 [ -z "$file" ] && echo "No output file specified." && exit 1
 
 ffmpeg ${should_overwrite}-f x11grab -s "$size" -i "$DISPLAY"+"$x_pos","$y_pos" "$file"
@@ -46,4 +61,3 @@ ffmpeg ${should_overwrite}-f x11grab -s "$size" -i "$DISPLAY"+"$x_pos","$y_pos" 
 unset size x_pos y_pos file should_overwrite
 unset -f usage
 exit 0
-
