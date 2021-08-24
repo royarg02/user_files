@@ -1,5 +1,5 @@
 [global]
-	### Display ###
+    ### Display ###
     monitor = 0
     follow = none
     geometry = "0x0-0+25"
@@ -64,7 +64,7 @@
     per_monitor_dpi = false
 
 [shortcuts]
-	history = mod4+shift+a
+    history = mod4+shift+a
     context = mod4+ctrl+a
 
 [urgency_low]
@@ -82,7 +82,3 @@
     foreground = "#FFFFFF"
     frame_color = "#FF0000"
     timeout = 0
-
-[connection-status]
-    summary = "Connection Established"
-    history_ignore = yes
