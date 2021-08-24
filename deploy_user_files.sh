@@ -39,7 +39,7 @@ copy_file() {
   ### If the file already exists, provide a diff
   if [ -e "$2" ]; then
     echo
-    diff -usr --color "$2" "./files/$1"
+    diff -usr --color "$2" "$1"
     echo
     if [ -z "$NO_CONFIRM" ]; then
       printf "Overwrite %s? (y/Y for yes)\t" "$2"
@@ -55,11 +55,11 @@ copy_file() {
   fi
   if [ -n "$DRY_RUN" ]; then
     printf "[DRY RUN] mkdir -pv %s\n" "$(dirname "$2")"
-    printf "[DRY RUN] cp -vrT ./files/%s %s\n" "$1" "$2"
+    printf "[DRY RUN] cp -vrT %s %s\n" "$1" "$2"
     return
   fi
   mkdir -pv "$(dirname "$2")"
-  cp -vrT "./files/$1" "$2"
+  cp -vrT "$1" "$2"
   echo
 }
 
@@ -117,6 +117,7 @@ done
 dry_run_message() {
   cat << END
 The script has been asked to run in "DRY RUN" mode.
+
 As such, it will not make any changes to the files in the system but rather,
 only display the commands it will execute upon normal mode.
 
@@ -128,9 +129,10 @@ no_confirm_message() {
   cat << END
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CAUTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 The script has been asked to run in "NO CONFIRM" mode.
+
 As such, it will NOT ask for your confirmation to overwrite existing files.
-Unless the script is run on "DRY RUN" mode, this may potentially lead to a
-broken system.
+This may potentially lead to a broken system, unless the script is run on "DRY
+RUN" mode.
 
 If you choose to continue in the next prompt, there's no going back.
 
@@ -223,11 +225,11 @@ while read -r file newfile locations; do
       owner=$([ -d "$dir" ] && stat -c '%U' "$dir")
       case "$owner" in
         "") ;;
-        "root") copy_file "$file" "$new_location" ;;
+        "root") copy_file "./files/$file" "$new_location" ;;
         ### If the location is owned by anyone other than the root user, use
         ### `chown -R` to change owner of the newly created files/folders to
         ### that user after they have been copied/created.
-        *) copy_file "$file" "$new_location" && \
+        *) copy_file "./files/$file" "$new_location" && \
               change_owner "$owner" "$dir/$(non_matching_path_root "$dir" "$new_location")" ;;
       esac
     done
