@@ -39,7 +39,7 @@ copy_file() {
   ### If the file already exists, provide a diff
   if [ -e "$2" ]; then
     echo
-    diff -us --color "$2" "./files/$1"
+    diff -usr --color "$2" "./files/$1"
     echo
     if [ -z "$NO_CONFIRM" ]; then
       printf "Overwrite %s? (y/Y for yes)\t" "$2"
