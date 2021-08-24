@@ -1,4 +1,23 @@
 #!/bin/sh
 
+# Run setbg(wrapper for xwallpaper)
+# xwallpaper is run as a daemon, no need to run in background
+setbg
+
+# Run dwmblocks
+dwmblocks &
+
+# Run connman-gtk
+connman-gtk &
+
 # Run udiskie
 udiskie -s &
+
+# Run dunst
+dunst &
+
+# Run parcellite
+parcellite &
+
+# Run xss-lock
+xss-lock -- slock &
