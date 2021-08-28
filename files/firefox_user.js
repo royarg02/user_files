@@ -46,6 +46,9 @@ user_pref("privacy.resistFingerprinting" , true);
 /// Disable accessibility services
 user_pref("accessibility.force_disabled", 1);
 
+/// Prevent blocking of copy/paste for "security"
+user_pref("dom.event.clipboardevents.enabled", false);
+
 /// Disable about:config warning
 user_pref("browser.aboutConfig.showWarning", false);
 
