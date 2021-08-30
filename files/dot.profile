@@ -1,5 +1,13 @@
 #~/.profile
 
+## Function to append paths
+append_path() {
+  case ":$PATH:" in
+    *:"$1":*) ;;
+    *)        PATH="${PATH:+$PATH:}$1" ;;
+  esac
+}
+
 ## Set user XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -21,7 +29,12 @@ export ANDROID_SDK_ROOT="/opt/android-sdk"
 export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
 export PUB_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/pub-cache"
-export PATH="$PATH:$FLUTTER_ROOT/bin:$FLUTTER_ROOT/bin/cache/dart-sdk/bin:$PUB_CACHE/bin:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$HOME/.local/bin/"
+append_path "$HOME/.local/bin"
+append_path "$FLUTTER_ROOT/bin"
+append_path "$FLUTTER_ROOT/bin/cache/dart-sdk/bin"
+append_path "$PUB_CACHE/bin"
+append_path "$ANDROID_SDK_ROOT/platform-tools"
+append_path "$JAVA_HOME/bin"
 
 ## shell experience
 export HISTSIZE=-1    ## infinite history
@@ -56,6 +69,8 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export ANDROID_PREFS_ROOT="$XDG_CONFIG_HOME/android"
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
+
+unset -f append_path
 
 ## Source .bashrc if only in login shell; it will be sourced otherwise anyway
 shopt -q login_shell && [[ -f ~/.bashrc ]] && . ~/.bashrc
