@@ -1,9 +1,6 @@
 Defaults !tty_tickets
 Defaults insults
 
-## User privilege specification
-root ALL=(ALL) ALL
-
 ## Uncomment to allow members of group wheel to execute any command
 %wheel ALL=(ALL) ALL
 
