@@ -51,10 +51,11 @@ for battery in /sys/class/power_supply/BAT?*; do
     timeleft="$(printf "%.2f" "$((100 * energy_now/power_now))e-2")"
     h=${timeleft%.*}
     [ -z "$h" ] && h=0
-    m="$(printf "%.0f" "$((${timeleft#*.} * 60))e-2")"
+    m=${timeleft#*.}
+    m="$(printf "%.0f" "$((${m#0*}*60))e-2")"
     [ "$m" -lt 10 ] && m="0$m"
-    timeleft="($h:$m) "
+    timeleft="($h:$m)"
   fi
   # Prints the info
-  printf "🔆 %s%% %s%s %s%d%%%s" "$brightness" "$status" "$warn" "$timeleft" "$capacity" "$present"; unset warn
+  printf "🔆 %s%% %s%s %s %d%%%s" "$brightness" "$status" "$warn" "$timeleft" "$capacity" "$present"; unset warn
 done
