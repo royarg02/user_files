@@ -41,16 +41,17 @@ for battery in /sys/class/power_supply/BAT?*; do
   esac
 
   capacity=$(cat "$battery/capacity")
-  # If discharging, obtain battery remaining time and make a warn variable if
-  # low
+  # If discharging, obtain battery remaining time and warn if low
   if [ "$status" = "🔋" ]; then
-    { [ "$capacity" -le 10 ] && warn="❗"; } || { [ "$capacity" -le 20 ] && warn="❕"; }
+    [ "$capacity" -le 20 ] && { [ "$capacity" -le 10 ] && warn="❗" || warn="❕" ; }
 
     # Get battery remaining time
-    timeleft=$(echo "$(cat "$battery/energy_now")/$(cat "$battery/power_now")" | bc -l)
+    energy_now="$(cat "$battery/energy_now")"
+    power_now="$(cat "$battery/power_now")"
+    timeleft="$(printf "%.2f" "$((100 * energy_now/power_now))e-2")"
     h=${timeleft%.*}
     [ -z "$h" ] && h=0
-    m=$(echo "(($timeleft - $h) * 60)/1" | bc)
+    m="$(printf "%.0f" "$((${timeleft#*.} * 60))e-2")"
     [ "$m" -lt 10 ] && m="0$m"
     timeleft="($h:$m) "
   fi
