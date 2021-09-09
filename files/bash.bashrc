@@ -5,9 +5,26 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Update buffer size if necessary after running external command
 [[ $DISPLAY ]] && shopt -s checkwinsize
 
+# Expand aliases even when not interactive
+shopt -s expand_aliases
+
+## Enable history appending instead of overwriting.
+shopt -s histappend
+
+## Enable switching to directory without explicit "cd"
+shopt -s autocd
+
+# Disable ctrl-s and ctrl-q.
+stty -ixon
+
+# Set a barebone PS1
 PS1='[\u@\h \W]\$ '
+
+## Only show the previous three directories in PS1(bash >= 4.0)
+PROMPT_DIRTRIM=3
 
 case ${TERM} in
   xterm*|rxvt*|Eterm|aterm|kterm|gnome*)

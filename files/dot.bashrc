@@ -1,25 +1,5 @@
 ### ~/.bashrc
 
-## If bash is not invoked interactively, exit
-[[ $- != *i* ]] && return
-
-## Bash won't get SIGWINCH if another process is in the foreground.
-## Enable checkwinsize so that bash will check the terminal size when
-## it regains control.
-## http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
-shopt -s checkwinsize
-
-shopt -s expand_aliases
-
-## Enable history appending instead of overwriting.
-shopt -s histappend
-
-## Enable switching to directory without explicit "cd"
-shopt -s autocd
-
-# Disable ctrl-s and ctrl-q.
-stty -ixon
-
 ## Set PS1s according to TERM
 ## [anurag@manjaro ~][master]$ _
 ## RED brackets, YELLOW user, GREEN '@', BLUE host, PURPLE working directory, CYAN git branch, white '$'
@@ -60,9 +40,6 @@ if ${use_color} ; then
 else
 	PS1=$PS1_no_color
 fi
-
-## Only show the previous three directories in PS1(bash >= 4.0)
-PROMPT_DIRTRIM=3
 
 unset use_color use_256_color safe_term match_lhs PS1_not_256 PS1_256 PS1_no_color
 
