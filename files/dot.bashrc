@@ -55,7 +55,7 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='$EDITOR -w PKGBUILD'
 alias more=less
-alias diff='diff --color'		  		  # colorful diff
+alias diff='diff --color'                 # colorful diff
 alias mkdir='mkdir -pv'
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
 
