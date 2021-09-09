@@ -33,12 +33,12 @@ match_lhs="$(<"$XDG_CONFIG_HOME/dircolors")"
 use_256_color=true || use_256_color=false
 
 if ${use_color} ; then
-	## Enable colors for ls, etc.
-    eval $(dircolors -b "$XDG_CONFIG_HOME/dircolors")
+  ## Enable colors for ls, etc.
+  eval $(dircolors -b "$XDG_CONFIG_HOME/dircolors")
 
-	${use_256_color} && PS1=$PS1_256 || PS1=$PS1_not_256
+  ${use_256_color} && PS1=$PS1_256 || PS1=$PS1_not_256
 else
-	PS1=$PS1_no_color
+  PS1=$PS1_no_color
 fi
 
 unset use_color use_256_color safe_term match_lhs PS1_not_256 PS1_256 PS1_no_color
@@ -90,5 +90,5 @@ wttr() {
 
 ## Public IP address
 myip() {
-	curl "ipinfo.io/$@"
+  curl "ipinfo.io/$@"
 }
