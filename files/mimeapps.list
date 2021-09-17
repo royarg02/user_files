@@ -1,5 +1,4 @@
 [Default Applications]
-
 application/json=vim.desktop
 application/pdf=firefox.desktop
 inode/directory=lf.desktop
@@ -9,5 +8,6 @@ image/jpeg=sxiv.desktop
 image/png=sxiv.desktop
 text/html=firefox.desktop
 text/plain=vim.desktop
+text/x-shellscript=vim.desktop
 video/mp4=mpv.desktop
 video/x-matroska=mpv.desktop
