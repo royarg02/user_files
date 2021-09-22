@@ -5,13 +5,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export TERMINAL="st"
 export EDITOR="vim"
-export BROWSER="firefox"
-export FILE="lf"
 
 export JAVA_HOME="/usr"
-export CHROME_EXECUTABLE="/usr/bin/chromium"
 
 ## shell experience
 export HISTSIZE=-1    ## infinite history
