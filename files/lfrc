@@ -1,0 +1,32 @@
+set drawbox on
+set hidden on
+set icons on
+set ignorecase on
+set incsearch on
+set number on
+set period 1
+set tabstop 2
+set relativenumber on
+set smartcase on
+
+cmap <tab> cmd-menu-complete
+map D delete
+map <delete> delete
+
+cmd delete ${{
+  clear; tput bold
+  set -f
+  printf "%s\n\nDelete file(s)? [y/N]\n" "$fx"
+  read ans
+  [ $ans = "y" ] && rm -rf -- "$fx"
+}}
+
+cmd open ${{
+  for f in "$fx"; do
+    test -L "$f" && f="$(readlink -f "$f")"
+    case "$(xdg-mime query default "$(file --mime-type -b "$f")")" in
+      "vim.desktop" ) $OPENER "$f" ;;
+      *)              setsid -f $OPENER "$f" ;;
+    esac
+  done
+}}

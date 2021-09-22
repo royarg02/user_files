@@ -16,6 +16,7 @@ dot.profile,.profile,~,
 dot.xinitrc,.xinitrc,~,
 firefox_user.js,user.js,~,
 chromium-flags.conf,chromium-flags.conf,~/.config,
+lfrc,lfrc,~/.config/lf,
 mimeapps.list,mimeapps.list,~/.config,
 wgetrc,wgetrc,~/.config,/root/.config
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
