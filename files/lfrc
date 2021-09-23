@@ -1,31 +1,58 @@
 set drawbox on
+set globsearch on
 set hidden on
 set icons on
 set ignorecase on
 set incsearch on
 set number on
 set period 1
+set scrolloff 2
 set tabstop 2
 set relativenumber on
 set smartcase on
 
 cmap <tab> cmd-menu-complete
+
+map gn push :mkfile<space>
+map gN push :mkdir<space>
+map x $$f
+map r push :rename<space>
 map D delete
+map X !$f
 map <delete> delete
+map <esc> clear-sel
+
+cmd clear-sel :{{
+  clear
+  unselect
+}}
 
 cmd delete ${{
   clear; tput bold
   set -f
   printf "%s\n\nDelete file(s)? [y/N]\n" "$fx"
   read ans
-  [ $ans = "y" ] && rm -rf -- "$fx"
+  [ $ans = "y" ] && rm -rf -- $fx
+  tput sgr0
 }}
 
-cmd open ${{
-  for f in "$fx"; do
+cmd mkdir ${{
+  mkdir -p $*
+}}
+
+cmd mkfile ${{
+  touch $*
+}}
+
+cmd rename %{{
+  mv -iv $f $1
+}}
+
+cmd open &{{
+  for f in $fx; do
     test -L "$f" && f="$(readlink -f "$f")"
     case "$(xdg-mime query default "$(file --mime-type -b "$f")")" in
-      "vim.desktop" ) $OPENER "$f" ;;
+      "vim.desktop" ) setsid -f $TERMINAL -e vim "$f" ;;
       *)              setsid -f $OPENER "$f" ;;
     esac
   done
