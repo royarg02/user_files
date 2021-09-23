@@ -1,5 +1,4 @@
 set drawbox on
-set globsearch on
 set hidden on
 set icons on
 set ignorecase on
