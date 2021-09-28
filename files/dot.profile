@@ -17,8 +17,7 @@ export TERMINAL="st"
 export EDITOR="vim"
 export BROWSER="firefox"
 export FILE="lf"
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_STYLE_OVERRIDE=gtk2
 export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"
 
 ## flutter version management
