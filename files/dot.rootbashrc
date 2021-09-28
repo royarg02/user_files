@@ -49,7 +49,7 @@ alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
 alias cp="cp -iv"                         # confirm before overwriting something
-alias mv="mv -v"
+alias mv="mv -vi"
 alias rm="rm -vI"
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
