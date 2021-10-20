@@ -5,7 +5,9 @@
 SOURCE="@DEFAULT_SOURCE@"
 controller="pulsemixer"
 
-vol="$(pactl get-source-volume $SOURCE | sed -n 's/.* \([0-9]\+\)%.*/\1/p')"
+while [ -z "$vol" ]; do
+  vol="$(pactl get-source-volume $SOURCE | sed -n 's/.* \([0-9]\+\)%.*/\1/p')"
+done
 
 case $BUTTON in
   1) pactl set-source-mute "$SOURCE" toggle ;;
@@ -18,4 +20,3 @@ esac
 pactl get-source-mute "$SOURCE" | grep -q 'yes' && icon=🙊 || icon=🎙 
 
 printf "%s %s%%" "$icon" "$vol"
-

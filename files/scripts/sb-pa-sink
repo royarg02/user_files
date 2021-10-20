@@ -5,7 +5,9 @@
 SINK="@DEFAULT_SINK@"
 controller="pulsemixer"
 
-vol="$(pactl get-sink-volume $SINK | sed -n 's/.* \([0-9]\+\)%.*/\1/p')"
+while [ -z "$vol" ]; do
+ vol="$(pactl get-sink-volume $SINK | sed -n 's/.* \([0-9]\+\)%.*/\1/p')"
+done
 
 case $BUTTON in
   1) pactl set-sink-mute "$SINK" toggle ;;
