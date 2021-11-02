@@ -67,6 +67,9 @@ user_pref("reader.content_width", 9);
 /// Draw tabs in title bar
 user_pref("browser.tabs.drawInTitlebar", true);
 
+/// Make Ctrl+Tab switch between current and last viewed tab
+user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
+
 /// Do not auto-hide the download button
 user_pref("browser.download.autohideButton" , false);
 
