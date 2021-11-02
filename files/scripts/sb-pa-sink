@@ -6,7 +6,7 @@ SINK="@DEFAULT_SINK@"
 controller="pulsemixer"
 
 while [ -z "$vol" ]; do
- vol="$(pactl get-sink-volume $SINK | sed -n 's/.* \([0-9]\+\)%.*/\1/p')"
+  vol="$(pactl get-sink-volume $SINK | sed -n 's/.* \([0-9]\+\)%.*/\1/p')"
 done
 
 case $BUTTON in
