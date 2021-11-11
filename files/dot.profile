@@ -72,3 +72,8 @@ unset -f append_path
 
 ## Source .bashrc if only in login shell; it will be sourced otherwise anyway
 shopt -q login_shell && [[ -f ~/.bashrc ]] && . ~/.bashrc
+
+## Automatically run X if in tty1
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx $XINITRC
+fi
