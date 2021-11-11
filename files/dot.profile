@@ -59,6 +59,7 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 # This will not work with display managers. See https://wiki.archlinux.org/index.php/XDG_Base_Directory
 # for details and workarounds
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 
 # Append additional paths
 append_path "$HOME/.local/bin"

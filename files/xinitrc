@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# ~/.xinitrc
-# Executed by startx 
+# xinitrc - executed by startx
 
 USERRESOURCES="$XDG_CONFIG_HOME/x11/xresources"
 USERXSESSION="$XDG_CACHE_HOME/x11/xsession"
