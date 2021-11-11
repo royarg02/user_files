@@ -1,21 +1,20 @@
 #~/.profile
 
+export EDITOR="vim"
+
 ## Set user XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export EDITOR="vim"
-
-export JAVA_HOME="/usr"
-
 ## shell experience
-export HISTSIZE=-1    ## infinite history
+export HISTSIZE=-1        ## infinite history
 export HISTFILESIZE=-1    ## infinite history
 export HISTCONTROL=ignoreboth:erasedups
-export LESSHISTFILE=-   ## do not create .lesshst file
+export LESSHISTFILE="/dev/null"   ## do not create .lesshst file
 
-## other program settings
+## Program environment settings/variables
+export JAVA_HOME="/usr"
 export LESS_TERMCAP_mb=$'\e[01;31m'
 export LESS_TERMCAP_md=$'\e[01;36m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -24,14 +23,14 @@ export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 
-## Cleanup
-export HISTFILE="$XDG_DATA_HOME/bash/history"
+## Home directory cleanup
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+export HISTFILE="$XDG_DATA_HOME/bash/history"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
-export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 
 ## Source .bashrc if only in login shell; it will be sourced otherwise anyway
 shopt -q login_shell && [[ -f ~/.bashrc ]] && . ~/.bashrc
