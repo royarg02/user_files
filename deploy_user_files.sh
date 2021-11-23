@@ -88,6 +88,20 @@ non_matching_path_root() {
   echo "${full_path#$remove_path/}" | cut -d '/' -f1
 }
 
+### Adds some configuration options to pacman.
+###
+### This function edits the config file of pacman to enable color, tabular list
+### of transactions(upgrade, sync and remove) and an easter egg.
+config_pacman_conf() {
+  config_string='s/^#Color$/Color/; s/^#VerbosePkgLists$/VerbosePkgLists/; /^#\?ILoveCandy$/d; /^#ParallelDownloads.*$/a ILoveCandy'
+  printf "[INFO] Configuring pacman\n"
+  [ -n "$DRY_RUN" ] && \
+    printf "[DRY RUN] sed --in-place='.old' '%s' /etc/pacman.conf\n" "$config_string" && \
+    sed "$config_string" /etc/pacman.conf && return
+  sed --in-place='.old' "$config_string" /etc/pacman.conf
+  printf "[INFO] Old /etc/pacman.conf copied to /etc/pacman.conf.old.\n"
+}
+
 ### In case the user uses the `.profile` and `.rootprofile` file as-is, reminds
 ### them to create the bash history folder.
 make_bash_history() {
@@ -190,6 +204,9 @@ USER_HOME="/home/$USERNAME"
 [ -d "$USER_HOME" ] || \
   { echo "[ERROR] \"$USER_HOME\" doesn't exist! Ensure that the username is correct." && exit 1; }
 
+### Configure pacman
+config_pacman_conf
+
 ### Construct a temporary file to read by removing comments from
 ### "deploy_files.csv".
 sed '/^#\|^$/d' deploy_files.csv > /tmp/files.csv
@@ -244,6 +261,6 @@ if [ -z "$DRY_RUN" ]; then
   make_bash_history
 fi
 
-unset full_path remove_path location new_location dir owner USERNAME USER_HOME NO_CONFIRM DRY_RUN IFS
-unset -f copy_files non_matching_path_root show_license make_bash_history change_owner dry_run_message no_confirm_message
+unset full_path remove_path config_string location new_location dir owner USERNAME USER_HOME NO_CONFIRM DRY_RUN IFS
+unset -f copy_files non_matching_path_root config_pacman_conf show_license make_bash_history change_owner dry_run_message no_confirm_message
 exit 0

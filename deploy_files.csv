@@ -2,7 +2,6 @@
 acpi,acpi,/etc,
 bash.bashrc,bash.bashrc,/etc,
 fstab,fstab,/etc,
-pacman.conf,pacman.conf,/etc,
 etcprofile,profile,/etc,
 connman.conf,main.conf,/etc/connman,
 nobeep.conf,nobeep.conf,/etc/modprobe.d,
