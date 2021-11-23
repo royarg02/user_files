@@ -1,7 +1,6 @@
 #FILENAME,FILENAME TO BE COPIED AS,LOCATION(S),
 acpi,acpi,/etc,
 bash.bashrc,bash.bashrc,/etc,
-fstab,fstab,/etc,
 etcprofile,profile,/etc,
 connman.conf,main.conf,/etc/connman,
 nobeep.conf,nobeep.conf,/etc/modprobe.d,
