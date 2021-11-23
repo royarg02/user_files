@@ -2,11 +2,11 @@
     ### Display ###
     monitor = 0
     follow = none
-    geometry = "0x0-0+25"
+    width = 300
+    offset = 0x25
+    notification_limit = 7
     indicate_hidden = yes
-    shrink = yes
     transparency = 0
-    notification_height = 0
     separator_height = 2
     padding = 8
     horizontal_padding = 8
@@ -47,8 +47,6 @@
     always_run_script = true
     title = Dunst
     class = Dunst
-    startup_notification = false
-    verbosity = mesg
     corner_radius = 0
     ignore_dbusclose = false
 
@@ -62,10 +60,6 @@
 
 [experimental]
     per_monitor_dpi = false
-
-[shortcuts]
-    history = mod4+shift+a
-    context = mod4+ctrl+a
 
 [urgency_low]
     background = "#242831"
