@@ -4,14 +4,14 @@
 # xwallpaper is run as a daemon, no need to run in background
 setbg
 
+# Run pipewire
+pipewire &
+
 # Run dwmblocks
 dwmblocks &
 
 # Run connman-gtk
 connman-gtk &
-
-# Run udiskie
-udiskie -s &
 
 # Run dunst
 dunst &
@@ -21,3 +21,9 @@ parcellite &
 
 # Run xss-lock
 xss-lock -- slock &
+
+# Run devmon
+devmon \
+  --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume mounted\" \"%f at %d\"" \
+  --exec-on-unmount "notify-send --icon=block-device --urgency=low \"Volume unmounted\" \"%f\"" \
+  --exec-on-remove "notify-send --icon=block-device --urgency=low \"Volume removed\" \"%f\"" &
