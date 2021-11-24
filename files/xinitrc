@@ -21,6 +21,11 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     unset f
 fi
 
+# start user login session message bus
+[ -z "$DBUS_SESSION_BUS_ADDRESS" ] && \
+  eval $(dbus-daemon --session --fork --address=unix:path=$XDG_RUNTIME_DIR/bus)
+export DBUS_SESSION_BUS_ADDRESS
+
 # Source xprofile
 [ -f "$XDG_CONFIG_HOME/x11/xprofile" ] && . "$XDG_CONFIG_HOME/x11/xprofile"
 
