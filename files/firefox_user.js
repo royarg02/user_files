@@ -43,6 +43,9 @@ user_pref("privacy.resistFingerprinting" , true);
 
 /// DON'T CHANGE THESE
 
+/// Enable GTK+ client side decoration
+user_pref("ui.GtkCSDAvailable", 1);
+
 /// Disable accessibility services
 user_pref("accessibility.force_disabled", 1);
 
@@ -65,7 +68,7 @@ user_pref("reader.font_type", "serif");
 user_pref("reader.content_width", 9);
 
 /// Draw tabs in title bar
-user_pref("browser.tabs.drawInTitlebar", true);
+user_pref("browser.tabs.inTitlebar", 1);
 
 /// Make Ctrl+Tab switch between current and last viewed tab
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
