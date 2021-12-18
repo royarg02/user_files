@@ -35,7 +35,8 @@
     icon_position = left
     min_icon_size = 0
     max_icon_size = 32
-    icon_path = /usr/share/icons/Papirus-Dark/16x16/status/:/usr/share/icons/Papirus-Dark/16x16/devices/:/usr/share/icons/Papirus-Dark/16x16/legacy/:/usr/share/icons/Papirus-Dark/symbolic/status/:/usr/share/icons/Papirus-Dark/symbolic/devices/:/usr/share/icons/Papirus-Dark/16x16/panel/
+    icon_theme = "Papirus-Dark"
+    enable_recursive_icon_lookup = true
 
     ### History ###
     sticky_history = yes
