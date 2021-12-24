@@ -13,7 +13,6 @@ dot.bashrc,.bashrc,~,
 dot.profile,.profile,~,
 firefox_user.js,user.js,~,
 chromium-flags.conf,chromium-flags.conf,~/.config,
-lfrc,lfrc,~/.config/lf,
 mimeapps.list,mimeapps.list,~/.config,
 wgetrc,wgetrc,~/.config,/root/.config
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
@@ -23,6 +22,7 @@ fonts.conf,fonts.conf,~/.config/fontconfig,
 gitconfig,config,~/.config/git,
 gtk2rc,gtkrc,~/.config/gtk-2.0,
 gtk3settings.ini,settings.ini,~/.config/gtk-3.0,
+lfrc,lfrc,~/.config/lf,
 python_startup,startup,~/.config/python,/root/.config/python
 inputrc,inputrc,~/.config/readline,/root/.config/readline
 image-info,image-info,~/.config/sxiv/exec,
