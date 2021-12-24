@@ -17,6 +17,7 @@ lfrc,lfrc,~/.config/lf,
 mimeapps.list,mimeapps.list,~/.config,
 wgetrc,wgetrc,~/.config,/root/.config
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
+btop.conf,btop.conf,~/.config/btop,
 dunstrc,dunstrc,~/.config/dunst,
 fonts.conf,fonts.conf,~/.config/fontconfig,
 gitconfig,config,~/.config/git,
