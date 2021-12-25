@@ -28,6 +28,9 @@ user_pref("browser.urlbar.suggest.topsites", false);
 /// Don't suggest search engines
 user_pref("browser.urlbar.suggest.engines", false);
 
+/// Always ask where to save files
+user_pref("browser.download.useDownloadDir", false);
+
 /// Enable DRM content
 //user_pref("media.eme.enabled", true);
 
