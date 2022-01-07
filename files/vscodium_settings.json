@@ -1,6 +1,7 @@
 {
     "debug.toolBarLocation": "docked",
     "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.persistentSessionReviveProcess": "never",
     "editor.smoothScrolling": true,
     "editor.cursorBlinking": "smooth",
     "editor.cursorSmoothCaretAnimation": true,
@@ -33,12 +34,15 @@
     "workbench.startupEditor": "none",
     "workbench.tree.renderIndentGuides": "always",
     "update.mode": "none",
+    "security.workspace.trust.enabled": false,
     "code-runner.runInTerminal": true,
     "code-runner.saveFileBeforeRun": true,
     "dart.allowAnalytics": false,
     "dart.flutterHotReloadOnSave": "never",
     "dart.flutterHotRestartOnSave": false,
     "dart.previewFlutterUiGuides": true,
+    "dart.promptToGetPackages": false,
+    "dart.checkForSdkUpdates": false,
     "dart.flutterSdkPaths": [
         ".local/src/flutter_sdk_master",
         ".local/src/flutter_sdk_stable"
@@ -54,4 +58,5 @@
         { "before": ["Z", "Z"], "commands": [":x"] }
     ],
     "vim.useSystemClipboard": true,
+    "redhat.telemetry.enabled": false,
 }
