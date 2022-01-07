@@ -44,7 +44,7 @@ fi
 unset use_color use_256_color safe_term match_lhs PS1_not_256 PS1_256 PS1_no_color
 
 ## Aliases
-alias ls='ls -N --color=auto'
+alias ls='ls -hN --color=auto --group-directories-first'
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
