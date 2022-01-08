@@ -43,10 +43,6 @@
     "dart.previewFlutterUiGuides": true,
     "dart.promptToGetPackages": false,
     "dart.checkForSdkUpdates": false,
-    "dart.flutterSdkPaths": [
-        ".local/src/flutter_sdk_master",
-        ".local/src/flutter_sdk_stable"
-    ],
 	"dart.previewLsp": true,
     "github.gitAuthentication": false,
     "java.semanticHighlighting.enabled": true,
