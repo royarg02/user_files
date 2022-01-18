@@ -50,6 +50,7 @@ alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
 alias cp="cp -iv"                         # confirm before overwriting something
 alias mv="mv -vi"
+alias rm="rm -v"                          # display which files have been deleted
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='$EDITOR -w PKGBUILD'
