@@ -26,8 +26,8 @@ export HISTCONTROL=ignoreboth:erasedups
 export LESSHISTFILE="/dev/null"   ## do not create .lesshst file
 
 ## Program environment settings/variables
-export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export ANDROID_SDK_ROOT="/opt/android-sdk"
+export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
 export FLUTTER_ROOT="$HOME/.local/src/flutter_sdk_master"
 export JAVA_HOME="/usr"
