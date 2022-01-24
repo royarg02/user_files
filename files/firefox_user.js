@@ -73,6 +73,9 @@ user_pref("reader.content_width", 9);
 /// Draw tabs in title bar
 user_pref("browser.tabs.inTitlebar", 1);
 
+/// Do not unload tabs
+user_pref("browser.tabs.unloadOnLowMemory", false);
+
 /// Make Ctrl+Tab switch between current and last viewed tab
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 
