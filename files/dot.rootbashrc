@@ -13,35 +13,25 @@ PS1_not_256='\[$(tput bold)\]\[$(tput setaf 1)\][\u@\h \[$(tput setaf 5)\]\w\[$(
 ## PS1 for no color
 PS1_no_color='[\u@\h \w]$(__git_ps1 "[%s]")\$ '
 
-# sanitize TERM
-safe_term=${TERM//[^[:alnum:]]/?}
-
 ## Set colorful PS1 only on colorful terminals.
-## dircolors -p uses its own built-in database.
-# Check if "dircolors database" is present, if not, make one
-[[ ! -f "$XDG_CONFIG_HOME/dircolors" ]] && type -P dircolors > /dev/null && \
-  dircolors -p > "$XDG_CONFIG_HOME/dircolors"
+## Check if dircolors is present(used to load colors for ls) and the terminal
+## supports more than 0 colors
+if command -v dircolors > /dev/null && [[ $(tput colors) -gt 0 ]]; then
+  # Check if "dircolors database" is present, if not, make one
+  # dircolors -p uses its own built-in database.
+  [[ ! -f "$XDG_CONFIG_HOME/dircolors" ]] && \
+    dircolors -p > "$XDG_CONFIG_HOME/dircolors"
 
-# Check if TERM supports color
-match_lhs="$(<"$XDG_CONFIG_HOME/dircolors")"
-[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
-
-## Whether the terminal can display 256 colors
-## Determines through tput the number of colors the terminal supports
-## If tput is not found, it resorts to using the TERM variable for the query
-([[ $(tput colors) -eq 256 ]] > /dev/null 2>&1 || [[ $TERM =~ .*256.* ]]) && \
-use_256_color=true || use_256_color=false
-
-if ${use_color} ; then
-  ## Enable colors for ls, etc.
+  # Enable colors for ls, etc.
   eval $(dircolors -b "$XDG_CONFIG_HOME/dircolors")
 
-  ${use_256_color} && PS1=$PS1_256 || PS1=$PS1_not_256
+  # Set PS1 on whether the terminal can display 256 colors
+  [[ $(tput colors) -eq 256 ]] > /dev/null 2>&1 && PS1=$PS1_256 || PS1=$PS1_not_256
 else
   PS1=$PS1_no_color
 fi
 
-unset use_color use_256_color safe_term match_lhs PS1_not_256 PS1_256 PS1_no_color
+unset PS1_not_256 PS1_256 PS1_no_color
 
 ## Aliases
 alias ls='ls -hN --color=auto --group-directories-first'
