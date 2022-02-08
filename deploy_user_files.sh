@@ -204,8 +204,8 @@ USER_HOME="/home/$USERNAME"
 [ -d "$USER_HOME" ] || \
   { echo "[ERROR] \"$USER_HOME\" doesn't exist! Ensure that the username is correct." && exit 1; }
 
-### Configure pacman
-config_pacman_conf
+### Configure pacman if it exists(for Arch-based distros)
+command -v pacman && config_pacman_conf
 
 ### Construct a temporary file to read by removing comments from
 ### "deploy_files.csv".
