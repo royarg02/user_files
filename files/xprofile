@@ -4,8 +4,10 @@
 # xwallpaper is run as a daemon, no need to run in background
 setbg
 
-# Run pipewire
+# Run pipewire and related programs
 pipewire &
+pipewire-pulse &
+wireplumber &
 
 # Run dwmblocks
 dwmblocks &
