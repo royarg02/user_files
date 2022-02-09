@@ -47,7 +47,7 @@ user_pref("privacy.resistFingerprinting" , true);
 user_pref("privacy.window.maxInnerWidth", 1600);
 user_pref("privacy.window.maxInnerHeight", 900);
 
-/// Disable mozAddonManager Web API [FF57+]
+/// Disable mozAddonManager Web API
 user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
 
 /// Enable RFP letterboxing
@@ -331,16 +331,5 @@ user_pref("privacy.firstparty.isolate" , false);
 /// Disable(?) Firefox Pioneer (US only)
 user_pref("toolkit.telemetry.pioneer-new-studies-available", false);
 
-/// HARDWARE ACCELERATION
-
-/// Enable WebRender compositor
-user_pref("gfx.webrender.all", true);
-
-/// Enable VA-API with ffmpeg
+/// Enable VA-API with ffmpeg for hardware acceleration
 user_pref("media.ffmpeg.vaapi.enabled", true);
-
-/// Disable internal decoders for VP8/VP9
-user_pref("media.ffvpx.enabled", false);
-
-/// Disable remote data decoder process for VP8/VP9
-user_pref("media.rdd-vpx.enabled", false);
