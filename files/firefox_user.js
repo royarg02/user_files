@@ -91,6 +91,9 @@ user_pref("browser.search.widget.inNavBar", false);
 /// Draw tabs in title bar
 user_pref("browser.tabs.inTitlebar", 1);
 
+/// Always show tab list in tab bar
+user_pref("browser.tabs.tabmanager.enabled", true);
+
 /// Do not unload tabs
 user_pref("browser.tabs.unloadOnLowMemory", false);
 
