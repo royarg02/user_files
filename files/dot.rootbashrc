@@ -1,7 +1,7 @@
 ### ~/.bashrc
 
-## Set PS1s according to TERM
-## [root@manjaro ~][master]$ _
+## Set PS1s according to the number of colors the terminal supports
+## [root@ideapad ~][master]$ _
 ## RED brackets, user, '@', host, PURPLE working directory, CYAN git branch, white '$'
 
 ## PS1 for terminals supporting 256 colors
