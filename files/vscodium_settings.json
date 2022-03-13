@@ -22,6 +22,7 @@
   "search.smartCase": true,
   "window.autoDetectColorScheme": true,
   "window.titleBarStyle": "custom",
+  "workbench.colorTheme": "Monokai",
   "window.openFoldersInNewWindow": "on",
   "workbench.enableExperiments": false,
   "workbench.list.smoothScrolling": true,
