@@ -13,6 +13,12 @@ if [ -f "$USERRESOURCES" ]; then
     xrdb -merge "$USERRESOURCES"
 fi
 
+# start user login session message bus
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+  eval $(dbus-daemon --session --fork --address=unix:path=$XDG_RUNTIME_DIR/bus)
+  export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+fi
+
 # start some nice programs
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
@@ -20,11 +26,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     done
     unset f
 fi
-
-# start user login session message bus
-[ -z "$DBUS_SESSION_BUS_ADDRESS" ] && \
-  eval $(dbus-daemon --session --fork --address=unix:path=$XDG_RUNTIME_DIR/bus)
-export DBUS_SESSION_BUS_ADDRESS
 
 # Source xprofile
 [ -f "$XDG_CONFIG_HOME/x11/xprofile" ] && . "$XDG_CONFIG_HOME/x11/xprofile"
