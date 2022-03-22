@@ -48,6 +48,7 @@ cmd rename %{{
 }}
 
 cmd open &{{
+  IFS=$'\n'
   for f in $fx; do
     test -L "$f" && f="$(readlink -f "$f")"
     case "$(xdg-mime query default "$(file --mime-type -b "$f")")" in
