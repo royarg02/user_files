@@ -38,9 +38,6 @@ esac
 ## Source bash_completion if it exists and is readable
 [[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 
-# source git completion if it exists and is readable
-[[ -r /usr/local/share/bash-completion/completions/git ]] && . /usr/local/share/bash-completion/completions/git
-
 # source git prompt if it exists and is readable
 [[ -r /usr/share/git-completion/prompt.sh ]] && . /usr/share/git-completion/prompt.sh
 
