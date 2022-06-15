@@ -29,6 +29,7 @@ export LESSHISTFILE="/dev/null"   ## do not create .lesshst file
 export ANDROID_SDK_ROOT="/opt/android-sdk"
 export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
+export CHROOT="$HOME/.local/src/artix-chroot"
 export FLUTTER_ROOT="$HOME/.local/src/flutter_sdk_master"
 export JAVA_HOME="/usr"
 export LESS_TERMCAP_mb=$'\e[01;31m'
