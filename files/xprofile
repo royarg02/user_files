@@ -12,8 +12,8 @@ wireplumber &
 # Run dwmblocks
 dwmblocks &
 
-# Run connman-gtk
-connman-gtk &
+# Run cmst minimized with minimize button and vpn disabled
+cmst -mMn &
 
 # Run dunst
 dunst &
