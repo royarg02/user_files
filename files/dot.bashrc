@@ -52,13 +52,13 @@ alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/setting
 ## Nice functions
 
 ## archive extractor
-ex() {
+extract() {
   if [[ -f $1 ]] ; then
     case $1 in
       *.tar.bz2)   tar xjf $1   ;;
       *.tar.gz)    tar xzf $1   ;;
       *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
+      *.rar)       7z x $1      ;;
       *.gz)        gunzip $1    ;;
       *.tar)       tar xf $1    ;;
       *.tbz2)      tar xjf $1   ;;
@@ -66,7 +66,7 @@ ex() {
       *.zip)       unzip $1     ;;
       *.Z)         uncompress $1;;
       *.7z)        7z x $1      ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
+      *)           echo "'$1' cannot be extracted" ;;
     esac
   else
     echo "'$1' is not a valid file"
