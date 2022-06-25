@@ -5,4 +5,4 @@ Defaults insults
 %wheel ALL=(ALL) ALL
 
 ## Same thing without a password
-%wheel ALL=(ALL) NOPASSWD: /usr/bin/mount, /usr/bin/umount, /usr/bin/eject, /usr/bin/pacman -Syu, /usr/bin/prime-switch, /usr/bin/loginctl hibernate, /usr/bin/loginctl poweroff, /usr/bin/loginctl reboot, /usr/bin/loginctl suspend
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/mount, /usr/bin/umount, /usr/bin/eject, /usr/bin/pacman -Syu, /usr/bin/loginctl hibernate, /usr/bin/loginctl poweroff, /usr/bin/loginctl reboot, /usr/bin/loginctl suspend
