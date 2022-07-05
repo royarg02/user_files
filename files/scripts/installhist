@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Displays the list of packages installed by pacman(1) sorted by their install
+# date and time in the following format:
+# <install date and time> <name> <installed version>
+
+TIME_FORMAT="%Y/%m/%d %H:%M"
+
+awk -v fmt="$TIME_FORMAT" '
+  /%NAME%/{getline; PKG=$1}
+  /%VERSION%/{getline; VER=$1}
+  /%INSTALLDATE%/{getline; IDATE=strftime(fmt,$1); print IDATE, PKG, VER}
+' /var/lib/pacman/local/*/desc | sort | less
+
