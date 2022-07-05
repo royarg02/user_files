@@ -1,63 +1,90 @@
 #!/bin/sh
 
 # Records the screen with given window size and position
-# Depends on ffmpeg
+# Depends on ffmpeg(1) and optionally on slop(1) and xrandr(1)
 
 usage() {
   cat << END
-Record screen with given frame size and position
+Record screen on Xorg(1) using ffmpeg(1).
 
-USAGE: screcord [-h] [-y] SIZE X Y [-i] FILE
+USAGE: screcord [-hi] -f FILE [SIZE X Y]
 
   -h    Show this help information.
-  -y    Whether to overwrite already existing output file.
-  -i    Interactively set the frame size and position using slop(1).
-  SIZE  The size of the frame to be recorded. Must be in the form WxH, where W
-        is the width and H the height of the frame.
-  X     The horizontal distance from the top left corner of the screen to the
-        left edge of the frame.
-  Y     The vertical distance from the top left corner of the screen to the top
-        edge of the frame.
-  FILE  The name of the file to write to.
+  -i    Interactively set the frame size and position using slop(1), ignoring
+        SIZE, X and Y arguments.
+  SIZE  The dimensions of the window to be recorded. Must be in the form WxH,
+        where W is the width and H the height of the window.
+  X, Y  The X and Y coordinates of the top left corner of the window of the
+        dimension SIZE.
+  -f    The name of the recording file.
 
-Options SIZE, X and Y are ignored if "-i" flag is used.
+If all "-i", "SIZE", "X" and "Y" are omitted, it records either the primary
+display or the first display listed by xrandr(1), whichever is available.
 
 END
 }
 
-should_overwrite=""
+die() {
+  [ -n "$1" ] && printf "%s\n" "$1" && exit 1
+}
 
-while getopts ":yhi" opt; do
+get_size_using_slop() {
+  command -v slop > /dev/null 2>&1 || \
+    die "slop must be installed to provide frame size interactively."
+  slop_value="$(mktemp)"
+  slop -f "%wx%h %x %y" > "$slop_value"
+
+  read -r size x_offset y_offset < "$slop_value"
+}
+
+get_size_using_xrandr() {
+  # eDP-1 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 344mm x 193mm
+  temp="$(mktemp)"
+  xrandr --nograb --current | \
+    sed -nE 's/.*connected (primary )*([0-9]+x[0-9]+)\+([0-9]+)\+([0-9]+).*/\1\2 \3 \4/p' > "$temp"
+
+  # Use the primary display if available
+  # primary 1920x1080 0 0
+  read -r _ size x_offset y_offset << END
+  $(grep 'primary' "$temp")
+END
+
+  # If primary is not found(turned off), then get the first display as listed by
+  # xrandr
+  # 1360x768 1920 0
+  [ -z "$size" ] && read -r size x_offset y_offset << END
+  $(head -n1 "temp")
+END
+}
+
+while getopts ":f:hi" opt; do
   case "$opt" in
-    y) should_overwrite="-y " ;;
-    i) slop="y" ;;
-    h) usage && exit 0 ;;
+    f) file="$OPTARG" ;;
+    i) get_size_using_slop ;;
+    h | *) usage && exit 0 ;;
   esac
 done
 shift $((OPTIND - 1))
 
-if [ -z "$slop" ]; then
-  echo "$1" | grep -Pq '\d+x\d+' && size="$1"
-  [ -z "$size" ] && echo "Incorrect frame size \"$1\"." && exit 1
-  echo "$2" | grep -Pq '\d+' && x_pos="$2"
-  [ -z "$x_pos" ] && echo "Incorrect horizontal frame position \"$2\"." && exit 1
-  echo "$3" | grep -Pq '\d+' && y_pos="$3"
-  [ -z "$y_pos" ] && echo "Incorrect vertical frame position \"$3\"." && exit 1
-  file="$4"
-else
-  command -v slop > /dev/null || \
-    { echo "slop must be installed to provide frame size interactively" && exit 1; }
-  tmp="$(mktemp)"
-  slop -f "%wx%h %x %y" > "$tmp"
-  read -r size x_pos y_pos < "$tmp"
-  rm "$tmp"
-  file="$1"
+[ -z "$file" ] && \
+  die "No output file specified. See usage information by running \"screcord -h\"."
+
+if [ -z "$size" ]; then
+  if [ -n "$1" ]; then
+    # The user explicitly entered a custom size
+    size="$1"
+    x_offset="$2"
+    y_offset="$3"
+
+  echo "$size" | grep -Pq '\d+x\d+' || die "Incorrect frame size \"$size\"."
+  echo "$x_offset" | grep -Pq '\d+' || die "Incorrect x offset \"$x_offset\"."
+  echo "$y_offset" | grep -Pq '\d+' || die "Incorrect y offset \"$y_offset\"."
+  else
+    # The user didn't provide a size, get window size from xrandr
+    get_size_using_xrandr
+  fi
 fi
 
-[ -z "$file" ] && echo "No output file specified." && exit 1
+ffmpeg -f x11grab -s "$size" -i "$DISPLAY"+"$x_offset","$y_offset" "$file"
 
-ffmpeg ${should_overwrite}-f x11grab -s "$size" -i "$DISPLAY"+"$x_pos","$y_pos" "$file"
-
-unset size x_pos y_pos file should_overwrite
-unset -f usage
 exit 0
