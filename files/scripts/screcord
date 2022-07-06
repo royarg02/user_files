@@ -35,9 +35,13 @@ get_size_using_slop() {
   slop -f "%wx%h %x %y" > "$slop_value"
 
   read -r size x_offset y_offset < "$slop_value"
+  rm "$slop_value"
 }
 
 get_size_using_xrandr() {
+  command -v xrandr > /dev/null 2>&1 || \
+    die "xrandr must be installed to get frame size automatically."
+
   # eDP-1 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 344mm x 193mm
   temp="$(mktemp)"
   xrandr --nograb --current | \
@@ -55,13 +59,14 @@ END
   [ -z "$size" ] && read -r size x_offset y_offset << END
   $(head -n1 "temp")
 END
+rm "$temp"
 }
 
 while getopts ":f:hi" opt; do
   case "$opt" in
     f) file="$OPTARG" ;;
     i) get_size_using_slop ;;
-    h | *) usage && exit 0 ;;
+    *) usage && exit 0 ;;
   esac
 done
 shift $((OPTIND - 1))
