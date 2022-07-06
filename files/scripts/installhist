@@ -6,9 +6,44 @@
 
 TIME_FORMAT="%Y/%m/%d %H:%M"
 
+usage() {
+  cat << END
+Display list of packages installed by pacman(1), sorted by install date.
+
+USAGE: installhist [-hn]
+
+  -h    Show this help information.
+  -n    Sort instead by the package name.
+
+END
+}
+
+sort_list() {
+  # Only perform sort if the input is coming from a pipe and [should_sort] is
+  # set
+  if ! [ -t /dev/stdin ]; then
+    [ -n "$should_sort" ] && sort && return 0
+    cat /dev/stdin && return 0
+  fi
+  return 1
+}
+
+should_sort="1"
+
+while getopts ":nh" opt; do
+  case "$opt" in
+    # Disable sort if sort by name is requested since `awk` lists alphabetically
+    # by default
+    n) unset should_sort ;;
+    *) usage && exit 0 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
 awk -v fmt="$TIME_FORMAT" '
   /%NAME%/{getline; PKG=$1}
   /%VERSION%/{getline; VER=$1}
   /%INSTALLDATE%/{getline; IDATE=strftime(fmt,$1); print IDATE, PKG, VER}
-' /var/lib/pacman/local/*/desc | sort | less
+' /var/lib/pacman/local/*/desc | sort_list | less
 
+exit 0
