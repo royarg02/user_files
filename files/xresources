@@ -17,7 +17,7 @@ dmenu.selbackground: #4B566A
 
 ! st
 st.font: monospace:size=11
-st.font2: "Noto Color Emoji:pixelsize=11"
+st.font2: NotoColorEmoji:pixelsize=11
 st.borderpx: 8
 st.mousescrollincrement: 4
 st.cols: 130
