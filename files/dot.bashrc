@@ -24,7 +24,6 @@ PS1_no_color="\$(exit_code)\\$ \w\$(__git_ps1 \(%s\)) > "
 ## supports more than 0 colors
 if command -v dircolors > /dev/null && [[ $(tput colors) -gt 0 ]]; then
   # Check if "dircolors database" is present, if not, make one
-  # dircolors -p uses its own built-in database.
   [[ ! -f "$XDG_CONFIG_HOME/dircolors" ]] && \
     dircolors -p > "$XDG_CONFIG_HOME/dircolors"
 

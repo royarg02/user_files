@@ -23,13 +23,14 @@ PS1_no_color="\$(exit_code)\\$ \w\$(__git_ps1 \(%s\)) > "
 ## Check if dircolors is present(used to load colors for ls) and the terminal
 ## supports more than 0 colors
 if command -v dircolors > /dev/null && [[ $(tput colors) -gt 0 ]]; then
-  # Check if "dircolors database" is present, if not, make one
-  # dircolors -p uses its own built-in database.
-  [[ ! -f "$XDG_CONFIG_HOME/dircolors" ]] && \
-    dircolors -p > "$XDG_CONFIG_HOME/dircolors"
+  # Check if "dircolors database" is present, if not, make one.
+  # It is possible to load this file before ".profile", making XDG_CONFIG_HOME
+  # unset. Use the default value in that case.
+  [[ ! -f "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors" ]] && \
+    dircolors -p > "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors"
 
   # Enable colors for ls, etc.
-  eval $(dircolors -b "$XDG_CONFIG_HOME/dircolors")
+  eval $(dircolors -b "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors")
 
   # Set PS1 on whether the terminal can display 256 colors
   [[ $(tput colors) -eq 256 ]] > /dev/null 2>&1 && PS1=$PS1_256 || PS1=$PS1_not_256
