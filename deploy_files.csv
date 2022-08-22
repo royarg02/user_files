@@ -25,6 +25,7 @@ gtk3settings.ini,settings.ini,~/.config/gtk-3.0,
 lfrc,lfrc,~/.config/lf,
 python_startup,startup,~/.config/python,/root/.config/python
 inputrc,inputrc,~/.config/readline,/root/.config/readline
+sxhkdrc,sxhkdrc,~/.config/sxhkd,
 vimrc,vimrc,~/.config/vim,/root/.config/vim
 vscodium_settings.json,settings.json,~/.config/VSCodium/User,
 xinitrc,xinitrc,~/.config/x11,

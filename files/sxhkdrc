@@ -1,0 +1,25 @@
+super + {b,e,t}
+  {$BROWSER,$TERMINAL -e $FILE,$TERMINAL}
+
+super + {shift,control} + a
+  dunstctl {history-pop,context}
+
+XF86AudioMicMute
+  pactl set-source-mute @DEFAULT_SOURCE@ toggle; \
+  kill -37 $(pidof dwmblocks)
+
+XF86AudioMute
+  pactl set-sink-mute @DEFAULT_SINK@ toggle; \
+  kill -38 $(pidof dwmblocks)
+
+XF86Audio{Lower,Raise}Volume
+  pactl set-sink-volume @DEFAULT_SINK@ {-,+}5%; \
+  kill -38 $(pidof dwmblocks)
+
+XF86MonBrightnessDown
+  xbacklight -dec 1; \
+  kill -39 $(pidof dwmblocks)
+
+XF86MonBrightnessUp
+  xbacklight -inc 1; \
+  kill -39 $(pidof dwmblocks)
