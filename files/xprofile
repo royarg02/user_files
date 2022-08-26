@@ -30,5 +30,8 @@ devmon \
   --exec-on-unmount "notify-send --icon=block-device --urgency=low \"Volume unmounted\" \"%f\"" \
   --exec-on-remove "notify-send --icon=block-device --urgency=low \"Volume removed\" \"%f\"" &
 
+# Start ssh-agent
+eval $(ssh-agent)
+
 # Run sxhkd
 sxhkd &

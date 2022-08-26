@@ -30,4 +30,4 @@ fi
 # Source xprofile
 [ -f "$XDG_CONFIG_HOME/x11/xprofile" ] && . "$XDG_CONFIG_HOME/x11/xprofile"
 
-ssh-agent dwm
+dwm
