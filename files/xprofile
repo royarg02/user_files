@@ -18,8 +18,8 @@ cmst -mMn &
 # Run dunst
 dunst &
 
-# Run parcellite
-parcellite &
+# Run clipit
+clipit &
 
 # Run xss-lock
 xss-lock -- slock &
