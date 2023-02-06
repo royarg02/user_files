@@ -20,9 +20,8 @@ Running without any arguments displays the currently set brightness.
   max	set maximum LCD brightness, equal to the value stored at
         "$location/max_brightness".
   min	set minimum LCD brightness; equivalent to "lcdbrightness 0".
-  VALUE	the brightness value to set.
-        VALUE must be an integer such that 0 <= VALUE <= max, incorrect values
-        other than the options above will fail.
+  VALUE	the brightness value to set, either in percentage from 0% to 100%, or an
+        absoute value in the range 0 <= VALUE <= max.
 
 This script tries to write to "$location/brightness".
 A udev rule allowing any users(including you) in the "video" group to write to
@@ -53,11 +52,12 @@ case "$1" in
 	"-h") usage && exit 0 ;;
 	"max") value="$max" ;;
 	"min") value=0 ;;
+	*%) value=$(( ${1%\%} * max / 100 )) ;;
 	*)  value="$*"
 esac
 
 # Change brightness accordingly, sanity-checks are handled
-echo "$value" > "$location/brightness" || \
+echo "$value" > "$location/brightness" 2> /dev/null || \
 	printf "Invalid brightness value.\nRun \"lcdbrightness -h\" for help.\n" && exit 1
 
 unset location value max curr
