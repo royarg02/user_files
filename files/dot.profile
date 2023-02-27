@@ -12,7 +12,7 @@ export TERMINAL="st"
 export EDITOR="vim"
 export BROWSER="firefox"
 export FILE="lf"
-export QT_STYLE_OVERRIDE=gtk2
+export QT_QPA_PLATFORMTHEME=gtk2
 
 ## Set user XDG directories
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -41,6 +41,7 @@ export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 export MOZ_USE_XINPUT2=1
+export NODE_REPL_HISTORY=''
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 ## Home directory cleanup
@@ -77,5 +78,5 @@ shopt -q login_shell && [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 ## Automatically run X if in tty1
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx $XINITRC
+    exec startx $XINITRC
 fi
