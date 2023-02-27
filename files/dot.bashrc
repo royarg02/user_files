@@ -52,7 +52,8 @@ alias np='$EDITOR -w PKGBUILD'
 alias more=less
 alias diff='diff --color'                 # colorful diff
 alias mkdir='mkdir -pv'
-alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
+alias which='alias | which --read-alias'
+alias yarn='yarn --no-default-rc --use-yarnrc "$XDG_CONFIG_HOME/yarn/yarnrc"'
 
 ## Nice functions
 
