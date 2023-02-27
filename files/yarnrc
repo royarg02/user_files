@@ -1,0 +1,4 @@
+disable-self-update-check true
+enableTelemetry "0"
+prefix "/home/rarg/.local"
+
