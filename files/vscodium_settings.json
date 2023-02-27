@@ -5,7 +5,7 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.smoothScrolling": true,
   "editor.cursorBlinking": "smooth",
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "off",
   "editor.cursorSurroundingLines": 1,
   "editor.fontLigatures": true,
   "editor.guides.bracketPairs": true,
