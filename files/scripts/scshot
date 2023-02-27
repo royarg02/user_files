@@ -1,0 +1,123 @@
+#!/bin/sh
+
+# Takes a screenshot of the entire screen, or a window, or any rectangular
+# region with import(1) and optionally xprop(1) and slop(1).
+
+usage() {
+  cat << END
+Take a screenshot.
+
+By default, takes a screenshot of the entire screen.
+
+Uses import(1), xprop(1) and slop(1).
+
+USAGE: scshot [-hrw] [-t TIMEOUT]
+
+  -h    Show this help information.
+  -r    Take screenshot of a selected rectangular region.
+  -t    Take delayed screenshot after TIMEOUT seconds. Disabled for any values
+        less than 0.
+  -w    Take screenshot of a window, selected using the mouse.
+
+The screenshots are saved at "$HOME/Pictures/Screenshots", named by timestamp.
+
+END
+}
+
+die() {
+  [ "$1" ] && notify "$1" && exit 1
+}
+
+notify() {
+  command -v notify-send > /dev/null 2>&1 || exit 1
+  notify-send "Message from scshot" "$1"
+}
+
+notify_countdown() {
+  command -v notify-send > /dev/null 2>&1 || exit 1
+  # Make the notification go away 1ms before screenshot is taken to avoid
+  # including it in the shot
+  notify-send -t "$((TIMEOUT * 1000 - 1))" "Message from scshot" "Taking screenshot after $TIMEOUT seconds..."
+}
+
+# The absolute path of the created screenshot
+get_filename() {
+  echo "$screenshot_dir/Screenshot_$(date '+%Y%m%d-%H%M%S').png"
+}
+
+# Take screenshot of a window.
+window_shot() {
+  command -v xprop > /dev/null 2>&1 || \
+    die "xorg-xprop must be installed for window screenshot."
+
+  # Wait after TIMEOUT seconds for window selection, if provided
+  [ "$TIMEOUT" ] && notify_countdown
+  sleep "${TIMEOUT:-0}" 
+  # Get the pid of the selected window from xprop info
+  selected_pid="$(xprop | grep '_NET_WM_PID(CARDINAL)' | cut -d'=' -f2)"
+
+  # Get all active window ids in the current session
+  clients="$(xprop -root | grep '_NET_CLIENT_LIST(WINDOW)' | grep -Eo '0x[0-9a-f]+')"
+  
+  # Traverse through the active clients...
+  for client in $clients; do
+    # ...and get the pid of the current client of the loop...
+    window_pid="$(xprop -id "$client" | grep '_NET_WM_PID(CARDINAL)' | cut -d'=' -f2)"
+    # ...to match with the pid of the selected window
+    if [ "$selected_pid" = "$window_pid" ]; then
+      # "filename" will always be unset, to be assigned the value from
+      # "get_filename"
+      import -frame -window "$client" "${filename:=$(get_filename)}" &&
+        notify "Screenshot saved at $filename" && exit 0
+    fi
+  done
+  exit 1
+}
+
+# Take screenshot of the entire screen.
+full_shot() {
+  [ "$TIMEOUT" ] && notify_countdown
+  # Take screenshot after TIMEOUT seconds (0 if not provided), "filename" will
+  # always be unset
+  import -pause "${TIMEOUT:-0}" -window root "${filename:=$(get_filename)}" && \
+    notify "Screenshot saved at $filename" && exit 0
+  exit 1
+}
+
+# Take screenshot of a selected rectangular region.
+rect_shot() {
+  command -v slop > /dev/null 2>&1 || \
+    die "slop must be installed for region screenshot."
+
+  [ "$TIMEOUT" ] && notify_countdown
+  # Get the dimensions of the region using slop(1).
+  dimension="$(slop -f "%wx%h+%x+%y")"
+  import -pause "${TIMEOUT:-0}" -window root -crop "$dimension" "${filename:=$(get_filename)}" && \
+    notify "Screenshot saved at $filename" && exit 0
+  exit 1
+}
+
+while getopts ":hrt:w" opt; do
+  case "$opt" in
+    r) REGION="Y" ;;
+    # Disable TIMEOUT if provided with an invalid value
+    t) TIMEOUT="$OPTARG"; [ "$TIMEOUT" -lt 0 ] && unset TIMEOUT ;;
+    w) WINDOW="Y" ;;
+    *) usage && exit 0 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+command -v import > /dev/null 2>&1 || \
+  die "imagemagick must be installed for using scshot."
+
+screenshot_dir="$HOME/Pictures/Screenshots"
+[ -d "$screenshot_dir" ] || mkdir -p "$screenshot_dir"
+
+[ "$WINDOW" ] && [ "$REGION" ] && \
+  die "Taking screenshot of both a window and a rectangular region doesn't make sense."
+
+[ "$WINDOW" ] && window_shot
+[ "$REGION" ] && rect_shot
+full_shot
+
