@@ -110,13 +110,12 @@ non_matching_path_root() {
 
 ## Helper for running external commands with "dry running".
 ##
-## Takes a command string [$1] to run and an optional message [$2] to display
-## at successful execution.
+## Takes a string [$1] as the command to run.
 run_command() {
   # If the script is dry run, print the command and exit, else use `eval` to run
   # the command.
   is_dry_run && { printf "[DRY RUN] %s\n" "$1"; return 0; }
-  eval "$1" && display_info "$2"
+  eval "$1"
 }
 
 ## Wrapper for `chown` to recursively change file [$2] ownership to a specified
