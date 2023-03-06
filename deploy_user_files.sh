@@ -217,9 +217,8 @@ Done deploying files. Finishing instructions follow:
   ".rootprofile" and copied those files to your system, run:
 
     mkdir -pv ~/.local/share/bash
-    sudo mkdir -pv /root/.local/share/bash
 
-  for bash to create the history file at the new location.
+  as both user and root for bash to create the history file at the new location.
 
 - Make sure to log out and login again for the deployed files to take effect.
 
@@ -278,8 +277,9 @@ is_dry_run && dry_run_message
 # Get the user name if it is not provided through the environment.
 USERNAME="${USERNAME:-$(user_input "Enter the username. <Return> to use current username. <Control-C> to abort.")}"
 
-# [USERNAME] should be [SUDO_USER] by default.
-USERNAME=${USERNAME:-"$SUDO_USER"}
+# [USERNAME] should be [SUDO_USER], or if "doas" is installed, [DOAS_USER] by
+# default.
+USERNAME="${USERNAME:-"${SUDO_USER:-"$DOAS_USER"}"}"
 
 ## The location of the user home directory.
 ##
