@@ -4,19 +4,22 @@ super + {b,e,t}
 super + {shift,control} + a
   dunstctl {history-pop,context}
 
-{control + shift + ,shift + ,_} + Print
+{shift + alt + ,alt + ,_} + Print
   scshot {-r,-w,_}
 
+super + {shift,_} + x
+  bm {_,-l}
+
 XF86AudioMicMute
-  pactl set-source-mute @DEFAULT_SOURCE@ toggle; \
+  wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; \
   kill -37 $(pidof dwmblocks)
 
 XF86AudioMute
-  pactl set-sink-mute @DEFAULT_SINK@ toggle; \
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; \
   kill -38 $(pidof dwmblocks)
 
 XF86Audio{Lower,Raise}Volume
-  pactl set-sink-volume @DEFAULT_SINK@ {-,+}5%; \
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}; \
   kill -38 $(pidof dwmblocks)
 
 XF86MonBrightnessDown
