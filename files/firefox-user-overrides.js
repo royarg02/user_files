@@ -29,7 +29,7 @@ user_pref("network.trr.uri", "https://doh.libredns.gr/dns-query");
 // Don't disable live search suggestions [ARKENFOX: both false]
 //user_pref("browser.search.suggest.enabled", true);
 //user_pref("browser.urlbar.suggest.searches", true);
-// Don't disble tab-to-search [ARKENFOX: commented false]
+// Don't disable tab-to-search [ARKENFOX: commented false]
 //user_pref("browser.urlbar.suggest.engines", true);
 
 // DISK AVOIDANCE
