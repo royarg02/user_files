@@ -210,8 +210,9 @@ finish_instructions() {
   cat << END
 Done deploying files. Finishing instructions follow:
 
-- The Firefox user settings are at "$home". Move this file to the desired
-  profile directory to apply the settings.
+- The Firefox user override settings for
+  arkenfox(https://github.com/arkenfox/user.js) is at "$home". Move this file to
+  the desired profile directory to apply the settings.
 
 - In case you haven't changed the "HISTFILE" value in ".profile" and
   ".rootprofile" and copied those files to your system, run:

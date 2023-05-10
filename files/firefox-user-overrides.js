@@ -60,6 +60,8 @@ user_pref("network.trr.uri", "https://doh.libredns.gr/dns-query");
 // [ARKENFOX: true]
 //user_pref("privacy.resistFingerprinting.block_mozAddonManager", false);
 // [ARKENFOX: true]
+//user_pref("privacy.resistFingerprinting.letterboxing", false);
+// [ARKENFOX: true]
 //user_pref("webgl.disabled", false);
 
 // OPTIONAL OPSEC
