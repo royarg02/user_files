@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 # Set LCD brightness
 
@@ -15,13 +15,13 @@ Running without any arguments displays the currently set brightness.
   -p	show the current brightness in percentage.
   -n	show the current brightness in absolute value, equivalent to
         "lcdbrightness".
-  -i	increase the brightness by DELTA.
-  -d	decrease the brightness by DELTA.
+  -i	increase the brightness by DELTA absolute value.
+  -d	decrease the brightness by DELTA absolute value.
   max	set maximum LCD brightness, equal to the value stored at
         "$location/max_brightness".
-  min	set minimum LCD brightness; equivalent to "lcdbrightness 0".
+  min	set minimum LCD brightness; equivalent to "lcdbrightness 0(%)".
   VALUE	the brightness value to set, either in percentage from 0% to 100%, or an
-        absoute value in the range 0 <= VALUE <= max.
+        absolute value in the range 0 <= VALUE <= max.
 
 This script tries to write to "$location/brightness".
 A udev rule allowing any users(including you) in the "video" group to write to
@@ -46,7 +46,12 @@ curr=$(cat "$location/brightness")
 # Map argument accordingly
 case "$1" in
 	"-n") echo "$curr" && exit 0 ;;
-	"-p") echo "$((curr * 100/ max))" && exit 0;;
+	"-p") value=$((curr * 1000 / max))
+	      if [ "$((value % 10))" -ge 5 ]; then
+	        echo "$(((value / 10) + 1))"
+	      else
+	        echo "$((value / 10))"
+	      fi; exit 0;;
 	"-i") value=$((curr + $2)) && [ "$value" -gt "$max" ] && value=$max ;;
 	"-d") value=$((curr - $2)) && [ "$value" -lt 0 ] && value=0 ;;
 	"-h") usage && exit 0 ;;
@@ -58,8 +63,7 @@ esac
 
 # Change brightness accordingly, sanity-checks are handled
 echo "$value" > "$location/brightness" 2> /dev/null || \
-	printf "Invalid brightness value.\nRun \"lcdbrightness -h\" for help.\n" && exit 1
+  { printf "Invalid brightness value.\nRun \"lcdbrightness -h\" for help.\n" && exit 1; }
 
-unset location value max curr
-unset -f usage
 exit 0
+
