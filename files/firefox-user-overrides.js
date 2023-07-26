@@ -77,7 +77,6 @@ user_pref("browser.urlbar.suggest.topsites", false);
 // Disable form autofill [ARKENFOX: commented]
 user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
-user_pref("extensions.formautofill.heuristics.enabled", false);
 // Disable page thumbnail collection [ARKENFOX: commented]
 user_pref("browser.pagethumbnails.capturing_disabled", true);
 
