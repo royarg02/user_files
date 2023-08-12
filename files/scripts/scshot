@@ -9,17 +9,19 @@ Take a screenshot.
 
 By default, takes a screenshot of the entire screen.
 
-Uses import(1), xprop(1) and slop(1).
+Uses import(1), slop(1), xclip(1) and xprop(1).
 
-USAGE: scshot [-hrw] [-t TIMEOUT]
+USAGE: scshot [-chrw] [-t TIMEOUT]
 
   -h    Show this help information.
+  -c    Copy the screenshot to clipboard instead of saving it.
   -r    Take screenshot of a selected rectangular region.
   -t    Take delayed screenshot after TIMEOUT seconds. Disabled for any values
         less than 0.
   -w    Take screenshot of a window, selected using the mouse.
 
-The screenshots are saved at "$HOME/Pictures/Screenshots", named by timestamp.
+The screenshots are saved at "$HOME/Pictures/Screenshots", named by timestamp,
+unless the "-c" flag is used.
 
 END
 }
@@ -40,9 +42,16 @@ notify_countdown() {
   notify-send -t "$((TIMEOUT * 1000 - 1))" "Message from scshot" "Taking screenshot after $TIMEOUT seconds..."
 }
 
-# The absolute path of the created screenshot
-get_filename() {
-  echo "$screenshot_dir/Screenshot_$(date '+%Y%m%d-%H%M%S').png"
+# Save or copy screenshot to clipboard
+shoot_screen() {
+  if [ -n "$CLIPBOARD" ]; then
+    command -v xclip > /dev/null 2>&1 || \
+      die "xclip must be installed to copy screenshot to clipboard."
+    xclip -sel c -t image/png < /dev/stdin && notify "Screenshot copied to clipboard." && return 0
+  fi
+
+  filename="$screenshot_dir/Screenshot_$(date '+%Y%m%d-%H%M%S').png"
+  cat /dev/stdin > "$filename" && notify "Screenshot saved at $filename." && return 0
 }
 
 # Take screenshot of a window.
@@ -52,23 +61,21 @@ window_shot() {
 
   # Wait after TIMEOUT seconds for window selection, if provided
   [ "$TIMEOUT" ] && notify_countdown
-  sleep "${TIMEOUT:-0}" 
+  sleep "${TIMEOUT:-0}"
+
   # Get the pid of the selected window from xprop info
-  selected_pid="$(xprop | grep '_NET_WM_PID(CARDINAL)' | cut -d'=' -f2)"
+  selected_pid="$(xprop _NET_WM_PID | cut -d'=' -f2)"
 
   # Get all active window ids in the current session
-  clients="$(xprop -root | grep '_NET_CLIENT_LIST(WINDOW)' | grep -Eo '0x[0-9a-f]+')"
+  clients="$(xprop -root _NET_CLIENT_LIST | grep -Eo '0x[0-9a-f]+')"
   
   # Traverse through the active clients...
   for client in $clients; do
     # ...and get the pid of the current client of the loop...
-    window_pid="$(xprop -id "$client" | grep '_NET_WM_PID(CARDINAL)' | cut -d'=' -f2)"
+    window_pid="$(xprop -id "$client" _NET_WM_PID | cut -d'=' -f2)"
     # ...to match with the pid of the selected window
     if [ "$selected_pid" = "$window_pid" ]; then
-      # "filename" will always be unset, to be assigned the value from
-      # "get_filename"
-      import -frame -window "$client" "${filename:=$(get_filename)}" &&
-        notify "Screenshot saved at $filename" && exit 0
+      import -frame -window "$client" png:- | shoot_screen && exit 0
     fi
   done
   exit 1
@@ -76,11 +83,11 @@ window_shot() {
 
 # Take screenshot of the entire screen.
 full_shot() {
+  # Wait after TIMEOUT seconds for screenshot, if provided
   [ "$TIMEOUT" ] && notify_countdown
-  # Take screenshot after TIMEOUT seconds (0 if not provided), "filename" will
-  # always be unset
-  import -pause "${TIMEOUT:-0}" -window root "${filename:=$(get_filename)}" && \
-    notify "Screenshot saved at $filename" && exit 0
+  sleep "${TIMEOUT:-0}"
+
+  import -window root png:- | shoot_screen && exit 0
   exit 1
 }
 
@@ -89,16 +96,21 @@ rect_shot() {
   command -v slop > /dev/null 2>&1 || \
     die "slop must be installed for region screenshot."
 
+  # Wait after TIMEOUT seconds for region screenshot, if provided
   [ "$TIMEOUT" ] && notify_countdown
+  sleep "${TIMEOUT:-0}"
+
   # Get the dimensions of the region using slop(1).
-  dimension="$(slop -f "%wx%h+%x+%y")"
-  import -pause "${TIMEOUT:-0}" -window root -crop "$dimension" "${filename:=$(get_filename)}" && \
-    notify "Screenshot saved at $filename" && exit 0
+  dimension="$(slop --nokeyboard -f "%wx%h+%x+%y")" || \
+    die "Selection was cancelled by right click."
+  import -window root -crop "$dimension" png:- | shoot_screen && \
+    exit 0
   exit 1
 }
 
-while getopts ":hrt:w" opt; do
+while getopts ":chrt:w" opt; do
   case "$opt" in
+    c) CLIPBOARD="Y" ;;
     r) REGION="Y" ;;
     # Disable TIMEOUT if provided with an invalid value
     t) TIMEOUT="$OPTARG"; [ "$TIMEOUT" -lt 0 ] && unset TIMEOUT ;;
