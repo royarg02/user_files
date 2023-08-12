@@ -4,8 +4,8 @@ super + {b,e,t}
 super + {shift,control} + a
   dunstctl {history-pop,context}
 
-{shift + alt + ,alt + ,_} + Print
-  scshot {-r,-w,_}
+{_,control +}{shift + alt +,alt +,_} Print
+  scshot {_,-c} {-r,-w,_}
 
 super + {shift,_} + x
   bm {_,-l}
@@ -22,10 +22,14 @@ XF86Audio{Lower,Raise}Volume
   wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{-,+}; \
   kill -38 $(pidof dwmblocks)
 
-XF86MonBrightnessDown
-  xbacklight -dec 1; \
+XF86Audio{Next,Play,Prev}
+  playerctl {next,play-pause,previous}; \
+  kill -41 $(pidof dwmblocks)
+
+XF86Mail
+  xdg-open mailto:
+
+XF86MonBrightness{Down,Up}
+  xbacklight -{dec,inc} 1; \
   kill -39 $(pidof dwmblocks)
 
-XF86MonBrightnessUp
-  xbacklight -inc 1; \
-  kill -39 $(pidof dwmblocks)
