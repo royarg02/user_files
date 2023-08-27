@@ -15,17 +15,13 @@
 // Don't use en-US locale instead of system/region locale [ARKENFOX: true]
 //user_pref("javascript.use_us_english_locale", false);
 
-// DNS/DoH/PROXY/SOCKS/IPv6
-// Don't disable IPv6 [ARKENFOX: true]
-//user_pref("network.dns.disableIPv6", false);
+// DNS/DoH/PROXY/SOCKS
 // Don't explicitly disable DNS over HTTPS [ARKENFOX: 5 => explcitly off]
 user_pref("network.trr.mode", 2);
 // Set LibreDNS as provider
 user_pref("network.trr.uri", "https://doh.libredns.gr/dns-query");
 
 // LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS
-// Don't disable location bar using search [ARKENFOX: false]
-//user_pref("keyword.enabled", true);
 // Don't disable live search suggestions [ARKENFOX: both false]
 //user_pref("browser.search.suggest.enabled", true);
 //user_pref("browser.urlbar.suggest.searches", true);
@@ -35,10 +31,6 @@ user_pref("network.trr.uri", "https://doh.libredns.gr/dns-query");
 // DISK AVOIDANCE
 // Don't disable disk cache [ARKENFOX: false]
 //user_pref("browser.cache.disk.enable", true);
-
-// PLUGINS/MEDIA/WEBRTC
-// Don't disable DRM content [ARKENFOX: false]
-//user_pref("media.eme.enabled", true);
 
 // DOWNLOADS
 // Enable opening downloads panel on every download [ARKENFOX: false]
@@ -79,6 +71,14 @@ user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 // Disable page thumbnail collection [ARKENFOX: commented]
 user_pref("browser.pagethumbnails.capturing_disabled", true);
+// Disable location bar using search [ARKENFOX: commented]
+user_pref("keyword.enabled", false);
+
+// OPTIONAL HARDENING
+// Don't disable DRM content [ARKENFOX: false]
+//user_pref("media.eme.enabled", true);
+// Don't disable IPv6 [ARKENFOX: true]
+//user_pref("network.dns.disableIPv6", false);
 
 // ADDITIONALS
 // Never display the bookmarks toolbar
