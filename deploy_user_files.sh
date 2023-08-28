@@ -217,7 +217,7 @@ Done deploying files. Finishing instructions follow:
 - In case you haven't changed the "HISTFILE" value in ".profile" and
   ".rootprofile" and copied those files to your system, run:
 
-    mkdir -pv ~/.local/share/bash
+    mkdir -pv ~/.local/state/bash
 
   as both user and root for bash to create the history file at the new location.
 
