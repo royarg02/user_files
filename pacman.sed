@@ -17,6 +17,9 @@ s/^#VerbosePkgLists$/VerbosePkgLists/
 /^#?ILoveCandy$/d
 /^#ParallelDownloads.*$/a ILoveCandy
 
+# Uncomment option for parallel downloads for up to 3 simultaneous packages
+s/^#ParallelDownloads.*$/ParallelDownloads = 3/
+
 # Append details of the unofficial repository at the end of the file
 $a \
 \
