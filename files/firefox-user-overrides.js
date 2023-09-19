@@ -16,10 +16,11 @@
 //user_pref("javascript.use_us_english_locale", false);
 
 // DNS/DoH/PROXY/SOCKS
-// Don't explicitly disable DNS over HTTPS [ARKENFOX: 5 => explcitly off]
-user_pref("network.trr.mode", 2);
-// Set LibreDNS as provider
+// Enable DNS over HTTPS [ARKENFOX: commented]
+user_pref("network.trr.mode", 3);
+// Set LibreDNS as provider [ARKENFOX: commented]
 user_pref("network.trr.uri", "https://doh.libredns.gr/dns-query");
+user_pref("network.trr.custom_uri", "https://doh.libredns.gr/dns-query");
 
 // LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS
 // Don't disable live search suggestions [ARKENFOX: both false]
