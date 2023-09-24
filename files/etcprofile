@@ -1,8 +1,5 @@
 # /etc/profile
 
-# Set our umask
-umask 022
-
 # Unset PATH before starting to add paths for the user
 unset PATH
 
