@@ -11,10 +11,6 @@
 // Enable starting page for new tabs [ARKENFOX: false => blank]
 //user_pref("browser.newtabpage.enabled", true);
 
-// GEOLOCATION
-// Don't use en-US locale instead of system/region locale [ARKENFOX: true]
-//user_pref("javascript.use_us_english_locale", false);
-
 // DNS/DoH/PROXY/SOCKS
 // Enable DNS over HTTPS [ARKENFOX: commented]
 user_pref("network.trr.mode", 3);
