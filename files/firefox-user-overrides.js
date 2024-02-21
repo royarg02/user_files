@@ -124,4 +124,6 @@ user_pref("browser.download.autohideButton" , false);
 user_pref("browser.urlbar.trimURLs", false);
 // Enable VA-API with ffmpeg for hardware acceleration
 user_pref("media.ffmpeg.vaapi.enabled", true);
+// Disable unsupported AV1 codecs
+user_pref("media.av1.enabled", false);
 
