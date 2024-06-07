@@ -24,6 +24,8 @@ user_pref("network.trr.custom_uri", "https://doh.libredns.gr/dns-query");
 //user_pref("browser.urlbar.suggest.searches", true);
 // Don't disable tab-to-search [ARKENFOX: commented false]
 //user_pref("browser.urlbar.suggest.engines", true);
+// Disable urlbar clipboard suggestions [ARKENFOX: commented]
+user_pref("browser.urlbar.clipboard.featureGate", false);
 
 // DISK AVOIDANCE
 // Don't disable disk cache [ARKENFOX: false]
@@ -42,12 +44,6 @@ user_pref("network.trr.custom_uri", "https://doh.libredns.gr/dns-query");
 // It is an all-or-nothing buy in: you cannot pick and choose what parts you want
 // [ARKENFOX: true]
 //user_pref("privacy.resistFingerprinting", false);
-// [ARKENFOX: 1600]
-//user_pref("privacy.window.maxInnerWidth", 1000);
-// [ARKENFOX: 900]
-//user_pref("privacy.window.maxInnerHeight", 1000);
-// [ARKENFOX: true]
-//user_pref("privacy.resistFingerprinting.block_mozAddonManager", false);
 // [ARKENFOX: true]
 //user_pref("privacy.resistFingerprinting.letterboxing", false);
 // [ARKENFOX: true]
@@ -88,8 +84,6 @@ user_pref("browser.newtabpage.activity-stream.showSearch", false);
 user_pref("browser.newtabpage.activity-stream.topSitesRows", 4);
 // Use the address bar for search
 user_pref("browser.search.widget.inNavBar", false);
-// Draw tabs in title bar
-user_pref("browser.tabs.inTitlebar", 1);
 // Always show tab list in tab bar
 user_pref("browser.tabs.tabmanager.enabled", true);
 // Do not unload tabs
