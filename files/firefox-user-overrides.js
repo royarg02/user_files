@@ -85,6 +85,8 @@ user_pref("browser.newtabpage.activity-stream.showSearch", false);
 user_pref("browser.newtabpage.activity-stream.topSitesRows", 4);
 // Use the address bar for search
 user_pref("browser.search.widget.inNavBar", false);
+// Disable tab hover previews
+user_pref("browser.tabs.hoverPreview.enabled", false);
 // Always show tab list in tab bar
 user_pref("browser.tabs.tabmanager.enabled", true);
 // Do not unload tabs
