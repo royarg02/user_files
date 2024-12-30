@@ -13,9 +13,9 @@ s/^#Color$/Color/
 s/^#VerbosePkgLists$/VerbosePkgLists/
 
 # Delete any commented option for easter egg; add it after the last listed
-# option(which should be ParallelDownloads)
+# option(which should be DisableSandbox)
 /^#?ILoveCandy$/d
-/^#ParallelDownloads.*$/a ILoveCandy
+/^#DisableSandbox.*$/a ILoveCandy
 
 # Uncomment option for parallel downloads for up to 3 simultaneous packages
 s/^#ParallelDownloads.*$/ParallelDownloads = 3/
