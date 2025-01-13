@@ -12,7 +12,7 @@ export TERMINAL="st"
 export EDITOR="nvim"
 export BROWSER="firefox"
 export FILE="lf"
-export QT_QPA_PLATFORMTHEME=gtk2
+export QT_QPA_PLATFORMTHEME=gtk3
 
 ## Set user XDG directories
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -29,13 +29,16 @@ export HISTCONTROL=ignoreboth:erasedups
 export ANDROID_SDK_ROOT="/opt/android-sdk"
 export ADB="$ANDROID_SDK_ROOT/platform-tools/adb"
 export CHROME_EXECUTABLE="/usr/bin/chromium"
+export DIFFPROG="$EDITOR -d"
 export JAVA_HOME="/usr"
 export MOZ_USE_XINPUT2=1
 export NODE_REPL_HISTORY=''
 export PURO_ROOT="$HOME/.local/src/puro"
+export PURO_LOG_LEVEL=4
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 ## Home directory cleanup
+export ANALYZER_STATE_LOCATION_OVERRIDE="$XDG_CACHE_HOME/dartServer"
 export ANDROID_PREFS_ROOT="$XDG_CONFIG_HOME/android"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
@@ -49,6 +52,7 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PUB_CACHE="$XDG_CACHE_HOME/pub-cache"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
+export USERRESOURCES="$XDG_CONFIG_HOME/x11/xresources"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 # This will not work with display managers. See https://wiki.archlinux.org/index.php/XDG_Base_Directory
 # for details and workarounds
@@ -69,6 +73,6 @@ shopt -q login_shell && [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 ## Automatically run X if in tty1
 if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    exec startx $XINITRC
+    exec startx
 fi
 
