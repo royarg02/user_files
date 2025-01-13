@@ -14,7 +14,7 @@ dot.profile,.profile,~,
 firefox-user-overrides.js,user-overrides.js,~,
 chromium-flags.conf,chromium-flags.conf,~/.config,
 mimeapps.list,mimeapps.list,~/.config,
-sxiv,sxiv,~/.config,
+nsxiv,nsxiv,~/.config,
 wgetrc,wgetrc,~/.config,/root/.config
 user-dirs.dirs,user-dirs.dirs,~/.config,/root/.config
 btop.conf,btop.conf,~/.config/btop,

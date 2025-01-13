@@ -4,6 +4,5 @@ while read -r file; do
   path="$(realpath "$file")"
   case "$1" in
     "b") setbg "$path" ;;
-    "e") setsid -f gimp "$path" ;;
   esac
 done
