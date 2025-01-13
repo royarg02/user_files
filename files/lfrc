@@ -1,26 +1,19 @@
-set drawbox on
-set hidden on
-set icons on
+set cursorparentfmt "\033[7;90m"
+set dircounts true
+set hidden true
+set icons true
 set ifs "\n"
-set ignorecase on
-set incsearch on
-set number on
+set ignorecase true
+set incsearch true
+set info size:time
+set mouse true
+set number true
 set period 1
+set preview true
+set relativenumber true
 set scrolloff 2
+set smartcase true
 set tabstop 2
-set relativenumber on
-set smartcase on
-
-cmap <tab> cmd-menu-complete
-
-map gn push :mkfile<space>
-map gN push :mkdir<space>
-map x $$f
-map r push :rename<space>
-map D delete
-map X !$f
-map <delete> delete
-map <esc> clear-sel
 
 cmd clear-sel :{{
   clear
@@ -32,30 +25,78 @@ cmd delete ${{
   set -f
   printf "%s\n\nType "y" and press enter to delete the file(s) above: " "$fx"
   read ans
-  [ $ans = "y" ] && for f in $fx; do
+  [ "$ans" = "y" ] && for f in $fx; do
     rm -rf -- "$f"
   done
   tput sgr0
 }}
 
-cmd mkdir ${{
-  mkdir -p $*
+cmd mkdir %{{
+  mkdir -p "$@"
 }}
 
-cmd mkfile ${{
-  touch $*
-}}
-
-cmd rename %{{
-  mv -iv $f $1
+cmd mkfile %{{
+  touch "$@"
 }}
 
 cmd open &{{
   for f in $fx; do
-    test -L "$f" && f="$(readlink -f "$f")"
-    case "$(xdg-mime query default "$(file --mime-type -b "$f")")" in
-      "nvim.desktop") setsid -f $TERMINAL -e nvim "$f" ;;
-      *)              setsid -f $OPENER "$f" ;;
+    case "$(xdg-mime query default "$(file --dereference --mime-type --brief "$f")")" in
+      "nvim.desktop") $TERMINAL -e nvim "$f" ;;
+      *)              $OPENER "$f" ;;
     esac
   done
 }}
+
+cmd edit-config ${{
+  config="$XDG_CONFIG_HOME/lf/lfrc"
+  $EDITOR $config
+  lf -remote "send $id source $config"
+}}
+
+cmd on-redraw &{{
+  if [ "$lf_width" -le 40 ]; then
+    lf -remote "send $id :set preview false; set ratios 1"
+  elif [ "$lf_width" -le 80 ]; then
+    lf -remote "send $id :set ratios 1:2; set preview true"
+  else
+    lf -remote "send $id set ratios 1:2:3"
+  fi
+}}
+
+cmd yank-paths ${{
+  printf '%s' "$fx" | xclip -sel c
+}}
+
+cmd yank-basename &{{
+  basename -a -- $fx | head -c-1 | xclip -i -sel c
+}}
+
+cmd on-cd &{{
+  printf '\033]0;%s — lf\007' "$(pwd | sed "s|^$HOME|~|")" > /dev/tty
+}}
+
+cmd settings ${{
+    env | grep ^lf_ | sort | $PAGER -R
+}}
+
+${{
+  [ "$LF_LEVEL" -eq 1 ] || lf -remote "send $id echoerr \"Warning: You're in a nested lf instance!\""
+}}
+
+on-cd
+
+cmap <tab> cmd-menu-complete
+cmap <backtab> cmd-menu-complete-back
+
+map gn push :mkfile<space>
+map gN push :mkdir<space>
+map x $$f
+map r :rename; cmd-end
+map D delete
+map X !$f
+map <delete> delete
+map <esc> clear-sel
+map C edit-config
+map u yank-basename
+map U yank-paths
