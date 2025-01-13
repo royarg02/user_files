@@ -14,3 +14,7 @@
 	defaultBranch = master
 [help]
 	autoCorrect = 10
+[alias]
+	utccommit = "!now=\"$(date --utc +%s%z)\"; GIT_COMMITTER_DATE=\"$now\" git commit"
+[diff]
+	tool = nvimdiff
