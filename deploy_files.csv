@@ -29,9 +29,7 @@ inputrc,inputrc,~/.config/readline,/root/.config/readline
 sxhkdrc,sxhkdrc,~/.config/sxhkd,
 nvim.init.lua,init.lua,~/.config/nvim,/root/.config/nvim
 vscodium_settings.json,settings.json,~/.config/VSCodium/User,
-xinitrc,xinitrc,~/.config/x11,
-xprofile,xprofile,~/.config/x11,
-xresources,xresources,~/.config/x11,
+x11,x11,~/.config,
 yarnrc,yarnrc,~/.config/yarn,
 scripts,bin,~/.local,
 dot.rootbashrc,.bashrc,/root,

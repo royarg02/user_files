@@ -40,7 +40,7 @@ dmenu.selfgcolor: selfg
 st.font:monospace:size=11
 st.borderpx: 8
 
-! sxiv
+! nsxiv
 Nsxiv.bar.font: sans-serif:size=11
 Nsxiv.window.background: normbg
 Nsxiv.window.foreground: normfg
