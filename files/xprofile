@@ -9,26 +9,26 @@ pipewire &
 pipewire-pulse &
 wireplumber &
 
-# Run dwmblocks
-dwmblocks &
-
 # Run cmst minimized with minimize button and vpn disabled
 cmst -mMn &
 
 # Run dunst
 dunst &
 
-# Run clipit
-clipit &
-
 # Run xss-lock
 xss-lock -- slock &
+
+# Run playerctl in daemon mode
+playerctld daemon
 
 # Run devmon
 devmon \
   --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume mounted\" \"%f at %d\"" \
   --exec-on-unmount "notify-send --icon=block-device --urgency=low \"Volume unmounted\" \"%f\"" \
   --exec-on-remove "notify-send --icon=block-device --urgency=low \"Volume removed\" \"%f\"" &
+
+# Run dwmblocks
+dwmblocks &
 
 # Start ssh-agent
 eval $(ssh-agent)
