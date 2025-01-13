@@ -9,7 +9,7 @@ append_path() {
 }
 
 export TERMINAL="st"
-export EDITOR="vim"
+export EDITOR="nvim"
 export BROWSER="firefox"
 export FILE="lf"
 export QT_QPA_PLATFORMTHEME=gtk2
@@ -49,7 +49,6 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PUB_CACHE="$XDG_CACHE_HOME/pub-cache"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 # This will not work with display managers. See https://wiki.archlinux.org/index.php/XDG_Base_Directory
 # for details and workarounds

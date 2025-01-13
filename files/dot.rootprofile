@@ -1,6 +1,6 @@
 #~/.profile
 
-export EDITOR="vim"
+export EDITOR="nvim"
 
 ## Set user XDG directories
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -22,7 +22,6 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export HISTFILE="$XDG_STATE_HOME/bash/history"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 
 ## Source .bashrc if only in login shell; it will be sourced otherwise anyway

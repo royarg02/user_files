@@ -27,7 +27,7 @@ lfrc,lfrc,~/.config/lf,
 python_startup,startup,~/.config/python,/root/.config/python
 inputrc,inputrc,~/.config/readline,/root/.config/readline
 sxhkdrc,sxhkdrc,~/.config/sxhkd,
-vimrc,vimrc,~/.config/vim,/root/.config/vim
+nvim.init.lua,init.lua,~/.config/nvim,/root/.config/nvim
 vscodium_settings.json,settings.json,~/.config/VSCodium/User,
 xinitrc,xinitrc,~/.config/x11,
 xprofile,xprofile,~/.config/x11,

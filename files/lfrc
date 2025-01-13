@@ -54,7 +54,7 @@ cmd open &{{
   for f in $fx; do
     test -L "$f" && f="$(readlink -f "$f")"
     case "$(xdg-mime query default "$(file --mime-type -b "$f")")" in
-      "vim.desktop" ) setsid -f $TERMINAL -e vim "$f" ;;
+      "nvim.desktop") setsid -f $TERMINAL -e nvim "$f" ;;
       *)              setsid -f $OPENER "$f" ;;
     esac
   done
