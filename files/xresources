@@ -1,33 +1,49 @@
 !! xresources
 
+!! Dracula theme colors
+!#define normbg #1E1F29
+!#define normfg #F8F8F2
+!#define normborder #1A1B23
+!#define selbg #75619A
+!#define selfg #F8F8F2
+!#define selborder #BD93F9
+
+!! Nordic-darker theme colors
+#define normbg #3B4252
+#define normfg #D8DEE9
+#define normborder #22262F
+#define selbg #4C566A
+#define selfg #D8DEE9
+#define selborder #788298
+
 ! dwm
 dwm.font: sans-serif:size=11
-dwm.font2: Noto Color Emoji:size=11
-dwm.dmenufont:sans-serif:size=11
-dwm.borderpx: 3
+dwm.dmenufont: sans-serif:size=11
+dwm.borderpx: 1
 dwm.snap: 8
-dwm.normbgcolor: #242831
-dwm.normbordercolor: #242831
-dwm.selbgcolor: #4B566A
-dwm.selbordercolor: #778298
+dwm.normbgcolor: normbg
+dwm.normfgcolor: normfg
+dwm.normbordercolor: normborder
+dwm.selbgcolor: selbg
+dwm.selfgcolor: selfg
+dwm.selbordercolor: selborder
+dwm.userbarheight: 8
 
 ! dmenu
 dmenu.font: sans-serif:size=11
-dmenu.background: #242831
-dmenu.selbackground: #4B566A
+dmenu.normbgcolor: normbg
+dmenu.normfgcolor: normfg
+dmenu.selbgcolor: selbg
+dmenu.selfgcolor: selfg
 
 ! st
-st.font: monospace:size=11
-st.font2: Noto Color Emoji:pixelsize=11
+st.font:monospace:size=11
 st.borderpx: 8
-st.mousescrollincrement: 4
-st.cols: 130
-st.rows: 35
 
 ! sxiv
-Sxiv.font: monospace:size=11
-Sxiv.background: #242831
-Sxiv.foreground: #778298
+Nsxiv.bar.font: sans-serif:size=11
+Nsxiv.window.background: normbg
+Nsxiv.window.foreground: normfg
 
 ! Xorg
 Xcursor.theme: Adwaita
