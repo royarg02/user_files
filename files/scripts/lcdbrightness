@@ -45,20 +45,20 @@ curr=$(cat "$location/brightness")
 
 # Map argument accordingly
 case "$1" in
-	"-n") echo "$curr" && exit 0 ;;
-	"-p") value=$((curr * 1000 / max))
-	      if [ "$((value % 10))" -ge 5 ]; then
-	        echo "$(((value / 10) + 1))"
-	      else
-	        echo "$((value / 10))"
-	      fi; exit 0;;
-	"-i") value=$((curr + $2)) && [ "$value" -gt "$max" ] && value=$max ;;
-	"-d") value=$((curr - $2)) && [ "$value" -lt 0 ] && value=0 ;;
-	"-h") usage && exit 0 ;;
-	"max") value="$max" ;;
-	"min") value=0 ;;
-	*%) value=$(( ${1%\%} * max / 100 )) ;;
-	*)  value="$*"
+  "-n") echo "$curr" && exit 0 ;;
+  "-p") value=$((curr * 1000 / max))
+    if [ "$((value % 10))" -ge 5 ]; then
+      echo "$(((value / 10) + 1))"
+    else
+      echo "$((value / 10))"
+    fi; exit 0;;
+  "-i") value=$((curr + $2)) && [ "$value" -gt "$max" ] && value=$max ;;
+  "-d") value=$((curr - $2)) && [ "$value" -lt 0 ] && value=0 ;;
+  "-h") usage && exit 0 ;;
+  "max") value="$max" ;;
+  "min") value=0 ;;
+  *%) value=$(( ${1%\%} * max / 100 )) ;;
+  *)  value="$*"
 esac
 
 # Change brightness accordingly, sanity-checks are handled
