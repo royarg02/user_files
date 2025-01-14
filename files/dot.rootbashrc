@@ -54,6 +54,7 @@ alias np='$EDITOR -w PKGBUILD'
 alias more=less
 alias diff='diff --color'                 # colorful diff
 alias mkdir='mkdir -pv'
+alias which='alias | which --read-alias'
 
 ## Nice functions
 
@@ -81,10 +82,10 @@ extract() {
 
 ## Weather
 wttr() {
-  curl "wttr.in/$@"
+  curl -s "wttr.in/$@"
 }
 
 ## Public IP address
 myip() {
-  curl "ipinfo.io/$@"
+  curl -s "ifconfig.me/all"
 }

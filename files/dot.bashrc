@@ -80,10 +80,20 @@ extract() {
 
 ## Weather
 wttr() {
-  curl "wttr.in/$@"
+  curl -s "wttr.in/$@"
 }
 
 ## Public IP address
 myip() {
-  curl "ipinfo.io/$@"
+  curl -s "ifconfig.me/all"
+}
+
+## RGB to hex converter
+rgb2hex() {
+  printf "#%02x%02x%02x\n" "$1" "$2" "$3"
+}
+
+## hex to RGB converter
+hex2rgb() {
+  printf "RGB(%d,%d,%d)\n" "0x${1:-0}" "0x${2:-0}" "0x${3:-0}"
 }
