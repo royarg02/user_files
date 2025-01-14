@@ -30,7 +30,6 @@ sxhkdrc,sxhkdrc,~/.config/sxhkd,
 nvim.init.lua,init.lua,~/.config/nvim,/root/.config/nvim
 vscodium_settings.json,settings.json,~/.config/VSCodium/User,
 x11,x11,~/.config,
-yarnrc,yarnrc,~/.config/yarn,
 scripts,bin,~/.local,
 dot.rootbashrc,.bashrc,/root,
 dot.rootprofile,.profile,/root,

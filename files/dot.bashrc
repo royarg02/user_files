@@ -53,7 +53,6 @@ alias more=less
 alias diff='diff --color'                 # colorful diff
 alias mkdir='mkdir -pv'
 alias which='alias | which --read-alias'
-alias yarn='yarn --no-default-rc --use-yarnrc "$XDG_CONFIG_HOME/yarn/yarnrc"'
 
 ## Nice functions
 
