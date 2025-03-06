@@ -83,6 +83,9 @@ user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 user_pref("browser.newtabpage.activity-stream.showSearch", false);
 // Display maximum top sites
 user_pref("browser.newtabpage.activity-stream.topSitesRows", 4);
+// Disable new layouts of the new tab page
+user_pref("browser.newtabpage.activity-stream.newtabLayouts.variant-a", false);
+user_pref("browser.newtabpage.activity-stream.newtabLayouts.variant-b", false);
 // Use the address bar for search
 user_pref("browser.search.widget.inNavBar", false);
 // Disable tab hover previews
@@ -123,4 +126,6 @@ user_pref("browser.urlbar.trimURLs", false);
 user_pref("media.ffmpeg.vaapi.enabled", true);
 // Disable unsupported AV1 codecs
 user_pref("media.av1.enabled", false);
+// Disable Firefox accounts
+user_pref("identity.fxaccounts.enabled", false);
 
