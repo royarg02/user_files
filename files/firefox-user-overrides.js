@@ -83,6 +83,8 @@ user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 user_pref("browser.newtabpage.activity-stream.showSearch", false);
 // Display maximum top sites
 user_pref("browser.newtabpage.activity-stream.topSitesRows", 4);
+// Remove any sponsored pinned sites
+user_pref("browser.newtabpage.pinned", "[]");
 // Disable new layouts of the new tab page
 user_pref("browser.newtabpage.activity-stream.newtabLayouts.variant-a", false);
 user_pref("browser.newtabpage.activity-stream.newtabLayouts.variant-b", false);
@@ -128,4 +130,8 @@ user_pref("media.ffmpeg.vaapi.enabled", true);
 user_pref("media.av1.enabled", false);
 // Disable Firefox accounts
 user_pref("identity.fxaccounts.enabled", false);
+// Don't alert about breached passwords
+user_pref("signon.management.page.breach-alerts.enabled", false);
+// Don't send daily ping to Mozilla
+user_pref("datareporting.usage.uploadEnabled", false);
 
