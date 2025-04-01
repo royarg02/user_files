@@ -18,8 +18,8 @@ dunst &
 # Run xss-lock
 xss-lock -- slock &
 
-# Run playerctl in daemon mode
-playerctld daemon
+# Run playerctl in daemon mode if not already running
+pgrep -x playerctld > /dev/null || playerctld daemon
 
 # Run devmon
 devmon \
@@ -31,7 +31,8 @@ devmon \
 dwmblocks &
 
 # Start ssh-agent
-eval $(ssh-agent)
+pgrep -u "$USER" ssh-agent > /dev/null || ssh-agent > "$XDG_CACHE_HOME/ssh-agent.env"
+[ ! -f "$SSH_AUTH_SOCK" ] && source "$XDG_CACHE_HOME/ssh-agent.env" > /dev/null
 
 # Run sxhkd
 sxhkd &
