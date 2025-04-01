@@ -100,8 +100,8 @@ user_pref("browser.tabs.unloadOnLowMemory", false);
 user_pref("browser.uidensity", 1);
 // Dock devtools to the right
 user_pref("devtools.toolbox.host", "right");
-// Activate the dark theme
-user_pref("extensions.activeThemeID" , "firefox-compact-dark@mozilla.org");
+// Activate the system following default theme
+user_pref("extensions.activeThemeID" , "default-theme@mozilla.org");
 // Set dark theme for reader
 user_pref("reader.color_scheme", "dark");
 // Set reader line width
