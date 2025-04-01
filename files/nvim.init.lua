@@ -1,7 +1,6 @@
 vim.cmd.colorscheme('koehler')
 
 local o = vim.o
-o.title = true
 o.mouse = 'a'
 o.clipboard = 'unnamedplus'
 o.number = true
@@ -44,6 +43,11 @@ local a = vim.api
 a.nvim_create_autocmd("BufWritePost", {
   pattern = vim.fn.expand('$HOME') .. '/.config/sxhkd/sxhkdrc',
   command = '!kill -10 $(pidof sxhkd)',
+})
+
+a.nvim_create_autocmd("FileType", {
+  pattern = "make",
+  command = ":set noexpandtab",
 })
 
 if a.nvim_get_option_value('diff', { win = 0 }) then
