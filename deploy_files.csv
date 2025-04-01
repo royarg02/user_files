@@ -21,7 +21,6 @@ btop.conf,btop.conf,~/.config/btop,
 dunstrc,dunstrc,~/.config/dunst,
 fonts.conf,fonts.conf,~/.config/fontconfig,
 gitconfig,config,~/.config/git,
-gtk2rc,gtkrc,~/.config/gtk-2.0,
 gtk3settings.ini,settings.ini,~/.config/gtk-3.0,
 lfrc,lfrc,~/.config/lf,
 python_startup,startup,~/.config/python,/root/.config/python
