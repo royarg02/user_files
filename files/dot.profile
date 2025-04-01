@@ -32,6 +32,7 @@ export CHROME_EXECUTABLE="/usr/bin/chromium"
 export DIFFPROG="$EDITOR -d"
 export JAVA_HOME="/usr"
 export MOZ_USE_XINPUT2=1
+export NO_AT_BRIDGE=1
 export NODE_REPL_HISTORY=''
 export PURO_ROOT="$HOME/.local/src/puro"
 export PURO_LOG_LEVEL=4
