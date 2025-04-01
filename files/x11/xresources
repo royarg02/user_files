@@ -8,6 +8,14 @@
 !#define selfg #F8F8F2
 !#define selborder #BD93F9
 
+!! Greybird-dark theme colors
+!#define normbg #3B3E3F
+!#define normfg #EEEEEC
+!#define normborder #344765
+!#define selbg #145BA6
+!#define selfg #FFFFFF
+!#define selborder #A7C8FF
+
 !! Nordic-darker theme colors
 #define normbg #3B4252
 #define normfg #D8DEE9
@@ -18,7 +26,6 @@
 
 ! dwm
 dwm.font: sans-serif:size=11
-dwm.dmenufont: sans-serif:size=11
 dwm.borderpx: 1
 dwm.snap: 8
 dwm.normbgcolor: normbg
@@ -27,7 +34,7 @@ dwm.normbordercolor: normborder
 dwm.selbgcolor: selbg
 dwm.selfgcolor: selfg
 dwm.selbordercolor: selborder
-dwm.userbarheight: 8
+dwm.userbarheight: 6
 
 ! dmenu
 dmenu.font: sans-serif:size=11
@@ -35,6 +42,7 @@ dmenu.normbgcolor: normbg
 dmenu.normfgcolor: normfg
 dmenu.selbgcolor: selbg
 dmenu.selfgcolor: selfg
+dmenu.lineheight: 24
 
 ! st
 st.font:monospace:size=11
