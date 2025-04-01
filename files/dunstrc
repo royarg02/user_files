@@ -1,7 +1,7 @@
 [global]
     ### Display ###
     width = 300
-    offset = (0, 25)
+    offset = (0, 24)
     notification_limit = 7
     frame_width = 0
     separator_color = auto
