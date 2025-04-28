@@ -23,7 +23,7 @@ cmd clear-sel :{{
 cmd delete ${{
   clear; tput bold
   set -f
-  printf "%s\n\nType "y" and press enter to delete the file(s) above: " "$fx"
+  printf "%s\n\nType \"y\" and press enter to delete the file(s) above: " "$fx"
   read ans
   [ "$ans" = "y" ] && for f in $fx; do
     rm -rf -- "$f"
@@ -73,7 +73,7 @@ cmd yank-basename &{{
 }}
 
 cmd on-cd &{{
-  printf '\033]0;%s — lf\007' "$(pwd | sed "s|^$HOME|~|")" > /dev/tty
+  lf -remote "send $id tty-write \"\033]0;"$(pwd | sed "s|^$HOME|~|")" — lf\007\""
 }}
 
 cmd settings ${{
@@ -84,7 +84,9 @@ ${{
   [ "$LF_LEVEL" -eq 1 ] || lf -remote "send $id echoerr \"Warning: You're in a nested lf instance!\""
 }}
 
-on-cd
+cmd on-init :{{
+  on-cd
+}}
 
 cmap <tab> cmd-menu-complete
 cmap <backtab> cmd-menu-complete-back
