@@ -27,10 +27,6 @@ user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
 // Disable urlbar clipboard suggestions [ARKENFOX: commented]
 user_pref("browser.urlbar.clipboard.featureGate", false);
 
-// DISK AVOIDANCE
-// Don't disable disk cache [ARKENFOX: false]
-//user_pref("browser.cache.disk.enable", true);
-
 // DOWNLOADS
 // Enable opening downloads panel on every download [ARKENFOX: false]
 //user_pref("browser.download.alwaysOpenPanel", true);
@@ -110,6 +106,8 @@ user_pref("reader.content_width", 9);
 user_pref("reader.font_type", "serif");
 // Fix right mouse instant first option context menu clicks in window managers
 user_pref("ui.context_menus.after_mouseup", true);
+// Increase mousewheel scroll speed
+user_pref("mousewheel.default.delta_multiplier_y", 280);
 // Enable GTK+ client side decoration
 user_pref("ui.GtkCSDAvailable", 1);
 // Disable default browser check
