@@ -21,12 +21,6 @@ xss-lock -- slock &
 # Run playerctl in daemon mode if not already running
 pgrep -x playerctld > /dev/null || playerctld daemon
 
-# Run devmon
-devmon \
-  --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume mounted\" \"%f at %d\"" \
-  --exec-on-unmount "notify-send --icon=block-device --urgency=low \"Volume unmounted\" \"%f\"" \
-  --exec-on-remove "notify-send --icon=block-device --urgency=low \"Volume removed\" \"%f\"" &
-
 # Run dwmblocks
 dwmblocks &
 
