@@ -1,11 +1,11 @@
 super + a
-  dm-run-desktop -l 20 -z 480
+  dm-run-desktop -l 20 -z 350
 
 super + v
   dm-emoji -i -F -b
 
 super + shift + q
-  dm-power -l 20 -z 480
+  dm-power -l 20 -z 350
 
 super + {b,e,t}
   {$BROWSER,$TERMINAL -e $FILE,$TERMINAL}
