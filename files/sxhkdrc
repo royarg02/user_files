@@ -7,14 +7,15 @@ super + v
 super + shift + q
   dm-power -l 20 -z 350
 
+super + Print
+  dm-scshot
+
 super + {b,e,t}
   {$BROWSER,$TERMINAL -e $FILE,$TERMINAL}
 
 super + {shift,control} + a
   dunstctl {history-pop,context}
 
-{_,control +}{shift + alt +,alt +,_} Print
-  scshot {_,-c} {-r,-w,_}
 
 super + {shift,_} + x
   bm {_,-l}
