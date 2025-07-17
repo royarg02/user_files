@@ -55,11 +55,7 @@
   "github.gitAuthentication": false,
   "python.experiments.enabled": false,
   "redhat.telemetry.enabled": false,
-  "vim.hlsearch": true,
-  "vim.mouseSelectionGoesIntoVisualMode": false,
-  "vim.normalModeKeyBindings": [
-      { "before": ["Z", "Q"], "commands": [":q!"] },
-      { "before": ["Z", "Z"], "commands": [":x"] }
-  ],
-  "vim.useSystemClipboard": true
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  }
 }
