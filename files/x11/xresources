@@ -24,6 +24,14 @@
 #define selfg #D8DEE9
 #define selborder #788298
 
+!! Breeze-Dark theme colors
+#define normbg #202326
+#define normfg #FCFCFC
+#define normborder #4C4E51
+#define selbg #3DAEE9
+#define selfg #00344C
+#define selborder #92CEF6
+
 ! dwm
 dwm.font: sans-serif:size=11
 dwm.borderpx: 1
