@@ -81,9 +81,6 @@ user_pref("browser.newtabpage.activity-stream.showSearch", false);
 user_pref("browser.newtabpage.activity-stream.topSitesRows", 4);
 // Remove any sponsored pinned sites
 user_pref("browser.newtabpage.pinned", "[]");
-// Disable new layouts of the new tab page
-user_pref("browser.newtabpage.activity-stream.newtabLayouts.variant-a", false);
-user_pref("browser.newtabpage.activity-stream.newtabLayouts.variant-b", false);
 // Use the address bar for search
 user_pref("browser.search.widget.inNavBar", false);
 // Disable tab hover previews
