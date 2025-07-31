@@ -16,9 +16,11 @@ super + {b,e,t}
 super + {shift,control} + a
   dunstctl {history-pop,context}
 
+super + x
+  dm-bookmark -l 20
 
-super + {shift,_} + x
-  bm {_,-l}
+super + shift + x
+  dm-modify-bookmark -l 20
 
 XF86AudioMicMute
   wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; \
