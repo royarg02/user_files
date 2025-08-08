@@ -1,10 +1,18 @@
+$include /etc/inputrc
+
 set completion-ignore-case on
+set completion-map-case on
 set colored-stats on
 set colored-completion-prefix on
 set menu-complete-display-prefix on
 set editing-mode vi
 set show-mode-in-prompt on
 set show-all-if-ambiguous on
+set completion-query-items 0
+set page-completions off
+set blink-matching-paren on
+set skip-completed-text on
+set visible-stats on
 $if term=linux
   set vi-ins-mode-string \1\e[?2c\2
   set vi-cmd-mode-string \1\e[?6c\2
@@ -12,3 +20,8 @@ $else
   set vi-ins-mode-string \1\e[5 q\2
   set vi-cmd-mode-string \1\e[2 q\2
 $endif
+
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\t": menu-complete
+"\e[Z": menu-complete-backward
