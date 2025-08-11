@@ -1,6 +1,6 @@
 #!/bin/sh
 
-link="${XDG_CONFIG_HOME:-$HOME/.config}/wallpaper"
+file="${XDG_CONFIG_HOME:-$HOME/.config}/wallpaper"
 
 set_wallpaper() {
   pgrep -x xwallpaper > /dev/null && xwallpaper --zoom "$1" && return
@@ -8,11 +8,10 @@ set_wallpaper() {
 }
 
 if [ -z "$*" ]; then
-  [ -L "$link" ] && file=$(readlink -f "$link")
   [ -r "$file" ] || exit 1
 else
-  [ -r "$1" ] && ln -sf "$(realpath "$1")" "$link" || exit 1
+  [ -r "$1" ] && ln -sf "$(realpath "$1")" "$file" || exit 1
 fi
 
-set_wallpaper "$link"
+set_wallpaper "$file"
 exit 0
