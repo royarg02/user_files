@@ -19,26 +19,22 @@ END
 }
 
 sort_list() {
-  # Only perform sort if the input is coming from a pipe and [should_sort] is
-  # set
-  if ! [ -t /dev/stdin ]; then
-    [ -n "$should_sort" ] && sort && return 0
-    cat /dev/stdin && return 0
+  # Perform sort if the input is from a pipe and [should_sort] is set
+  if ! [ -t 0 ]; then
+    [ -z "$dont_sort" ] && sort
+    cat /dev/stdin
   fi
-  return 1
 }
 
-should_sort="1"
-
-while getopts ":nh" opt; do
-  case "$opt" in
+if [ -n "$*" ]; then
+  if [ "$1" = "-n" ]; then
     # Disable sort if sort by name is requested since `awk` lists alphabetically
     # by default
-    n) unset should_sort ;;
-    *) usage && exit 0 ;;
-  esac
-done
-shift $((OPTIND - 1))
+    dont_sort="1"
+  else
+    usage && exit 0
+  fi
+fi
 
 awk -v fmt="$TIME_FORMAT" '
   /%NAME%/{getline; PKG=$1}
