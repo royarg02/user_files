@@ -14,9 +14,9 @@
 // DNS/DoH/PROXY/SOCKS
 // Enable DNS over HTTPS [ARKENFOX: commented]
 user_pref("network.trr.mode", 3);
-// Set Quad9 as provider [ARKENFOX: commented]
-user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
-user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
+// Set Mullvad as DNS provider [ARKENFOX: commented]
+user_pref("network.trr.uri", "https://dns.mullvad.net/dns-query");
+user_pref("network.trr.custom_uri", "https://dns.mullvad.net/dns-query");
 
 // LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS
 // Don't disable live search suggestions [ARKENFOX: both false]
@@ -36,11 +36,8 @@ user_pref("browser.urlbar.clipboard.featureGate", false);
 //user_pref("privacy.sanitize.sanitizeOnShutdown", false);
 
 // RESIST FINGERPRINTING
-// It is an all-or-nothing buy in: you cannot pick and choose what parts you want
 // [ARKENFOX: commented]
 user_pref("privacy.resistFingerprinting", true);
-// [ARKENFOX: commented]
-user_pref("privacy.resistFingerprinting.letterboxing", true);
 // [ARKENFOX: 1 => disabled]
 user_pref("privacy.spoof_english", 2);
 // [ARKENFOX: commented]
