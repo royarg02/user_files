@@ -25,7 +25,7 @@ pgrep -x playerctld > /dev/null || playerctld daemon
 dwmblocks &
 
 # Start ssh-agent
-pgrep -u "$USER" ssh-agent > /dev/null || ssh-agent > "$XDG_CACHE_HOME/ssh-agent.env"
+pgrep -u "$USER" ssh-agent > /dev/null || ssh-agent -T > "$XDG_CACHE_HOME/ssh-agent.env"
 [ ! -f "$SSH_AUTH_SOCK" ] && source "$XDG_CACHE_HOME/ssh-agent.env" > /dev/null
 
 # Run sxhkd
