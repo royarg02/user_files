@@ -7,17 +7,17 @@ exit_code() {
 }
 
 ## Set PS1s according to the number of colors the terminal supports
-## 127 $ ~(master) > _
-## WHITE exit code and '$', PURPLE working directory, CYAN git branch, white '>'
+## 127 ~(master) $ _
+## WHITE exit code and '$', PURPLE working directory, CYAN git branch
 
 ## PS1 for terminals supporting 256 colors
-PS1_256="\[$(tput bold)\]\$(exit_code)\[$(tput setaf 15)\]\\$ \[$(tput setaf 206)\]\w\[$(tput setaf 87)\]\$(__git_ps1 \(%s\))\[$(tput setaf 15)\] >\[$(tput sgr0)\] "
+PS1_256="\[$(tput bold)\]\$(exit_code)\[$(tput setaf 15)\]\[$(tput setaf 206)\]\w\[$(tput setaf 87)\]\$(__git_ps1 \(%s\))\[$(tput setaf 15)\] \\$\[$(tput sgr0)\] "
 
 ## PS1 for other terminals
-PS1_not_256="\[$(tput bold)\]\$(exit_code)\[$(tput setaf 7)\]\\$ \[$(tput setaf 5)\]\w\[$(tput setaf 6)\]\$(__git_ps1 \(%s\))\[$(tput setaf 7)\] >\[$(tput sgr0)\] "
+PS1_not_256="\[$(tput bold)\]\$(exit_code)\[$(tput setaf 7)\]\[$(tput setaf 5)\]\w\[$(tput setaf 6)\]\$(__git_ps1 \(%s\))\[$(tput setaf 7)\] \\$\[$(tput sgr0)\] "
 
 ## PS1 for no color
-PS1_no_color="\$(exit_code)\\$ \w\$(__git_ps1 \(%s\)) > "
+PS1_no_color="\$(exit_code)\w\$(__git_ps1 \(%s\)) \\$ "
 
 ## Set colorful PS1 only on colorful terminals.
 ## Check if dircolors is present(used to load colors for ls) and the terminal
