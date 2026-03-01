@@ -102,12 +102,17 @@ user_pref("reader.font_type", "serif");
 user_pref("ui.context_menus.after_mouseup", true);
 // Increase mousewheel scroll speed
 user_pref("mousewheel.default.delta_multiplier_y", 280);
+// Always show scrollbars
+user_pref("widget.gtk.overlay-scrollbars.enabled", false);
+// Make scrollbars thicker and not rounded
+user_pref("widget.non-native-theme.scrollbar.size.override", 20);
+user_pref("widget.non-native-theme.gtk.scrollbar.round-thumb", false);
 // Enable GTK+ client side decoration
 user_pref("ui.GtkCSDAvailable", 1);
 // Disable default browser check
 user_pref("browser.shell.checkDefaultBrowser", false);
-// Disable pocket
-user_pref("extensions.pocket.enabled", false);
+// Disable speech synthesis error popup
+user_pref("media.webspeech.synth.dont_notify_on_error", true);
 // Disable "Recommended by Pocket" in new tab page
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 // Disable alt key toggling the menu bar
@@ -126,4 +131,25 @@ user_pref("identity.fxaccounts.enabled", false);
 user_pref("signon.management.page.breach-alerts.enabled", false);
 // Don't send daily ping to Mozilla
 user_pref("datareporting.usage.uploadEnabled", false);
+// Block all autoplaying audio and video by default
+user_pref("media.autoplay.default", 5);
+user_pref("media.autoplay.blocking_policy", 2);
+// Disable ML translations
+user_pref("browser.translations.enable", false);
+// Disable AI tab groups suggestions
+user_pref("browser.tabs.groups.smart.enabled", false);
+user_pref("browser.tabs.groups.smart.optin", false);
+user_pref("browser.tabs.groups.smart.userEnabled", false);
+// Disable many ML features.
+user_pref("browser.ml.enable", false);
+user_pref("browser.ml.chat.enabled", false);
+user_pref("browser.ml.chat.menu", false);
+user_pref("browser.ml.linkPreview.enabled", false);
+user_pref("extensions.ml.enabled", false);
+user_pref("pdfjs.enableAltText", false);
+user_pref("pdfjs.enableAltTextForEnglish", false);
+user_pref("pdfjs.enableGuessAltText", false);
+user_pref("pdfjs.enableAltTextModelDownload", false);
+user_pref("browser.urlbar.quicksuggest.mlEnabled", false);
+user_pref("places.semanticHistory.featureGate", false);
 
