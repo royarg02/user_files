@@ -36,7 +36,6 @@ export MOZ_USE_XINPUT2=1
 export NO_AT_BRIDGE=1
 export NODE_REPL_HISTORY=''
 export PURO_ROOT="$HOME/.local/src/puro"
-export PURO_LOG_LEVEL=4
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 ## Home directory cleanup
@@ -51,7 +50,6 @@ export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export NUGET_PACKAGES="$XDG_CACHE_HOME/NuGetPackages"
 export PUB_CACHE="$XDG_CACHE_HOME/pub-cache"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup"
 export USERRESOURCES="$XDG_CONFIG_HOME/x11/xresources"
